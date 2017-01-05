@@ -1,0 +1,106 @@
+html, body {
+    background-color: #fff;
+    color: #636b6f;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    height: 100vh;
+}
+
+.cf:before, .cf:after {
+    content: " ";
+    display: table;
+}
+.cf:after {
+    clear: both;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.top-right {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+}
+
+.links > a {
+    color: black;
+    padding: 0 40px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#banner {
+    background-image: url(../images/watchlist_1.jpg);
+    width: 100%;
+    height: 300px;
+    color: black;
+    font-weight: 400;
+    font-size: 84px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.short-text {
+    width: 700px;
+    margin: 0 auto;
+    font-weight: 600;
+    text-align: center;
+    font-size: 28px;
+    margin-top: 30px;
+    display: flex;
+
+}
+
+.guide {
+    padding-top: 30px;
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+
+    img {
+        width: 90%;
+        min-height: 90%;
+    }
+    .three-col-1 {
+        float:left;
+        width: 33.33%;
+    }
+    .three-col-2 {
+        float: left;
+        width: 33.33%;
+        
+    }
+    .three-col-3 {
+        float: right;
+        width: 33.33%;
+    }
+
+    margin-bottom: 25px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 10px 0px;
+    color: #636b6f; 
+    border-top: 2px grey;
+    text-align: center;
+    .copy {
+        float: left;
+        padding-left: 20px;
+    }
+    .sm-link {
+        float: right;
+        padding-right: 20px;
+    }
+
+}
