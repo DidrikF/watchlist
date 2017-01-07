@@ -23,6 +23,8 @@ Route::get('/search', 'SearchController@index');
 
 Route::get('/company/{ticker}', 'CompanyController@index');
 
+Route::get('/test', 'CompanyController@test');
+
 //auth middleware
 
 Route::group(['middleware' => ['auth']], function() {
