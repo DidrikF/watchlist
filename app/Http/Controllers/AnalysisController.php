@@ -34,6 +34,8 @@ class AnalysisController extends Controller
 
     }
 
+    //function code
+
     /*
 
 	this.financialScore = response.json().data.financialScore;
