@@ -23,16 +23,18 @@ Route::get('/search', 'SearchController@index');
 
 Route::get('/company/{ticker}', 'CompanyController@index');
 
-Route::get('/test', 'CompanyController@test');
-
 //auth middleware
 
 Route::group(['middleware' => ['auth']], function() {
 
-	Route::get('/analysis/{ticker}/show', 'AnalysisController@show'); //I want route model binding
+	Route::get('/{user}/test/{ticker}', 'AnalysisController@test'); 
 
-	Route::get('/analysis/{ticker}/save', 'AnalysisController@save');
+	Route::get('/{user}/analysis/{ticker}', 'AnalysisController@read'); //analysis = ticker
 
-	Route::get('/analysis/{ticker}/delete', 'AnalysisController@delete');
+	Route::post('/{user}/analysis/{ticker}', 'AnalysisController@create'); //what about put ??
+
+	Route::put('/{user}/analysis/{ticker}', 'AnalysisController@update');
+
+	Route::delete('/{user}/analysis/{ticker}', 'AnalysisController@delete');
 
 });

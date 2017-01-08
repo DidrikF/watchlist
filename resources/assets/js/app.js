@@ -7,8 +7,6 @@
 
 require('./bootstrap');
 
-var VueResource = require('vue-resource');
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -18,19 +16,16 @@ var VueResource = require('vue-resource');
 
 Vue.component('company-analysis', require('./components/CompanyAnalysis.vue'));
 
-
-
-Vue.use(VueResource);
-
 const vm = new Vue({
-    el: '#app'
+    el: '#app',
+    data: window.watchlist
 });
-
 
 
 /*___HELPER_FUNCTIONS____-*/
 
 //Am I even using this...
+/*
 function textarea_height(TextArea, MaxHeight) {
     textarea = document.getElementById(TextArea);
     textareaRows = textarea.value.split("\n");
@@ -39,3 +34,4 @@ function textarea_height(TextArea, MaxHeight) {
     else counter = 1;
     textarea.rows = counter; 
 }
+*/

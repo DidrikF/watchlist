@@ -3,8 +3,7 @@
 		<!-- Use v-bind:xxxx - bind a data model to a html element property, do not use {{ }} -->
 		
 
-		<form class="analysis-form" action="/company/xxticker/analysis" method="post"> <!-- But i end up preventing this action... --> 
-			<p>Hello there: {{ ticker }}</p>
+		<form class="analysis-form" action="#" method="post"> <!-- But i end up preventing this action... --> 
 			<div class="form-group">
 				<label for="financialScore">Financial Score: </label>
 				<input type="text" name="financialScore" id="financialScore" placeholder="1-10" v-model="financialScore" > <!-- value="{{ financialScore }}" (wait a minute)is not nececary, v-model does it all -->
@@ -24,13 +23,14 @@
 			<div class="form-group">
 				<label for="analysis">Your analysis</label>
 				<br>
-				<textarea onchange="javascript:textarea_height(analysis, 15);" name="analysis" id="analysis" placeholder="Write your thoughts..." v-model="textAnalysis"></textarea>
+				<textarea name="analysis" id="analysis" placeholder="Write your thoughts..." v-model="textAnalysis"></textarea>
 
 			</div>
 			<!-- or: v-on:click="saveAnalysis" (directive:argument) v-on = @-->
 			<button type="submit" @click.prevent="saveAnalysis">Save</button>
 		</form>
-		<div>{{ financialScore }}</div>
+		<button type="button" @click="deleteAnalysis">Delete</button>
+		<button type="button" @click="getAnalysis">Get analysis (remove later)</button>
 	</div>
 </template>
 
@@ -44,6 +44,8 @@
 				growthScore: null,
 				riskScore: null,
 				textAnalysis: null,
+				user: window.watchlist.user,
+				exists: false
 			}			
 		},
 
@@ -51,36 +53,71 @@
 
 		,methods: {
 			getAnalysis () {
-				this.$http.get('/company/' + this.ticker + '/analysis').then((response) => {
-					this.financialScore = response.json().data.financialScore;
-					this.cfScore = response.json().data.cfScore;
-					this.growthScore = response.json().data.growthScore;
-					this.riskScore = response.json().data.riskScore;
-					this.textAnalysis = response.json().data.textAnalysis;
-					//this.ticker = response.json().data.ticker;
-				});
+				console.log('getAnalysis running');
+				if(this.user.authenticated && this.user.id){ //can easily be manipulated... need auth on server side
+					console.log('all good to run Ajax');
+					axios.get('/' + this.user.id + '/analysis/' + this.ticker).then((response) => {
+						console.log(response);
+						if(response.status != 200) {
+							this.exists = false;
+							return;
+						}
+						this.exists = true; //I rely on this method getting execute
+						this.financialScore = response.data.financialScore;
+						this.cfScore = response.data.cfScore;
+						this.growthScore = response.data.growthScore;
+						this.riskScore = response.data.riskScore;
+						this.textAnalysis = response.data.textAnalysis;
+					}).catch((error) => {
+						console.log('No analysis found associated with given user and ticker');
+					});
+				}
 			},
 			saveAnalysis() {
-				console.log(financialScore.value);
-
-				this.$http.post('/analysis/' + this.ticker + '/save', {
-					financialScore: financialScore,
-					cfScore: cfScore,
-					growthScore: growthScore,
-					riskScore: riskScore,
-					textAnalysis: textAnalysis
-				});
+				if(this.user.authenticated && this.user.id){
+					let data = {
+						financialScore: this.financialScore,
+						cfScore: this.cfScore,
+						growthScore: this.growthScore,
+						riskScore: this.riskScore,
+						textAnalysis: this.textAnalysis
+					};
+					console.log(this.exists);
+					if(this.exists){
+						axios.put('/' + this.user.id + '/analysis/' + this.ticker, data).then(response => {
+							this.exists = true;
+						}).catch(error => {
+							console.log('Could not update/put analysis'); 
+						});
+						return;
+					}
+					axios.post('/' + this.user.id + '/analysis/' + this.ticker, data).then(response => {
+						this.exists = true;
+					}).catch(error => {
+						console.log('Could not post analysis'); 
+					});
+				}
 			},
+
 			deleteAnalysis() {
-				this.$http.delete('/analysis/' + this.ticker + '/delete', {
+				if(this.user.authenticated && this.user.id){
+					this.financialScore = null;
+					this.cfScore = null;
+					this.growthScore = null;
+					this.riskScore = null;
+					this.textAnalysis = null;
+					axios.delete('/' + this.user.id + '/analysis/' + this.ticker).then((response) => {
+						this.exists = false;
+					}).catch(error => {
+						console.log('Could not delete analysis');
+					});
 					
-				});
+				}
 			}
 		},
-
 		//There are also other hooks which will be called at different stages of the instance’s lifecycle, for example mounted, updated, and destroyed.
-		ready () {
-			getAnalysis(); //or render on the server side...
+		mounted() {
+			this.getAnalysis();
 		}
 
 	}

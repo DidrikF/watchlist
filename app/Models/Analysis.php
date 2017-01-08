@@ -13,6 +13,7 @@ class Analysis extends Model
     	'risk',
     	'text_analysis',
     ];
+    protected $table = 'analysis';
 
     /**
      * Get the route key for the model.
