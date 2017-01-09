@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 
-use App\Models\Analysis;
-use App\Policies\AnalysisPolicy;
+use App\Models\{Analysis, Watchlist, WatchlistItem, Company};
+use App\Policies\{AnalysisPolicy, WatchlistPolicy, WatchlistItemPolicy, CompanyPolicy};
 
 
 use Illuminate\Support\Facades\Gate;
@@ -19,6 +19,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Analysis::class => AnalysisPolicy::class,
+        Watchlist::class => WatchlistPolicy::class,
+        WatchlistItem::class => WatchlistItemPolicy::class,
+        Company::class => CompanyPolicy::class,
     ];
 
     /**

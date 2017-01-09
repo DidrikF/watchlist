@@ -15,6 +15,7 @@ require('./bootstrap');
 
 
 Vue.component('company-analysis', require('./components/CompanyAnalysis.vue'));
+Vue.component('watchlist', require('./components/watchlist.vue'));
 
 const vm = new Vue({
     el: '#app',

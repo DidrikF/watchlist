@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Analysis::class);
     }
+
+    public function watchlist()
+    {
+        return $this->hasMany(Watchlist::class);
+    }
 }

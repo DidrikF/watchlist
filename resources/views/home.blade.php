@@ -8,9 +8,8 @@
     </div>
 
     <div class="content-body">
-        <wathclist>
-            vue component
-        </wathclist>
+        <watchlist></watchlist> <!-- I can pass initial values into the component here, so I don't have to performe Ajax -->
+
         <!-- more wathclists, use blade -->
     </div>
 

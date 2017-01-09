@@ -4,31 +4,27 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompaniesTable extends Migration
+class CreateWatchlistsTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    
-    
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('watchlists', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ticker')->unique();
-            $table->string('exchange');
-            $table->string('industry');
-
+            $table->integer('user_id')->unsigned();
+            $table->string('name', 100);
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('industry')->references('name')->on('industries');
-
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
@@ -36,6 +32,6 @@ class CreateCompaniesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('watchlists');
     }
 }

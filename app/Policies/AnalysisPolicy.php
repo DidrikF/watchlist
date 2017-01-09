@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Analysis;
+use App\Models\Analysis; //this might not be needed as we are insering the Analsis class from the controller
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AnalysisPolicy

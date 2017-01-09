@@ -12,6 +12,7 @@ use App\Models\User;
 
 class AnalysisController extends Controller
 {
+    //I'm pretty sure that the User model is not nessecary to insert.
     public function read(User $user, $ticker, Request $request)  //the correct instance of the analysis model is injected through route model binding!
     {
         //this could perhaps be swaped out with Model injection (need to inject model belonging to user with given ticker)

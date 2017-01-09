@@ -4,31 +4,25 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompaniesTable extends Migration
+class CreateIndustriesTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    
-    
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('industries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ticker')->unique();
-            $table->string('exchange');
-            $table->string('industry');
-
+            $table->string('name')->unique(); //makes it an index
+            $table->text('description');
+            //++ characteristics & metrics, dont know exactly what yet, need to come back to this.
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('industry')->references('name')->on('industries');
-
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
@@ -36,6 +30,6 @@ class CreateCompaniesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('industries');
     }
 }
