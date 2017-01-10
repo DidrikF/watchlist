@@ -8,7 +8,7 @@
     </div>
 
     <div class="content-body">
-        <watchlist></watchlist> <!-- I can pass initial values into the component here, so I don't have to performe Ajax -->
+        <watchlist></watchlist> <!-- pass in watchlist id-->
 
         <!-- more wathclists, use blade -->
     </div>

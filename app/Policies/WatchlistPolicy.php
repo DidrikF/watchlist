@@ -31,4 +31,14 @@ class WatchlistPolicy
     {
         return $user->id === $watchlist->user_id;
     }
+
+    public function createItem(User $user, Watchlist $watchlist)
+    {
+        return $user->id === $watchlist->user_id;
+    }
+
+    public function deleteItem(User $user, Watchlist $watchlist)
+    {
+        return $user->id === $watchlist->user_id;
+    }
 }

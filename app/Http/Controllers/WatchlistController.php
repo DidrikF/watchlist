@@ -60,4 +60,33 @@ class WatchlistController extends Controller
     	$watchlist->delete();
     	return request()->json(null, 200);
     }
+
+    //Working with watchlist items
+
+    //resolving Watchlist and passing normal paramenter, hope it understands
+    public function createItem(Request $request, Watchlist $watchlist, $ticker)
+    {
+        $wathclistItem = new WatchlistItem;
+        
+        //also putting the company into the companies table... need to sort this also out on the client side 
+
+        //validation/salitation in Request class //watchlist exists and company is not allready in it
+        $this->authorize('createItem', $watchlist, $item); //user ownes the watchlist
+        $item->watchlist_id = $request->watchlistId;
+        $item->ticker = $ticker;
+        return response()->json(null, 201); //created
+    }
+
+    public function deleteItem(Request $request, Watchlist $watchlist, $ticker)
+    {
+        //$watchlistItem = //get item based on watchlist id and ticker
+
+        $this->authorize('deleteItem', $watchlist, $item);
+        $item->delete();
+        return response()->json(null, 200); 
+    }
+
+
+
+
 }

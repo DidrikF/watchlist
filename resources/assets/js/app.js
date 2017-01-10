@@ -16,10 +16,25 @@ require('./bootstrap');
 
 Vue.component('company-analysis', require('./components/CompanyAnalysis.vue'));
 Vue.component('watchlist', require('./components/watchlist.vue'));
+Vue.component('create-watchlist', require('./components/CreateWatchlist.vue'));
 
 const vm = new Vue({
     el: '#app',
-    data: window.watchlist
+    data: window.watchlist,
+    methods: {
+    	deleteWatchlist(watchlistId){
+    			//hide watchlist getting deleted
+    		axios.delete('/watchlist/' + watchlistId).then(response => {
+    			if(response.status != 200){
+    				//bring the component back
+    				return;
+    			}
+    			//actually remove the item
+    		}).catch(error => {
+    			consoled.log('Failed to delete watchlist component. Error: ' + error);
+    		});
+    	},
+    }
 });
 
 

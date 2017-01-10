@@ -47,4 +47,11 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::delete('/watchlist/{watchlist}', 'WatchlistController@delete');
 
+	//WATCHLIST ITEM
+	Route::post('/watchlist/{watchlist}', 'WatchlistController@createItem');
+
+	Route::delete('watchlist/{watchlist}/{ticker}', 'WatchlistController@deleteItem');
+
+	
+
 });
