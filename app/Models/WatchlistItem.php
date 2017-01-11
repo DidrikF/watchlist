@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WatclistItem extends Model
+class WatchlistItem extends Model
 {
     protected $fillable = [
     	'watchlist_id',
@@ -18,6 +18,6 @@ class WatclistItem extends Model
 
     public function company() //a company does not belong to a watchlistItem, but through the ticker it is a strong relationship between a watchlist item and a company. HOW TO EXPRESS IT IN CODE???
     {
-    	return $this->belongsTo(Company::class)
+    	return $this->belongsTo(Company::class);
     }
 }

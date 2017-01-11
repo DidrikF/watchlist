@@ -39,7 +39,9 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::delete('/{user}/analysis/{ticker}', 'AnalysisController@delete');
 
 	//WATCHLIST
-	Route::get('/watchlist', 'WathclistController@getAll'); //all I need is the authenticatied user
+	Route::get('/watchlist', 'WathclistController@getAll'); //all I need is the authenticatied user, NOT USED ATM
+
+	Route::get('/watchlist/{watchlist}', 'WatchlistController@read');
 
 	Route::post('/watchlist', 'WatchlistController@create'); //create new watchlist, no watchlist id needed
 

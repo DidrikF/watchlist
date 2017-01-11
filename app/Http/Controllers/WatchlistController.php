@@ -23,25 +23,14 @@ class WatchlistController extends Controller
 
     }
 
-    public function readAll()
+    public function readAll() //Not User ATM
     {
     	$this->authorize('readAll'); //Dont know, the authenticated user can only see the watchlists that belongs to him/her
 
     	//get all watchlists that belongs to the user
-    	private $watchlists = Auth::user()->watchlist()->all(); 
+    	$watchlists = Auth::user()->watchlist()->all();
 
     	return response()->json($watchlists, 200); 
-    }
-
-    public function read(Watchlist $watchlist)
-    {
-    	$this->authorize('read', $watchlist);
-    	return response()->json([
-    			'title' => $watchlist->title,
-    			'description' => $watchlist->description,
-
-    		], 200);
-
     }
 
     public function update()
@@ -62,6 +51,22 @@ class WatchlistController extends Controller
     }
 
     //Working with watchlist items
+
+    public function readItems(Watchlist $watchlist)
+    {
+        //Need items in this format
+        //{ticker: "STO", companyName: "Statoil ASA", exchange:"NYSE", score: 34, companyLink: "/company/STO"}
+        $this->authorize('read', $watchlist);
+        $items = (new WatchlistItem)->where('watchlist_id', $watchlist->id)->get();
+        //NEED WORK HERE
+        return response()->json([
+                'title' => $watchlist->title,
+                'description' => $watchlist->description,
+                'items' => $items,
+
+            ], 200);
+
+    }
 
     //resolving Watchlist and passing normal paramenter, hope it understands
     public function createItem(Request $request, Watchlist $watchlist, $ticker)

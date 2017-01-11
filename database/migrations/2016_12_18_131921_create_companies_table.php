@@ -18,13 +18,12 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ticker')->unique();
+            $table->string('name');
             $table->string('exchange');
-            $table->string('industry');
+            $table->string('industry')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('industry')->references('name')->on('industries');
 
         });
     }

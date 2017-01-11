@@ -15,12 +15,16 @@ require('./bootstrap');
 
 
 Vue.component('company-analysis', require('./components/CompanyAnalysis.vue'));
-Vue.component('watchlist', require('./components/watchlist.vue'));
+Vue.component('watchlist', require('./components/Watchlist.vue'));
 Vue.component('create-watchlist', require('./components/CreateWatchlist.vue'));
 
 const vm = new Vue({
     el: '#app',
-    data: window.watchlist,
+    data: {
+        watchlist: window.watchlist,
+        actualWatchlists: window.actualWatchlists
+    },
+    props: ['watchlists'],
     methods: {
     	deleteWatchlist(watchlistId){
     			//hide watchlist getting deleted
@@ -34,6 +38,13 @@ const vm = new Vue({
     			consoled.log('Failed to delete watchlist component. Error: ' + error);
     		});
     	},
+        createWatchlist(ticker){
+            axios.post('/watchlist').then(response => {
+                //do something?
+            }).catch(error => {
+                console.log('Failed to create watchlist. Error: ' + error);
+            });
+        }
     }
 });
 

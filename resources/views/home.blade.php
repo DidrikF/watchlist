@@ -8,10 +8,14 @@
     </div>
 
     <div class="content-body">
-        <watchlist></watchlist> <!-- pass in watchlist id-->
 
-        <!-- more wathclists, use blade -->
+    	@if (Auth::check())
+            @foreach($watchlists as $watchlist)
+                <watchlist v-bind:watchlist="{{ $watchlist }}"></watchlist>
+            @endforeach
+        @endif
+        
+
     </div>
-
 
 @endsection

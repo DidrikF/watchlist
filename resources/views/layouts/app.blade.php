@@ -34,7 +34,15 @@
 
 <body>
 
-    <div id="app"> <!-- We bind our Vue instance to this element -->
+    <div 
+        v-on:createWatchlist="createWatchlist" 
+        v-on:deleteWatchlist="deleteWatchlist"  
+        id="app"
+    > 
+
+        <!-- We bind our Vue instance to this element 
+    
+    -->
         
         @include ('layouts.partials._navigation')
 

@@ -1,10 +1,12 @@
 <template>
-	<h2>Create New Watchlist</h2>
-	<label>Title:</label>
-	<input v-model="title"></input>
-	<label>Description:</label>
-	<textarea v-model="description"></textarea>
-	<button type="button" @click="createWatchlist"></button>
+	<div>
+		<h2>Create New Watchlist</h2>
+		<label for="title">Title:</label>
+		<input name="title" v-model="title"></input>
+		<label>Description:</label>
+		<textarea v-model="description"></textarea>
+		<button type="button" @click="createWatchlist"></button>
+	</div>
 </template>
 
 <script>
@@ -19,10 +21,11 @@ export default{
 	}, 
 	methods: {
 		createWatchlist(){
-			//send ajax or tell parent, 
+			this.title = null;
+			this.description = null; //no consideration to failure
+			this.$emit('createWatchlist', 'title', 'description');
 		}
 	}
 
 }
-
 </script>
