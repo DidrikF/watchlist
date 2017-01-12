@@ -22,6 +22,8 @@ class CreateAnalysisTable extends Migration
             $table->unsignedTinyInteger('growth_potential')->nullable();
             $table->unsignedTinyInteger('risk')->nullable();
             $table->text('text_analysis')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

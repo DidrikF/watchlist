@@ -13,8 +13,11 @@ use App\Models\User;
 class AnalysisController extends Controller
 {
     //I'm pretty sure that the User model is not nessecary to insert.
-    public function read(User $user, $ticker, Request $request)  //the correct instance of the analysis model is injected through route model binding!
+    public function read($ticker, Request $request)  //the correct instance of the analysis model is injected through route model binding!
     {
+        $user = Auth::user();
+        //use the logged in user in stead, not the ID gotten via the route.
+
         //this could perhaps be swaped out with Model injection (need to inject model belonging to user with given ticker)
         if(!Analysis::where('user_id', $user->id)->where('ticker', $ticker)->exists()){
             return response()->json(null, 404);
@@ -33,8 +36,9 @@ class AnalysisController extends Controller
     	return response()->json($response, 200);
     }
 
-    public function create(User $user, $ticker, Request $request) 
+    public function create($ticker, Request $request) //FORM REQUEST
     {
+        $user = Auth::user();
         if(Analysis::where('user_id', $user->id)->where('ticker', $ticker)->exists()){
             return response()->json(null, 302); //Found
         }
@@ -56,8 +60,9 @@ class AnalysisController extends Controller
         return response()->json(null, 200);
     }
 
-    public function update(User $user, $ticker, Request $request)
+    public function update($ticker, Request $request) //FORM REQUEST
     {
+        $user = Auth::user();
         if(!Analysis::where('user_id', $user->id)->where('ticker', $ticker)->exists()){
             return response()->json(null, 404);
         }
@@ -74,8 +79,9 @@ class AnalysisController extends Controller
         return response()->json(null, 200);
     }
 
-    public function delete(User $user, $ticker)
+    public function delete($ticker)
     {
+        $user = Auth::user();
         $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
         //$this->authorize('vote', $video);
         $analysis->delete();
@@ -83,23 +89,4 @@ class AnalysisController extends Controller
 
     }
 
-    public function test(User $user, Analysis $analysis, Request $request)
-    {
-        $correctAnalysis = Analysis::where('user_id', $user->id)->first();
-
-        dd($user, $analysis, $request, $correctAnalysis);
-    }
-
-    //function code
-
-    /*
-
-	this.financialScore = response.json().data.financialScore;
-	this.cfScore = response.json().data.cfScore;
-	this.growthScore = response.json().data.growthScore;
-	this.riskScore = response.json().data.riskScore;
-	this.textAnalysis = response.json().data.textAnalysis;
-	this.ticker = response.json().data.ticker;
-
-    */
 }

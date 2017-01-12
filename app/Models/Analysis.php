@@ -15,6 +15,14 @@ class Analysis extends Model
     ];
     protected $table = 'analysis';
 
+    /*protected $hidden = [
+        //'id', //might mot need this, but for now I keep it safe
+        'deleted_at',
+        'created_at',
+        'updated_at',
+    ];*/
+
+
     /**
      * Get the route key for the model.
      *

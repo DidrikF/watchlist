@@ -27,21 +27,19 @@ Route::get('/company/{ticker}', 'CompanyController@index');
 
 Route::group(['middleware' => ['auth']], function() {
 
-	//Route::get('/{user}/test/{ticker}', 'AnalysisController@test'); 
+	//ANALYSIS (remove user id from the route)
+	Route::get('/analysis/{ticker}', 'AnalysisController@read'); //analysis = ticker
 
-	//ANALYSIS (user is not nessesary, but I leave it for now)
-	Route::get('/{user}/analysis/{ticker}', 'AnalysisController@read'); //analysis = ticker
+	Route::post('/analysis/{ticker}', 'AnalysisController@create'); //what about put ??
 
-	Route::post('/{user}/analysis/{ticker}', 'AnalysisController@create'); //what about put ??
+	Route::put('/analysis/{ticker}', 'AnalysisController@update');
 
-	Route::put('/{user}/analysis/{ticker}', 'AnalysisController@update');
-
-	Route::delete('/{user}/analysis/{ticker}', 'AnalysisController@delete');
+	Route::delete('/analysis/{ticker}', 'AnalysisController@delete');
 
 	//WATCHLIST
 	Route::get('/watchlist', 'WathclistController@getAll'); //all I need is the authenticatied user, NOT USED ATM
 
-	Route::get('/watchlist/{watchlist}', 'WatchlistController@read');
+	Route::get('/watchlist/{watchlist}', 'WatchlistController@read'); //title, desc, items/companies
 
 	Route::post('/watchlist', 'WatchlistController@create'); //create new watchlist, no watchlist id needed
 

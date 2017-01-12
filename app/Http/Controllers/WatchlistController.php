@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Watchlist, WatchlistItem, User, Company, Industry};
+use App\Models\{Watchlist, WatchlistItem, User, Company, Industry, Analysis};
 
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class WatchlistController extends Controller
 {
-    public function create(Request $request)
+    public function create(Request $request) //FORM REQUEST, auth = true as it was done in middleware
     {
     	//Authenticated as all that is needed
     	$watchlist = new Watchlist;
@@ -25,15 +25,12 @@ class WatchlistController extends Controller
 
     public function readAll() //Not User ATM
     {
-    	$this->authorize('readAll'); //Dont know, the authenticated user can only see the watchlists that belongs to him/her
-
-    	//get all watchlists that belongs to the user
-    	$watchlists = Auth::user()->watchlist()->all();
+    	$watchlists = Auth::user()->watchlist()->get();
 
     	return response()->json($watchlists, 200); 
     }
 
-    public function update()
+    public function update(Watchlist $watchlist) //FORM REQUEST
     {
     	$this->authorize('update', $watchlist);
     	$watchlist->update([
@@ -43,7 +40,7 @@ class WatchlistController extends Controller
     	return response()->json(null, 200);
     }
 
-    public function delete()
+    public function delete(Watchlist $watchlist)
     {
     	$this->authorize('delete', $watchlist);
     	$watchlist->delete();
@@ -57,26 +54,33 @@ class WatchlistController extends Controller
         //Need items in this format
         //{ticker: "STO", companyName: "Statoil ASA", exchange:"NYSE", score: 34, companyLink: "/company/STO"}
         $this->authorize('read', $watchlist);
-        $items = (new WatchlistItem)->where('watchlist_id', $watchlist->id)->get();
+        $watchlistItems = (new WatchlistItem)->where('watchlist_id', $watchlist->id)->companies()->get(); 
+        //watchlist_id, ticker, using relationship
+
+        $tickers = $watchlistItems->pluck('ticker'); //get array/collection of tickers
+
+        $analysisScores = (new Analysis)->select('ticker', 'financial', 'cash_flow', 'growth_potential', 'risk')
+                                        ->where('user_id', Auth::user()->id)->whereIn('ticker', $tickers)->get();
+
         //NEED WORK HERE
         return response()->json([
                 'title' => $watchlist->title,
                 'description' => $watchlist->description,
-                'items' => $items,
+                'items' => $watchlistItems,
+                'scores' => $analysisScores,
 
             ], 200);
 
     }
 
     //resolving Watchlist and passing normal paramenter, hope it understands
-    public function createItem(Request $request, Watchlist $watchlist, $ticker)
+    public function createItem(Request $request, Watchlist $watchlist, $ticker) //FORM REQUEST
     {
         $wathclistItem = new WatchlistItem;
         
-        //also putting the company into the companies table... need to sort this also out on the client side 
+        //ADD company if not allready in the DB, getting company data from the client...
 
-        //validation/salitation in Request class //watchlist exists and company is not allready in it
-        $this->authorize('createItem', $watchlist, $item); //user ownes the watchlist
+        $this->authorize('createItem', $watchlist, $item); //DO VIA FORM REQUEST
         $item->watchlist_id = $request->watchlistId;
         $item->ticker = $ticker;
         return response()->json(null, 201); //created
