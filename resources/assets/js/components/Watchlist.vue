@@ -64,7 +64,7 @@ var watchlistItem = {
 			return companyScores.financial + companyScores.cash_flow + companyScores.growthPotential + companyScores.risk;
 
 		}
-	}
+	},
 	methods: {
 		emitRemoveCompany(){
 			this.$emit('removeCompany', 'item.ticker'); //emit event to parent

@@ -26,9 +26,12 @@
 			</div>
 			<!-- or: v-on:click="saveAnalysis" (directive:argument) v-on = @-->
 			<button type="submit" @click.prevent="saveAnalysis">Save</button>
+			<button type="button" @click="deleteAnalysis">Delete</button>
+			<button type="button" @click="getAnalysis">Get analysis (remove later)</button>
 		</form>
-		<button type="button" @click="deleteAnalysis">Delete</button>
-		<button type="button" @click="getAnalysis">Get analysis (remove later)</button>
+		<span>{{ statusMessage }}</span>
+		
+		
 	</div>
 </template>
 
@@ -47,16 +50,16 @@
 				prevGrowthScore: "",
 				prevRiskScore: "",
 				prevTextAnalysis: "",
-				statusMessage: null,
+				statusMessage: "",
+				timeout: null,
 
 				user: window.watchlist.user,
 				exists: false
 			}			
 		},
 
-		props: ['ticker']
-
-		,methods: {
+		props: ['ticker'],
+		methods: {
 			getAnalysis () {
 				console.log('getAnalysis running');
 				if(this.user.authenticated){ //can easily be manipulated... need auth on server side
@@ -97,23 +100,26 @@
 						textAnalysis: this.textAnalysis
 					};
 
-					if(timeout) clearTimeout(timeout);
-					timeout = setTimeout(() => {
-						if(this.exists){
+					if(this.timeout){
+						clearTimeout(this.timeout);
+						//this.timeout = null;
+					}
+					this.timeout = setTimeout(() => {
+						if(this.exists){ //PUT
 							axios.put('/analysis/' + this.ticker, data).then(response => {
 								this.exists = true;
-								flashMessage(this.statusMessage, "Updated");
+								this.flashMessage("Updated");
 							}).catch(error => {
-								flashMessage(this.statusMessage, "Update failed");
+								this.flashMessage("Update failed");
 								console.log('Could not update/put analysis'); 
 							});
 							return;
 						}
 						axios.post('/analysis/' + this.ticker, data).then(response => {
 							this.exists = true;
-							flashMessage(this.statusMessage, "Saved");
+							this.flashMessage("Saved");
 						}).catch(error => {
-							flashMessage(this.statusMessage, "Save failed");
+							this.flashMessage("Save failed");
 							console.log('Could not post analysis'); 
 						});
 					}, 4000);
@@ -129,21 +135,21 @@
 						textAnalysis: this.textAnalysis
 					};
 					console.log(this.exists);
-					if(this.exists){
+					if(this.exists){ //PUT
 						axios.put('/analysis/' + this.ticker, data).then(response => {
 							this.exists = true;
-							flashMessage(this.statusMessage, "Updated");
+							this.flashMessage("Updated");
 						}).catch(error => {
-							flashMessage(this.statusMessage, "Update failed");
+							this.flashMessage("Update failed");
 							console.log('Could not update/put analysis'); 
 						});
 						return;
 					}
 					axios.post('/analysis/' + this.ticker, data).then(response => {
 						this.exists = true;
-						flashMessage(this.statusMessage, "Saved");
+						this.flashMessage("Saved");
 					}).catch(error => {
-						flashMessage(this.statusMessage, "Save failed");
+						this.flashMessage("Save failed");
 						console.log('Could not post analysis'); 
 					});
 				}
@@ -157,19 +163,18 @@
 					this.riskScore = null;
 					this.textAnalysis = null;
 					axios.delete('/analysis/' + this.ticker).then((response) => {
-						flashMessage(this.statusMessage, "Delete successful");
+						this.flashMessage("Delete successful");
 						this.exists = false;
 					}).catch(error => {
-						flashMessage(this.statusMessage, "Delete failed");
+						this.flashMessage("Delete failed");
 						console.log('Could not delete analysis');
 					});
-					
 				}
 			},
 			//____HELPER FUNCTIONS____________________________________________________________
-			flashMessage(variable, message){
-				variable = message;
-         		setTimeout(() => { variable = null }, 4000);
+			flashMessage(message){
+				this.statusMessage = message;
+         		setTimeout(() => { this.statusMessage = null }, 4000);
 			},
 
 		},
