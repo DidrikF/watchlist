@@ -1,11 +1,23 @@
 <template>
-	<div>
-		<h2>Create New Watchlist</h2>
-		<label for="title">Title:</label>
-		<input name="title" v-model="title"></input>
-		<label>Description:</label>
-		<textarea v-model="description"></textarea>
-		<button type="button" @click="createWatchlist"></button>
+	<div class="box">
+		<h3 class="title is-3">Create New Watchlist</h3>
+		<label class="label">Title</label>
+		<p class="control">
+		  <input class="input" type="text" placeholder="Name you new watchlist..." v-model="title">
+		</p>
+		<label class="label">Description</label>
+		<p class="control">
+		  <textarea class="textarea" placeholder="Describe the intention of your new watchlist..." v-model="description"></textarea>
+		</p>
+		<div class="control is-grouped">
+		  <p class="control">
+    		<button class="button is-primary" @click="createWatchlist">Create</button>
+  	      </p>
+		  <p class="control">
+		    <button class="button is-link" @click="cancel">Cancel</button>
+		  </p>
+		</div>
+
 	</div>
 </template>
 
@@ -21,9 +33,14 @@ export default{
 	}, 
 	methods: {
 		createWatchlist(){
+			console.log('Emitting create watchlist event!');
+			this.$emit('createWatchlist', this.title, this.description);
 			this.title = null;
 			this.description = null; //no consideration to failure
-			this.$emit('createWatchlist', 'title', 'description');
+		},
+		cancel(){
+			this.title = null;
+			this.description = null;
 		}
 	}
 

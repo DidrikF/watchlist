@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/search', 'SearchController@index');
 
+Route::get('/jsonsearch/{searchWord}', 'SearchController@jsonSearch');
+
 Route::get('/company/{ticker}', 'CompanyController@index');
 
 //auth middleware

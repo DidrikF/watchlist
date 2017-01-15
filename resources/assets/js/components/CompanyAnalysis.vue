@@ -1,37 +1,47 @@
 <template> <!-- This is an extended Vue instance -->
-	<div>
+	<div class="box">
 		<!-- Use v-bind:xxxx - bind a data model to a html element property, do not use {{ }} -->
-		<form class="analysis-form" action="#" method="post"> <!-- But i end up preventing this action... --> 
-			<div class="form-group">
-				<label for="financialScore">Financial Score: </label>
-				<input v-on:keyup="dynamicSaveAnalysis" type="text" name="financialScore" id="financialScore" placeholder="1-10" v-model="financialScore" > <!-- value="{{ financialScore }}" (wait a minute)is not nececary, v-model does it all -->
-			</div>
-			<div class="form-group">
-				<label for="cfScore">Cash Flow Score: </label>
-				<input v-on:keyup="dynamicSaveAnalysis" type="text" name="cfScore" id="cfScore" placeholder="1-10" v-model="cfScore">
-			</div>
-			<div class="form-group">
-				<label for="growthScore">Growth potential: </label>
-				<input v-on:keyup="dynamicSaveAnalysis" type="text" name="growthScore" id="growthScore" placeholder="1-10" v-model="growthScore">
-			</div>
-			<div class="form-group">
-				<label for="riskScore">Risk Score: </label>
-				<input v-on:keyup="dynamicSaveAnalysis" type="text" name="riskScore" id="riskScore" placeholder="1-10" v-model="riskScore">
-			</div>
-			<div class="form-group">
-				<label for="analysis">Your analysis</label>
-				<br>
-				<textarea v-on:keyup="dynamicSaveAnalysis" name="analysis" id="analysis" placeholder="Write your thoughts..." v-model="textAnalysis"></textarea>
+		<h3 class="title">Your Analysis</h3>
+		<form action="#" method="post"> <!-- But i end up preventing this action... --> 
+			<div class="columns" >
+				<div class="column is-2">
+					<label class="label has-text-centered" style="margin-top: 5px;" for="financialScore">Financial Score: </label>
+				</div>
+				<div class="column is-1">
+					<input class="input" v-on:keyup="dynamicSaveAnalysis" name="financialScore" id="financialScore" placeholder="1-10" v-model="financialScore" type="number" min="0" max="10">
+				</div>
 
+				<div class="column is-2">
+					<label class="label has-text-centered" style="margin-top: 5px;" for="cfScore">Cash Flow Score: </label>
+				</div>
+				<div class="column is-1">
+					<input class="input" v-on:keyup="dynamicSaveAnalysis" name="cfScore" id="cfScore" placeholder="1-10" v-model="cfScore" type="number" min="0" max="10">
+				</div>
+
+				<div class="column is-2">
+					<label class="label has-text-centered" style="margin-top: 5px;" for="growthScore">Growth potential: </label>
+				</div>
+				<div class="column is-1">
+					<input class="input" v-on:keyup="dynamicSaveAnalysis" name="growthScore" id="growthScore" placeholder="1-10" v-model="growthScore" type="number" min="0" max="10">
+				</div>
+
+				<div class="column is-2">
+					<label class="label has-text-centered" style="margin-top: 5px;" for="riskScore">Risk Score: </label>
+				</div>
+				<div class="column is-1">
+					<input class="input" v-on:keyup="dynamicSaveAnalysis" name="riskScore" id="riskScore" placeholder="1-10" v-model="riskScore" type="number" min="0" max="10">
+				</div>
 			</div>
-			<!-- or: v-on:click="saveAnalysis" (directive:argument) v-on = @-->
-			<button type="submit" @click.prevent="saveAnalysis">Save</button>
-			<button type="button" @click="deleteAnalysis">Delete</button>
-			<button type="button" @click="getAnalysis">Get analysis (remove later)</button>
-		</form>
-		<span>{{ statusMessage }}</span>
-		
-		
+			<div>
+				<label class="label" for="analysis">Other thoughts</label>
+				<textarea class="textarea" v-on:keyup="dynamicSaveAnalysis" name="analysis" id="analysis" placeholder="Write your thoughts..." v-model="textAnalysis"></textarea>
+				<div style="margin: 10px 0;">
+					<button class="button is-primary" style="margin: 0 20px;" type="submit" @click.prevent="saveAnalysis">Save</button>
+					<button class="button is-danger" type="button" @click="deleteAnalysis">Delete</button>
+					<span class="tag is-info is-pulled-right" style="margin: 10px 0" v-if="statusMessage">{{ statusMessage }}</span>
+				</div>
+			</div>
+		</form>		
 	</div>
 </template>
 
@@ -122,7 +132,7 @@
 							this.flashMessage("Save failed");
 							console.log('Could not post analysis'); 
 						});
-					}, 4000);
+					}, 2000);
 				}
 			},
 			saveAnalysis() {

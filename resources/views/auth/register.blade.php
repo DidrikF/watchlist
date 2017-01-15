@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="flex-center-high">
-    <div class="std-form">
-        <div class="heading">Register</div>
+    <div class="box" style="font-size: 18px; width: 300px;">
+        <div class="title is-4">Register</div>
         <div>
             <form role="form" method="POST" action="{{ url('/register') }}">
                 {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    <label for="name">Name</label>
+                    <label class="label" for="name">Name</label>
 
                     <div>
-                        <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
+                        <input class="input" id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
 
                         @if ($errors->has('name'))
                             <span class="help-block">
@@ -23,10 +23,10 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email">E-Mail Address</label>
+                    <label class="label" for="email">E-Mail Address</label>
 
                     <div>
-                        <input id="email" type="email" name="email" value="{{ old('email') }}" required>
+                        <input class="input" id="email" type="email" name="email" value="{{ old('email') }}" required>
 
                         @if ($errors->has('email'))
                             <span class="help-block">
@@ -37,10 +37,10 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password">Password</label>
+                    <label class="label" for="password">Password</label>
 
                     <div>
-                        <input id="password" type="password" name="password" required>
+                        <input class="input" id="password" type="password" name="password" required>
 
                         @if ($errors->has('password'))
                             <span class="help-block">
@@ -51,16 +51,16 @@
                 </div>
 
                 <div>
-                    <label for="password-confirm">Confirm Password</label>
+                    <label class="label" for="password-confirm">Confirm Password</label>
 
                     <div>
-                        <input id="password-confirm" type="password" name="password_confirmation" required>
+                        <input class="input" id="password-confirm" type="password" name="password_confirmation" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div>
-                        <button type="submit" class="btn">
+                        <button type="submit" class="button is-success">
                             Register
                         </button>
                     </div>

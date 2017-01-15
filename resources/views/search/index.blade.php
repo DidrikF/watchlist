@@ -2,28 +2,33 @@
 
 @section('content')
     
-	<div class="content flex-center-top">
-	    <div class="content-head">
-	        Search result for "{{ Request::get('q') }}"
-	    </div>
 
-	    <div class="content-body">
-	       	
-	       	@if(count($searchResults->ResultSet->Result))
-				<ol>
-				   	@foreach($searchResults->ResultSet->Result as $company)
-						<li class="search-result-element"><strong>{{ $company->name }} ({{ $company->symbol }})</strong>- Exchange: {{ $company->exch }}/{{ $company->exchDisp }}  -->  
-							
-							<a href="/company/{{ $company->symbol }}">Go to {{ $company->symbol }}</a>
-							
-						</li>
-				   	@endforeach
-			   	</ol>
-			@else
+
+	<div class="container" style="margin-top: 20px;">
+		@if(count($searchResults->ResultSet->Result))
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th><abbr title="Company">Company</abbr></th>
+			      <th><abbr title="Ticker">Ticker</abbr></th>
+			      <th><abbr title="Exchange">Exchange</abbr></th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	@foreach($searchResults->ResultSet->Result as $company)
+			  		<tr>
+			  			<td><a href="/company/{{ $company->symbol }}">{{ $company->name }}</a></td>
+			  			<td>{{ $company->symbol }}</td>
+			  			<td>{{ $company->exch }}/{{ $company->exchDisp }}</td>
+					</tr>
+				@endforeach
+			  </tbody>
+			</table>
+		@else
+			<div class="has-text-centered">
 				No results returned
-	       	@endif
-
-	    </div>
+			</div>
+		@endif
 	</div>
 
 @endsection

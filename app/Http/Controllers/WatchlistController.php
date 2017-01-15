@@ -15,11 +15,11 @@ class WatchlistController extends Controller
     	//Authenticated as all that is needed
     	$watchlist = new Watchlist;
     	$watchlist->user_id = Auth::user()->id;
-    	$watchlist->title = $request->title;
+    	$watchlist->name = $request->title;
     	$watchlist->description = $request->description;
     	$watchlist->save();
-
-    	return resoponse()->json(null, 200);
+        $watchlists = Auth::user()->watchlist()->get();
+    	return response()->json($watchlists, 200);
 
     }
 
@@ -30,11 +30,11 @@ class WatchlistController extends Controller
     	return response()->json($watchlists, 200); 
     }
 
-    public function update(Watchlist $watchlist) //FORM REQUEST
+    public function update(Watchlist $watchlist, Request $request) //FORM REQUEST
     {
     	$this->authorize('update', $watchlist);
     	$watchlist->update([
-    			'title' => $request->title,
+    			'name' => $request->name,
     			'description' => $request->description,
     		]);
     	return response()->json(null, 200);
@@ -44,18 +44,21 @@ class WatchlistController extends Controller
     {
     	$this->authorize('delete', $watchlist);
     	$watchlist->delete();
-    	return request()->json(null, 200);
+    	return response()->json(null, 200);
     }
 
     //Working with watchlist items
 
-    public function readItems(Watchlist $watchlist)
+    public function read(Watchlist $watchlist)
     {
         //Need items in this format
         //{ticker: "STO", companyName: "Statoil ASA", exchange:"NYSE", score: 34, companyLink: "/company/STO"}
         $this->authorize('read', $watchlist);
-        $watchlistItems = (new WatchlistItem)->where('watchlist_id', $watchlist->id)->companies()->get(); 
+        $watchlistItems = (new WatchlistItem)->where('watchlist_id', $watchlist->id)->get(); //
         //watchlist_id, ticker, using relationship
+        $companies = $watchlistItems->map(function ($watchlistItem, $key) {
+            return (new Company)->where('ticker', $watchlistItem->ticker)->first();
+        });
 
         $tickers = $watchlistItems->pluck('ticker'); //get array/collection of tickers
 
@@ -64,35 +67,67 @@ class WatchlistController extends Controller
 
         //NEED WORK HERE
         return response()->json([
-                'title' => $watchlist->title,
+                'title' => $watchlist->name,
                 'description' => $watchlist->description,
-                'items' => $watchlistItems,
+                'items' => $companies,
                 'scores' => $analysisScores,
-
             ], 200);
 
     }
 
     //resolving Watchlist and passing normal paramenter, hope it understands
-    public function createItem(Request $request, Watchlist $watchlist, $ticker) //FORM REQUEST
+    public function createItem(Watchlist $watchlist, Request $request) //FORM REQUEST
     {
-        $wathclistItem = new WatchlistItem;
+        $this->authorize('createItem', $watchlist); //DO VIA FORM REQUEST
         
-        //ADD company if not allready in the DB, getting company data from the client...
+        //ADD company if not allready in the DB
+        $company = new Company;
+        $responseCode = 201;
+        if(!$company->where('ticker', $request->ticker)->exists()){
+            $company->ticker = $request->ticker;
+            $company->name = $request->name;
+            $company->exchange = $request->exchange;
+            $company->save();
+        }
 
-        $this->authorize('createItem', $watchlist, $item); //DO VIA FORM REQUEST
-        $item->watchlist_id = $request->watchlistId;
-        $item->ticker = $ticker;
-        return response()->json(null, 201); //created
+        //ADD watchlist item, if not allready in DB
+        $wathclistItem = new WatchlistItem;
+        if(!$wathclistItem->where('watchlist_id', $watchlist->id)->where('ticker', $request->ticker)->exists()){
+            $wathclistItem->watchlist_id = $watchlist->id;
+            $wathclistItem->ticker = $request->ticker;
+            $wathclistItem->save();
+        }else{
+            $responseCode = 200;
+        }
+
+        //Getting new item list and scores (the user might have old analysises)
+        $watchlistItems = (new WatchlistItem)->where('watchlist_id', $watchlist->id)->get(); //
+        //watchlist_id, ticker, using relationship
+        $companies = $watchlistItems->map(function ($watchlistItem, $key) {
+            return (new Company)->where('ticker', $watchlistItem->ticker)->first();
+        });
+
+        $tickers = $watchlistItems->pluck('ticker');
+
+        $analysisScores = (new Analysis)->select('ticker', 'financial', 'cash_flow', 'growth_potential', 'risk')
+                                        ->where('user_id', Auth::user()->id)->whereIn('ticker', $tickers)->get();
+
+        return response()->json([
+            'items' => $companies,
+            'scores' => $analysisScores,
+        ], $responseCode); //created
     }
 
     public function deleteItem(Request $request, Watchlist $watchlist, $ticker)
     {
         //$watchlistItem = //get item based on watchlist id and ticker
 
-        $this->authorize('deleteItem', $watchlist, $item);
-        $item->delete();
-        return response()->json(null, 200); 
+        $this->authorize('deleteItem', $watchlist);
+        (new WatchlistItem)->where('watchlist_id', $watchlist->id)->where('ticker', $ticker)->delete();
+        return response()->json([
+                'ticker' => $ticker,
+                'watchlist' => $watchlist,
+            ], 200); 
     }
 
 

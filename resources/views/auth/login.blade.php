@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="flex-center-high">
-    <div class="std-form">
-        <div class="heading">Login</div>
+    <div class="box" style="font-size: 18px">
+        <div class="title is-4">Login</div>
         <div>
             <form method="POST" action="{{ url('/login') }}">
                 {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email">E-Mail Address</label>
+                    <label class="label" for="email">E-Mail Address</label>
 
                     <div>
-                        <input id="email" class="max-width" type="email" name="email" value="{{ old('email') }}" required autofocus>
+                        <input id="email" class="input" type="email" name="email" value="{{ old('email') }}" required autofocus>
 
                         @if ($errors->has('email'))
                             <span>
@@ -23,10 +23,10 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password">Password</label>
+                    <label class="label" for="password">Password</label>
 
                     <div>
-                        <input id="password" class="max-width" type="password" name="password" required>
+                        <input id="password" class="input" type="password" name="password" required>
 
                         @if ($errors->has('password'))
                             <span class="help-block">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div>
-                    <button type="submit">
+                    <button class="button is-success" type="submit">
                         Login
                     </button>
 

@@ -13,7 +13,7 @@ class CreateWatchlistItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('watclist_items', function (Blueprint $table) {
+        Schema::create('watchlist_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('watchlist_id')->unsigned();
             //I want to use the ticker as the foreign key to link to the companies table
@@ -36,6 +36,6 @@ class CreateWatchlistItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('watclist_items');
+        Schema::dropIfExists('watchlist_items');
     }
 }

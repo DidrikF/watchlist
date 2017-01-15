@@ -50,11 +50,12 @@ nav a {
   color: #636b6f;
 }
 
-#app {
-  position: relative;
-  height: 100%;
+/*
+.app {
+    position: relative;
+    height: 80%;
 }
-
+*/
 .cf:before, .cf:after {
   content: " ";
   display: table;

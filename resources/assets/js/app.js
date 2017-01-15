@@ -16,50 +16,53 @@ require('./bootstrap');
 Vue.component('company-analysis', require('./components/CompanyAnalysis.vue'));
 Vue.component('watchlist', require('./components/Watchlist.vue'));
 Vue.component('create-watchlist', require('./components/CreateWatchlist.vue'));
+Vue.component('add-to-watchlist', require('./components/AddToWatchlist.vue'));
 
 Vue.component('watchlist-container', {
     template: `
-        <div
-            v-on:createWatchlist="createWatchlist" 
-            v-on:deleteWatchlist="deleteWatchlist"
-            >
-            <watchlist v-if="hideWatchlist != index" v-for="(watchlist, index) in watchlists" v-bind:watchlist="watchlist" v-bind:index="index"></watchlist>
-            <create-watchlist></create-watchlist> 
-            
+        <div>
+            <watchlist v-for="(watchlist, index) in watchlistsData" :watchlist="watchlist" :index="index" v-on:deleteWatchlist="deleteWatchlist"></watchlist>
+            <create-watchlist v-on:createWatchlist="createWatchlist"></create-watchlist> 
         </div>
     `,
     data() {
         return {
-            hideWatchlist: null,
+            hideWatchlist: null, //holds watchlist id to hide
+            watchlistsData: this.watchlists, //Source of truth for watchlists
         }
     },
     props: ['watchlists'], //recieved from Laravel/Blade
     methods: {
-        deleteWatchlist(watchlistId, index){
-                //hide watchlist getting deleted
+        deleteWatchlist(watchlistId, index){ //
+            //hide watchlist getting deleted
             console.log('delete watchlist fired, ', watchlistId, index);
-            this.hideWatchlist = index;
+            let backup = this.watchlistsData[index];
+            this.watchlistsData.splice(index, 1);
             axios.delete('/watchlist/' + watchlistId).then(response => {
                 if(response.status != 200){
-                    //bring the component back
-                    this.hideWatchlist = null;
-                    return;
+                    this.watchlistsData.splice(index, 0, backup);
                 }
-                this.watchlists.splice(index, 1);
             }).catch(error => {
+                this.watchlistsData.splice(index, 0, backup);
                 consoled.log('Failed to delete watchlist component. Error: ' + error);
             });
         },
         createWatchlist(title, description){
             console.log('create watchlist fired, ', title, description);
             axios.post('/watchlist', {title: title, description: description}).then(response => {
-                this.watchlists.push(response.data);
+                this.watchlistsData = response.data;
             }).catch(error => {
                 console.log('Failed to create watchlist. Error: ' + error);
             });
         }
     }
 });
+
+/*
+tinymce.init({
+    selector: '#analysis'
+});
+*/
 
 const vm = new Vue({
     el: '#app',
