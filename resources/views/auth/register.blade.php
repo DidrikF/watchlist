@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex-center-high">
-    <div class="box" style="font-size: 18px; width: 300px;">
+<div style="width: 350px; margin: 0 auto; margin-top: 50px;">
+    <div class="box" style="font-size: 18px;">
         <div class="title is-4">Register</div>
         <div>
             <form role="form" method="POST" action="{{ url('/register') }}">

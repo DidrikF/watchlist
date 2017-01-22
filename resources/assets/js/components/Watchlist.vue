@@ -8,7 +8,7 @@
 		  <div class="modal-content">
 		  	<div class="box has-text-centered">
 			    <p>Are you sure you want to delete the watchlist and all of its contents?</p>
-			    <p>
+			    <p style="padding-top: 20px;">
 				    <button class="button is-danger" @click="deleteWatchlist">Yes</button>
 				    <button class="button is-primary" @click="deleteWatchlistModal=false">Hell No!</button>
 			    </p>

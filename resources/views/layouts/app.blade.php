@@ -35,16 +35,16 @@
 </head>
 
 
-<body>
+<body style="min-height: 100%;">
 
-    <div id="app" class="app container is-clearfix">  <!-- We bind our Vue instance to this element -->
+    <div id="app" class="container is-clearfix" style="min-height: 70%;">  <!-- We bind our Vue instance to this element -->
         
         @include ('layouts.partials._bulmaNavigation')
 
         @yield('content')
 
     </div>
-    <footer class="footer is-clearfix" style="bottom: 0; margin-top: 25px;">
+    <footer class="footer is-clearfix" style="margin-top: 30px;">
         <div class="container has-text-centered">
             <p>
                 <strong>Company watchlist</strong> by <a href="https://github.com/DidrikF">Didrik Fleischer</a>. The site is powered by <a href="https://laravel.com/">Laravel</a>, <a href="https://vuejs.org/">Vue.js</a> and <a href="http://bulma.io/">Bulma</a>.
