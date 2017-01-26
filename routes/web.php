@@ -54,6 +54,10 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::delete('watchlist/{watchlist}/{ticker}', 'WatchlistController@deleteItem');
 
-	
+	//NOTIFACATIONS
+	Route::get('/notification/{ticker}', 'NotificationController@read');
+	Route::get('/notification', 'NotificationController@readAll');
+	Route::post('/notification/{ticker}', 'NotificationController@create');
+	Route::delete('/notification/{ticker}', 'NotificationController@delete');
 
 });

@@ -28,7 +28,8 @@ class CompanyController extends Controller
     		'ticker' => $ticker,
             'watchlists' => $watchlists,
             'companyName' => $data['body']['Name'],
-            'companyExchange' => $data['body']['Stock exchange']
+            'companyExchange' => $data['body']['Stock exchange'],
+            'dataList' => $this->yahooKeyTranslation,
     	]);
     }
 

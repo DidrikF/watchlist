@@ -60,6 +60,8 @@
 			</table>
 
 			<company-analysis ticker="{{ $ticker }}"></company-analysis>
+			
+			<create-notification ticker="{{ $ticker }}"></create-notification>
 
 		@else
 			<div class="title is-3">Company could not be found.</div>

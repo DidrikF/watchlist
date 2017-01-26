@@ -12,8 +12,10 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
+    //I need to register my commands regardless of whether I later want to shedule them.
     protected $commands = [
-        //
+        \App\Console\Commands\SendNotifications::class, 
+
     ];
 
     /**
@@ -24,8 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('notification:send')
+                    ->everyMinute();
     }
 
     /**
