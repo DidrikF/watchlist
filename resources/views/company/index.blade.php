@@ -60,8 +60,9 @@
 			</table>
 
 			<company-analysis ticker="{{ $ticker }}"></company-analysis>
+
 			
-			<create-notification ticker="{{ $ticker }}"></create-notification>
+			<create-notification ticker="{{ $ticker }}" v-bind:prop-active-notifications="{{ $activeNotifications }}"></create-notification>
 
 		@else
 			<div class="title is-3">Company could not be found.</div>

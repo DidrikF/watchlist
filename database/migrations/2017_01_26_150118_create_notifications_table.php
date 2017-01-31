@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->string('ticker');
             $table->string('name', 100);
             $table->text('description')->nullable();
+            $table->boolean('triggered')->default(false);
             $table->softDeletes();
             $table->timestamps();
         

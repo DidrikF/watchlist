@@ -33,6 +33,7 @@ class NotificationController extends Controller
 
         $notification->save();
 
+
         foreach($request->conditions as $condition) {
             $nc = new NotificationCondition;
             $nc->notification_id = $notification->id;
@@ -41,13 +42,24 @@ class NotificationController extends Controller
             $nc->data_value = $condition["dataValue"];
             $nc->save();
         }
-
-        return response()->json(null, 201);
+        $noti = (new Notification)->where('id', $notification->id)->first();
+        return response()->json([
+                'notification' => [
+                        'id' => $noti->id,
+                        'name' => $noti->name,
+                        'description' => $noti->description,
+                        'triggered' => $noti->triggered,
+                    ],
+            ], 201);
 
     }
 
-    public function delete($ticker)
+    public function delete(Notification $notification, Request $request)
     {
-
+        $this->authorize('delete', $notification);
+        if($notification->delete()) {
+            return response()->json(null, 200);
+        }
+        return response()->json(null, 404);
     }
 }

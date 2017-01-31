@@ -1,32 +1,83 @@
 <template>
-	<div class="box">
-		<div>
-			<input class="input" v-model="name" placeholder="Name your notification">
-			<textarea class="textarea" v-model="description" placeholder="Describe your notification"></textarea>
+	<div>
+		<div class="box">
+			<h3 class="title is-4">Active Notifications</h3>
+			<div v-if="!activeNotifications.length" style="margin-bottom: 2em;">
+				<p>No active notifications for this company. You can create a notification by clicking the button bellow.</p>
+			</div>
+			<div v-if="activeNotifications.length">
+				<table>
+					<thead>
+						<th><abbr title="Name">Name</abbr></th>
+						<th><abbr title="Description">Description</abbr></th>
+						<th><abbr title="Status">Status</abbr></th>
+						<th><abbr></abbr></th>
+					</thead>
+					<tbody>
+						<tr v-for="notification in activeNotifications">
+							<td><a @click="editNotification(notification)">{{ notification.name }}</a></td>
+							<td>{{ notification.description }}</td>
+							<td>{{ notification.triggered ? 'Triggered' : 'Not triggered' }}</td>
+							<td><button class="button is-danger" @click="deleteNotification(notification)">Delete</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<button class="button is-primary" @click="newNotification = true">Create New Notification</button>
+			</div>
 		</div>
-		<div>
-			<select class="select" v-model="dataId">
-				<option v-for="(dataItem, key) in dataList" v-bind:value="key">{{ dataItem }}</option>
-			</select>
-			<select class="select" v-model="selectedComparisonOperator">
-				<option v-for="comparisonOperator in comparisonOperators" v-bind:value="comparisonOperator">
-					{{ comparisonOperator }}
-				</option>
-			</select>
-			<input v-model="dataValue" placeholder="Value">
-			<button class="button is-success" @click="addCondition">Add</button>
-			<span> {{ statusMessage }} </span>
+		<div class="box" v-if="newNotification">
+			<div>
+				<h3 class="title is-4 is-inline">Create New Notification</h3>
+				<button class="button is-danger pull-right" @click="newNotification = false">X</button>
+			</div>
+			<div class="columns"> <!-- If no active notifications or ... -->
+				<div class="column is-half">
+					<label class="label" for="name">Name</label>
+					<input name="name" class="input" v-model="name" placeholder="Name your notification">
+					<label class="label" for="description">Description</label>
+					<textarea name="description" class="textarea" v-model="description" placeholder="Describe your notification"></textarea>
+				</div>
+				<div class="column is-half">
+					<div style="min-height: 10em;">
+						<h3 class="title is-4">Conditions</h3>
+						<table>
+							<thead>
+								<th><abbr></abbr></th>
+								<th><abbr></abbr></th>
+							</thead>
+							<tbody>
+								<tr v-for="condition in prettyConditions">
+									<td>{{ condition.dataName }} {{ condition.comparisonOperator }} {{ condition.dataValue }}</td>
+									<td><button class="button is-warning" @click="removeCondition(condition)">Delete</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div style="min-height: 1em;">
+						<span> {{ statusMessage }} </span>
+					</div>
+					<div>
+						<select class="select" v-model="dataId">
+							<option v-for="(dataItem, key) in dataList" v-bind:value="key">{{ dataItem }}</option>
+						</select>
+						<select class="select" v-model="selectedComparisonOperator">
+							<option v-for="comparisonOperator in comparisonOperators" v-bind:value="comparisonOperator">
+								{{ comparisonOperator }}
+							</option>
+						</select>
+						<input class="input is-inline" v-model="dataValue" placeholder="Value" >
+						<button class="button is-success pull-right" @click="addCondition">Add</button>
+					</div>
+					<div style="bottom: 0px;">
+						<button class="button is-primary" style="float: left;" @click="createNotification">Create</button>
+						<button class="button is-danger" style="float: right;" @click="cancelNotification">Cancel</button>
+					</div>
+				</div>
+			</div>	
 		</div>
-
-		<ul>
-			<li v-for="condition in conditions">
-				{{ condition.dataName }} {{ condition.comparisonOperator }} {{ condition.dataValue }}
-				<button class="button is-warning" @click="removeCondition(condition)">Delete</button>
-			</li>
-		</ul>
-		<button class="button is-primary" @click="createNotification">Create</button>
-		<button class="button is-danger" @click="cancelNotification">Cancel</button>
-
+		
 	</div>
 </template>
 
@@ -40,15 +91,26 @@ export default {
 			conditions: [],
 			dataList: {"p": "Previous close", "y": "Dividend yield", "d": "Dividend per share", "t8": "1 year target price", "m4": "200 day moving avg", "g3": "Annualizd gain", "s6": "Revenue", "w": "52 week range", "j1": "Market capitalization", "v": "Volume", "e": "EPS", "b4": "Book value", "j4": "EBITDA", "p5": "Price/Sales", "p6": "Price/Book", "r": "P/E ratio", "r5": "PEG ratio", "s7": "Short ratio"}, //Pass in at server side
 			dataId: null,
-			comparisonOperators: ['=', '<', '>'],
+			comparisonOperators: ['<', '>'],
 			selectedComparisonOperator: null,
 			dataValue: null,
 			currentValue: null,
 			statusMessage: null,
+			activeNotifications: this.propActiveNotifications, //
+			newNotification: false,
 
 		}
 	},
-	props: ['ticker'],
+	props: ['ticker', 'propActiveNotifications'],
+	computed: {
+		prettyConditions() {
+			return this.conditions.map(element => {
+				if(element.comparisonOperator === '<') element.comparisonOperator = 'less than';
+				else if(element.comparisonOperator === '>') element.comparisonOperator = 'greater than';
+				return element;
+			});
+		}
+	},
 	methods: {
 		addCondition() {
 			let inConditions = this.conditions.find(element => {
@@ -74,7 +136,7 @@ export default {
 		cancelNotification() {
 			this.name = null;
 			this.description = null;
-			this.conditions = null;
+			this.conditions = [];
 			this.dataId = null; 
 			this.selectedComparisonOperator = null;
 			this.dataValue = null;
@@ -82,11 +144,13 @@ export default {
 		},
 		createNotification() {
 			if(! (this.name && this.conditions.length)){
-				this.statusMessage = 'Name or conditions missing';
+				this.statusMessage = 'Name and conditions are required';
 				return; 
 			}
 			axios.post('/notification/' + this.ticker, {name: this.name, description: this.description, conditions: this.conditions}).then(response => {
 				if(response.status === 201){
+					this.activeNotifications.push(response.data.notification); //NEED TO CHECK THIS
+
 					this.statusMessage = 'Succesfully created notification';
 					this.cancelNotification();
 					return; 
@@ -96,6 +160,23 @@ export default {
 				console.log('Failed to create notification. Error message: ' + error);
 			});
 
+		},
+		editNotification(notification) {
+			console.log('Is not implemented yet');
+		},
+		deleteNotification(notification) {
+			axios.delete('/notification/' + notification.id).then(response => {
+				if(response.status === 200){
+					let indexOfnotificaitonToRemove = this.activeNotifications.indexOf(notification);
+					console.log(indexOfnotificaitonToRemove);
+					this.activeNotifications.splice(indexOfnotificaitonToRemove, 1);
+					return;	
+				}
+				this.statusMessage = 'Failed to delete notification';
+			}).catch(error => {
+				console.log('Failed to delete notidication: Error message: ' + error);
+				this.statusMessage = 'Failed to delete notification';
+			});
 		},
 		loadComponent() {
 			/*

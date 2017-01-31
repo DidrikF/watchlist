@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 
-use App\Models\{Analysis, Watchlist, WatchlistItem, Company};
-use App\Policies\{AnalysisPolicy, WatchlistPolicy, WatchlistItemPolicy, CompanyPolicy};
+use App\Models\{Analysis, Watchlist, WatchlistItem, Company, Notification, NotificationCondition};
+use App\Policies\{AnalysisPolicy, WatchlistPolicy, WatchlistItemPolicy, CompanyPolicy, NotificationPolicy, NotificationConditionPolicy};
 
 
 use Illuminate\Support\Facades\Gate;
@@ -22,6 +22,8 @@ class AuthServiceProvider extends ServiceProvider
         Watchlist::class => WatchlistPolicy::class,
         WatchlistItem::class => WatchlistItemPolicy::class,
         Company::class => CompanyPolicy::class,
+        Notification::class => NotificationPolicy::class,
+        NotificationCondition::class => NotificationConditionPolicy::class,
     ];
 
     /**

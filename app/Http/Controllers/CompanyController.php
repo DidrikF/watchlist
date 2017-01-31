@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Watchlist;
+use App\Models\{Watchlist, Notification};
 
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +22,7 @@ class CompanyController extends Controller
 
     	$data = $this->getCompanyData($ticker);
         $watchlists = (new Watchlist)->where('user_id', Auth::user()->id)->get();
+        $activeNotifications = (new Notification)->where('user_id', Auth::user()->id)->where('ticker', $ticker)->get();
     	//dd(gettype($data['body']['Name']), gettype($data['body']['Stock exchange']), gettype($ticker));
     	return view('company.index', [
     		'data' => $data,
@@ -30,6 +31,7 @@ class CompanyController extends Controller
             'companyName' => $data['body']['Name'],
             'companyExchange' => $data['body']['Stock exchange'],
             'dataList' => $this->yahooKeyTranslation,
+            'activeNotifications' => $activeNotifications,
     	]);
     }
 

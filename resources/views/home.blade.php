@@ -9,7 +9,7 @@
 
     <div class="content-body">
         @if (Auth::check())
-            <watchlist-container v-bind:watchlists="{{ $watchlists }}"></watchlist-container>
+            <watchlist-container v-bind:watchlists="{{ $watchlists }}" v-bind:triggered-notifications="{{ $triggeredNotifications }}"></watchlist-container>
         @endif
     </div>
 

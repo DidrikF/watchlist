@@ -22,7 +22,7 @@ Vue.component('create-notification', require('./components/CreateNotification.vu
 Vue.component('watchlist-container', {
     template: `
         <div>
-            <watchlist v-for="(watchlist, index) in watchlistsData" :watchlist="watchlist" :index="index" v-on:deleteWatchlist="deleteWatchlist"></watchlist>
+            <watchlist v-for="(watchlist, index) in watchlistsData" :watchlist="watchlist" :index="index" :triggeredNotifications="triggeredNotifications" v-on:deleteWatchlist="deleteWatchlist"></watchlist>
             <create-watchlist v-on:createWatchlist="createWatchlist"></create-watchlist> 
         </div>
     `,
@@ -32,7 +32,7 @@ Vue.component('watchlist-container', {
             watchlistsData: this.watchlists, //Source of truth for watchlists
         }
     },
-    props: ['watchlists'], //recieved from Laravel/Blade
+    props: ['watchlists', 'triggeredNotifications'], //recieved from Laravel/Blade
     methods: {
         deleteWatchlist(watchlistId, index){ //
             //hide watchlist getting deleted

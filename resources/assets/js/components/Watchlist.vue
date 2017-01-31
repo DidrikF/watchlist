@@ -53,6 +53,7 @@
 		      <th><abbr title="Ticker">Ticker</abbr></th>
 		      <th><abbr title="Exchange">Exchange</abbr></th>
 		      <th><abbr title="Score">Score</abbr></th>
+		      <th><abbr title="Notification">Notification</abbr></th>
 		      <th><abbr title=""></abbr></th>
 		    </tr>
 		  </thead>
@@ -61,8 +62,10 @@
 				v-for="item in sortedWatchlistItems" 
 				v-bind:item="item"
 				v-bind:itemScores="itemScores"
+				v-bind:notificationIsTriggered="isTriggered(item)"
 				v-on:removeCompany="removeCompany" 
 			></watchlist-item> 
+			<!-- isTriggered returned true or false for each watchlist item -->
 		  </tbody>
 		</table>
 			<!--  __SEARCH__ -->
@@ -126,6 +129,7 @@ var watchlistItem = {
 			<td>{{ item.ticker }}</td>
 			<td>{{ item.exchange }}</td>
 			<td>{{ score }}</td>
+			<td>{{ notificationIsTriggered ? 'Triggered' : '' }}
 			<td><button class="button is-warning is-small" type="button" @click="emitRemoveCompany">Remove</button></td>
 		</tr>
 	`,
@@ -135,7 +139,7 @@ var watchlistItem = {
 			scores: this.itemScores || [],
 		}
 	},
-	props: ['item', 'itemScores'],
+	props: ['item', 'itemScores', 'notificationIsTriggered'],
 	//props: ['ticker', 'companyName', 'exchange', 'score', 'companyLink'] //data given to the child component is a list item
 	computed: {
 		score: function(){
@@ -167,7 +171,7 @@ export default {
 			editMode: false,
 			showDescription: false,
 			validationError: {},
-			items: null,
+			items: [],
 			itemScores: null,
 			searchWord: "",
 			prevSearchWord: "",
@@ -178,7 +182,7 @@ export default {
 		}
 	},
 	props: [
-		'watchlist', 'index',
+		'watchlist', 'index', 'triggeredNotifications'
 	],
 	computed: {
         sortedWatchlistItems: function(){
@@ -233,7 +237,7 @@ export default {
 				this.title = response.data.title; //the DB is the source of truth
 				this.description = response.data.description;
 				this.itemScores = response.data.scores;
-				this.items = response.data.items;
+				this.items = response.data.items || [];
 				
 			}).catch(error => {
 				console.log('Failed to get watchlist data. Error: ' + error);
@@ -296,6 +300,7 @@ export default {
 
 		// ___SEARCH RELATED METHODS____________________________________________________________
 		addCompany(company){
+			console.log(company);
 			if(this.items.find(item => { return item.ticker == company.symbol })){
 				this.searchStatusMessage = 'That company is allready in the watchlist';
 				return;
@@ -310,7 +315,7 @@ export default {
 				if(response.status != 201 || response.status != 200) {
 					this.statusMessage = "Failed to add company";
 				}
-				this.items = response.data.items;
+				this.items = response.data.items || [];
 				this.itemScores = response.data.scores;
 			}).catch(error => {
 				console.log('Failed to add item to watchlist. Error: ' + error);
@@ -367,6 +372,18 @@ export default {
 		flashMessage(message){
 			this.statusMessage = message;
          	setTimeout(() => { this.statusMessage = null; }, 4000);
+		},
+		isTriggered(watchlistItem) {
+			if(!this.triggeredNotifications) {
+				return false;
+			}
+			
+			let companyHasNotificationTriggered = this.triggeredNotifications.find(element => {
+				return element.ticker === watchlistItem.ticker;
+			});
+			if(companyHasNotificationTriggered) return true;
+
+			return false;
 		},
 	},
 	components: {
