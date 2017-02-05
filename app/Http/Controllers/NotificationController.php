@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Notification;
-use App\Models\NotificationCondition;
+use App\Models\{Notification, NotificationCondition};
+
+use Illuminate\Http\Request;
+use App\Http\Requests\NotificationRequest;
+
+use GuzzleHttp\Client;
 
 class NotificationController extends Controller
 {
-
     public function read($ticker)
     {
 
@@ -22,7 +23,7 @@ class NotificationController extends Controller
 
     }
 
-    public function create($ticker, Request $request)
+    public function create($ticker, NotificationRequest $request)
     {
         $notification = new Notification;
         

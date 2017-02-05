@@ -18,7 +18,7 @@
 							<td><a @click="editNotification(notification)">{{ notification.name }}</a></td>
 							<td>{{ notification.description }}</td>
 							<td>{{ notification.triggered ? 'Triggered' : 'Not triggered' }}</td>
-							<td><button class="button is-danger" @click="deleteNotification(notification)">Delete</button></td>
+							<td><button class="button is-danger is-small" @click="deleteNotification(notification)">Delete</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -33,30 +33,36 @@
 				<button class="button is-danger pull-right" @click="newNotification = false">X</button>
 			</div>
 			<div class="columns"> <!-- If no active notifications or ... -->
-				<div class="column is-half">
+				<div class="column is-third">
 					<label class="label" for="name">Name</label>
 					<input name="name" class="input" v-model="name" placeholder="Name your notification">
+					<span class="help is-danger" v-if="validationErrors.name">{{ validationErrors.name[0] }}</span>
 					<label class="label" for="description">Description</label>
 					<textarea name="description" class="textarea" v-model="description" placeholder="Describe your notification"></textarea>
+					<span class="help is-danger" v-if="validationErrors.description">{{ validationErrors.description[0] }}</span>
 				</div>
-				<div class="column is-half">
+				<div class="column">
 					<div style="min-height: 10em;">
 						<h3 class="title is-4">Conditions</h3>
+						<span class="help is-danger" v-if="validationErrors.conditions">{{ validationErrors.conditions[0] }}</span>
 						<table>
 							<thead>
 								<th><abbr></abbr></th>
 								<th><abbr></abbr></th>
+								<th><abbr></abbr></th>
 							</thead>
 							<tbody>
-								<tr v-for="condition in prettyConditions">
+								<tr v-for="condition in conditions">
 									<td>{{ condition.dataName }} {{ condition.comparisonOperator }} {{ condition.dataValue }}</td>
-									<td><button class="button is-warning" @click="removeCondition(condition)">Delete</button></td>
+									<td v-if="validationErrors[condition.dataId]"><span class="help is-danger">{{ validationErrors[condition.dataId][0] }}</span></td>
+									<td v-else></td>
+									<td><button class="button is-warning is-small" @click="removeCondition(condition)">Delete</button></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<div style="min-height: 1em;">
-						<span> {{ statusMessage }} </span>
+						<span class="help is-danger"> {{ statusMessage }} </span>
 					</div>
 					<div>
 						<select class="select" v-model="dataId">
@@ -67,12 +73,13 @@
 								{{ comparisonOperator }}
 							</option>
 						</select>
-						<input class="input is-inline" v-model="dataValue" placeholder="Value" >
+						<input class="input is-inline" style="width:10em;" v-model="dataValue" placeholder="Value" >
 						<button class="button is-success pull-right" @click="addCondition">Add</button>
 					</div>
-					<div style="bottom: 0px;">
-						<button class="button is-primary" style="float: left;" @click="createNotification">Create</button>
-						<button class="button is-danger" style="float: right;" @click="cancelNotification">Cancel</button>
+					<div style="bottom: 0px; margin-top:1em;">
+						<button class="button is-danger" style="float: right; margin-left: 2em;" @click="cancelNotification">Clear</button>
+						<button class="button is-primary" style="float: right;" @click="createNotification">Create</button>
+						
 					</div>
 				</div>
 			</div>	
@@ -98,21 +105,24 @@ export default {
 			statusMessage: null,
 			activeNotifications: this.propActiveNotifications, //
 			newNotification: false,
+			validationErrors: [],
 
 		}
 	},
-	props: ['ticker', 'propActiveNotifications'],
+	props: ['ticker', 'propActiveNotifications', 'companyData'],
 	computed: {
-		prettyConditions() {
-			return this.conditions.map(element => {
+		/*prettyConditions() {
+			let conditionsCopy = {copy: this.conditions}; //copy and return pointer to the new array
+			return conditionsCopy.copy.map(element => {
 				if(element.comparisonOperator === '<') element.comparisonOperator = 'less than';
 				else if(element.comparisonOperator === '>') element.comparisonOperator = 'greater than';
 				return element;
 			});
-		}
+		}*/
 	},
 	methods: {
 		addCondition() {
+			this.statusMessage = null;
 			let inConditions = this.conditions.find(element => {
 				return element.dataId === this.dataId;
 			});
@@ -130,7 +140,10 @@ export default {
 			this.statusMessage = 'Missing fields';
 		},
 		removeCondition(condition) {
+			this.statusMessage = null;
 			let index = this.conditions.indexOf(condition);
+			delete this.validationErrors[condition.dataId];
+			
 			this.conditions.splice(index, 1);
 		},
 		cancelNotification() {
@@ -143,11 +156,11 @@ export default {
 			this.statusMessage = null;
 		},
 		createNotification() {
-			if(! (this.name && this.conditions.length)){
-				this.statusMessage = 'Name and conditions are required';
-				return; 
-			}
-			axios.post('/notification/' + this.ticker, {name: this.name, description: this.description, conditions: this.conditions}).then(response => {
+			this.validationErrors = [];
+			this.statusMessage = null;
+			axios.post('/notification/' + this.ticker, {name: this.name, description: this.description, conditions: this.conditions}, {validateStatus: function(status) {
+					return status < 500; //reject only if status is equal to or above 500
+			}}).then(response => {
 				if(response.status === 201){
 					this.activeNotifications.push(response.data.notification); //NEED TO CHECK THIS
 
@@ -155,8 +168,13 @@ export default {
 					this.cancelNotification();
 					return; 
 				}
+				if(response.status === 422){
+					this.validationErrors = response.data;
+					if(this.validationErrors['general']) this.statusMessage = this.validationErrors['general'][0];
+					return;
+				}
 				this.statusMessage = 'Failed to create notification';
-			}).catch(error => {
+			}).catch((error) => {
 				console.log('Failed to create notification. Error message: ' + error);
 			});
 

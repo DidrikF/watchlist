@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WatchlistRequest extends FormRequest
+class TestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,4 @@ class WatchlistRequest extends FormRequest
             //
         ];
     }
-    /*
-    public function sanitate()
-    {
-        htmlentities(); //Remeber to allways definde UTF-8 encoding, when you are working with that kind of strings. 
-        htmlspecialchars();
-    }
-    */
 }

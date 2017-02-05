@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\WatchlistRequest;
+
+
 class WatchlistController extends Controller
 {
     public function create(Request $request) //FORM REQUEST, auth = true as it was done in middleware

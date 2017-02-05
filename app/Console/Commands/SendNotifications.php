@@ -59,9 +59,9 @@ class SendNotifications extends Command
 
         foreach($notifications as $notification){ //go through all notification entries
 
-            $items = $notification->notificationCondition()->get(); //items related to one notiication
+            $conditions = $notification->notificationCondition()->get(); //items related to one notiication
 
-            if($this->checkConditions($items, $notification->ticker)){
+            if($this->checkConditions($conditions, $notification->ticker)){
                 $user = (new User)->where('id', $notification->user_id)->get();
                 Mail::to($user)->send(new \App\Mail\Notification);
 
@@ -76,13 +76,9 @@ class SendNotifications extends Command
             
             $valueFromYahoo = $this->getYahooData($ticker, $condition->data_id); //$item->data_id ....
 
+            //if just one of the conditions are false, return false.
             switch($condition->comparison_operator)
             {
-                case "=":
-                    if($valueFromYahoo != $condition->data_value) {
-                        return false;
-                    }
-                    break;
                 case "<":
                     if($valueFromYahoo >= $condition->data_value) {
                         return false;
