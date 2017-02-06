@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/notification/{ticker}', 'NotificationController@read'); //get all notificaitons associated with ticker && user
 	Route::get('/notification', 'NotificationController@readAll');
 	Route::post('/notification/{ticker}', 'NotificationController@create');
+	Route::put('/notification/{notification}/{ticker}', 'NotificationController@update');
 	Route::delete('/notification/{notification}', 'NotificationController@delete');
 
 });

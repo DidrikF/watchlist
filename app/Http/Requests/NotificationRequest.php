@@ -93,7 +93,7 @@ class NotificationRequest extends FormRequest
             $yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s={$ticker}&f={$dataIdString}";
             $response = $client->request('GET', $yahooUrl)->getBody();
             $currentCompanyDataArray = str_getcsv($response, ',', '"'); //working
-
+            dd($dataIdString);
             foreach($validConditions as $condition){
 
                 switch($condition['comparisonOperator'])

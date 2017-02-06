@@ -15,7 +15,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="notification in activeNotifications">
-							<td><a @click="editNotification(notification)">{{ notification.name }}</a></td>
+							<td><a @click="prepareEditNotification(notification)" title="Edit">{{ notification.name }}</a></td>
 							<td>{{ notification.description }}</td>
 							<td>{{ notification.triggered ? 'Triggered' : 'Not triggered' }}</td>
 							<td><button class="button is-danger is-small" @click="deleteNotification(notification)">Delete</button></td>
@@ -24,13 +24,14 @@
 				</table>
 			</div>
 			<div>
-				<button class="button is-primary" @click="newNotification = true">Create New Notification</button>
+				<button class="button is-primary" @click="openNotificationMaker">Create New Notification</button>
 			</div>
 		</div>
-		<div class="box" v-if="newNotification">
+		<div class="box" v-if="showNotificationMaker">
 			<div>
-				<h3 class="title is-4 is-inline">Create New Notification</h3>
-				<button class="button is-danger pull-right" @click="newNotification = false">X</button>
+				<h3 v-if="!enableEditNotification" class="title is-4 is-inline">Create New Notification</h3>
+				<h3 v-if="enableEditNotification" class="title is-4 is-inline">Edit Notification</h3>
+				<button class="button is-danger pull-right" @click="closeNotificationMaker">X</button>
 			</div>
 			<div class="columns"> <!-- If no active notifications or ... -->
 				<div class="column is-third">
@@ -77,8 +78,12 @@
 						<button class="button is-success pull-right" @click="addCondition">Add</button>
 					</div>
 					<div style="bottom: 0px; margin-top:1em;">
-						<button class="button is-danger" style="float: right; margin-left: 2em;" @click="cancelNotification">Clear</button>
-						<button class="button is-primary" style="float: right;" @click="createNotification">Create</button>
+						<button class="button is-danger" style="float: right; margin-left: 2em;" @click="resetNotification">Reset</button>
+						
+						<button v-if="!enableEditNotification" class="button is-primary" style="float: right;" @click="createNotification">Create</button>
+
+						<button v-if="enableEditNotification" class="button is-primary" @click="editNotification" style="float: right; margin-left: 2em;">Update</button>
+
 						
 					</div>
 				</div>
@@ -93,6 +98,7 @@
 export default {
 	data () {
 		return {
+			notificationId: null,
 			name: null,
 			description: null,
 			conditions: [],
@@ -104,12 +110,13 @@ export default {
 			currentValue: null,
 			statusMessage: null,
 			activeNotifications: this.propActiveNotifications, //
-			newNotification: false,
+			showNotificationMaker: false,
 			validationErrors: [],
+			enableEditNotification: false,
 
 		}
 	},
-	props: ['ticker', 'propActiveNotifications', 'companyData'],
+	props: ['ticker', 'propActiveNotifications', 'companyData'], //Company data not working
 	computed: {
 		/*prettyConditions() {
 			let conditionsCopy = {copy: this.conditions}; //copy and return pointer to the new array
@@ -146,7 +153,8 @@ export default {
 			
 			this.conditions.splice(index, 1);
 		},
-		cancelNotification() {
+		resetNotification() {
+			this.notificationId = null;
 			this.name = null;
 			this.description = null;
 			this.conditions = [];
@@ -154,6 +162,16 @@ export default {
 			this.selectedComparisonOperator = null;
 			this.dataValue = null;
 			this.statusMessage = null;
+		},
+		closeNotificationMaker(){
+			this.enableEditNotification = false;
+			this.showNotificationMaker = false;
+			this.resetNotification();
+		},
+		openNotificationMaker(){
+			this.enableEditNotification = false; 
+			this.showNotificationMaker = true;
+			this.resetNotification();
 		},
 		createNotification() {
 			this.validationErrors = [];
@@ -165,7 +183,6 @@ export default {
 					this.activeNotifications.push(response.data.notification); //NEED TO CHECK THIS
 
 					this.statusMessage = 'Succesfully created notification';
-					this.cancelNotification();
 					return; 
 				}
 				if(response.status === 422){
@@ -179,8 +196,39 @@ export default {
 			});
 
 		},
-		editNotification(notification) {
-			console.log('Is not implemented yet');
+		prepareEditNotification(notification){
+			this.enableEditNotification = true;
+			this.showNotificationMaker = true;
+			this.notificationId = notification.id;
+			this.name = notification.name;
+			this.description = notification.description
+			this.conditions = notification.conditions;
+		},
+		editNotification() {
+			this.validationErrors = [];
+			this.statusMessage = null;
+			axios.put('/notification/' + this.notificationId + '/' + this.ticker, {name: this.name, description: this.description, conditions: this.conditions}, {validateStatus: function(status) {
+					return status < 500; //reject only if status is equal to or above 500
+			}}).then(response => {
+				if(response.status === 200){
+					let removeNotification = this.activeNotifications.find(element => {
+						return element.id = this.notificationId;
+					});
+					let removeIndex = this.activeNotifications.indexOf(removeNotification);
+					this.activeNotifications.splice(removeIndex, 1, response.data.notification)
+
+					this.statusMessage = 'Succesfully updated notification';
+					return; 
+				}
+				if(response.status === 422){
+					this.validationErrors = response.data;
+					if(this.validationErrors['general']) this.statusMessage = this.validationErrors['general'][0];
+					return;
+				}
+				this.statusMessage = 'Failed to update notification';
+			}).catch((error) => {
+				console.log('Failed to create notification. Error message: ' + error);
+			});
 		},
 		deleteNotification(notification) {
 			axios.delete('/notification/' + notification.id).then(response => {
