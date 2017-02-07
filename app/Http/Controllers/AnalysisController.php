@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use App\Http\Requests\Request;
+
+use App\Http\Requests\AnalysisRequest;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -12,19 +15,17 @@ use App\Models\User;
 
 class AnalysisController extends Controller
 {
-    //I'm pretty sure that the User model is not nessecary to insert.
-    public function read($ticker, Request $request)  //the correct instance of the analysis model is injected through route model binding!
+    public function read($ticker, Request $request)
     {
-        $user = Auth::user();
-        //use the logged in user in stead, not the ID gotten via the route.
+        $this->authorize('read', $analysis);
 
-        //this could perhaps be swaped out with Model injection (need to inject model belonging to user with given ticker)
+        $user = Auth::user();
+
         if(!Analysis::where('user_id', $user->id)->where('ticker', $ticker)->exists()){
             return response()->json(null, 404);
         }
         $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
         
-        $this->authorize('read', $analysis);
     	$response = [
     		'financialScore' => $analysis->financial,
     		'cfScore' => $analysis->cash_flow,
@@ -36,17 +37,15 @@ class AnalysisController extends Controller
     	return response()->json($response, 200);
     }
 
-    public function create($ticker, Request $request) //FORM REQUEST
+    public function create($ticker, AnalysisRequest $request) //FORM REQUEST
     {
+        $ticker = filter_var($ticker, FILTER_SANITIZE_STRING);
+
         $user = Auth::user();
         if(Analysis::where('user_id', $user->id)->where('ticker', $ticker)->exists()){
             return response()->json(null, 302); //Found
         }
-        //Need to know about passing data to auth policies
-        //$this->authorize('create', $analysis); //making sure there is no existign analysis
-        if(Auth::user()->id != $user->id){     //I'd like to put this into AnalysisPolicy
-            return response()->json(null, 401);
-        }
+
         $analysis = new Analysis;
         
         $analysis->user_id = $user->id;
@@ -60,14 +59,18 @@ class AnalysisController extends Controller
         return response()->json(null, 200);
     }
 
-    public function update($ticker, Request $request) //FORM REQUEST
+    public function update($ticker, AnalysisRequest $request) //FORM REQUEST
     {
+        $ticker = filter_var($ticker, FILTER_SANITIZE_STRING);
+        
+        $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
+        
+        $this->authorize('update', $analysis);
+
         $user = Auth::user();
         if(!Analysis::where('user_id', $user->id)->where('ticker', $ticker)->exists()){
             return response()->json(null, 404);
         }
-        $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
-        $this->authorize('update', $analysis);
 
         $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
         $analysis->financial = $request->financialScore;
@@ -81,11 +84,13 @@ class AnalysisController extends Controller
 
     public function delete($ticker)
     {
-        $user = Auth::user();
-        $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
-        //$this->authorize('vote', $video);
-        $analysis->delete();
-        return response()->json(null, 200);
+        $analysis = Analysis::where('user_id', Auth::user()->id)->where('ticker', $ticker)->first();
+        $this->authorize('delete', $analysis);
+
+        if($analysis->delete()) {
+            return response()->json(null, 200);
+        }
+        return response()->json(null, 404);
 
     }
 

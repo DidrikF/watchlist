@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use App\Http\Requests\Request;
 
 use App\Models\{Watchlist, Notification};
 
@@ -20,35 +21,40 @@ class CompanyController extends Controller
     public function index(Request $request, $ticker)
     {
     	$data = $this->getCompanyData($ticker);
-        $watchlists = (new Watchlist)->where('user_id', Auth::user()->id)->get();
-        $notifications = (new Notification)->where('user_id', Auth::user()->id)->where('ticker', $ticker)->get();
-        foreach($notifications as $notification){
-            $conditions = $notification->notificationCondition()->get();
-            foreach($conditions as $condition){
-                $conditionsArray[] = [
-                    'dataId' => $condition->data_id,
-                    'dataName' => $this->yahooKeyTranslation[$condition->data_id],
-                    'comparisonOperator' => $condition->comparison_operator,
-                    'dataValue' => $condition->data_value
+        //User must be authenticated to see watchlists and notifications
+       if(Auth::user()){
+            $watchlists = (new Watchlist)->where('user_id', Auth::user()->id)->get();
+            $notifications = (new Notification)->where('user_id', Auth::user()->id)->where('ticker', $ticker)->get();
+            
+            foreach($notifications as $notification){
+                $conditions = $notification->notificationCondition()->get();
+                foreach($conditions as $condition){
+                    $conditionsArray[] = [
+                        'dataId' => $condition->data_id,
+                        'dataName' => $this->yahooKeyTranslation[$condition->data_id],
+                        'comparisonOperator' => $condition->comparison_operator,
+                        'dataValue' => $condition->data_value
+                    ];
+                }
+                $activeNotifications[] = [
+                    'id' => $notification->id,
+                    'name' => $notification->name, 
+                    'description' => $notification->description,
+                    'triggered' => $notification->triggered,
+                    'conditions' => $conditionsArray
                 ];
             }
-            $activeNotifications[] = [
-                'id' => $notification->id,
-                'name' => $notification->name, 
-                'description' => $notification->description,
-                'triggered' => $notification->triggered,
-                'conditions' => $conditionsArray
-            ];
         }
+        
     	//dd(gettype($data['body']['Name']), gettype($data['body']['Stock exchange']), gettype($ticker));
     	return view('company.index', [
     		'data' => $data,
     		'ticker' => $ticker,
-            'watchlists' => $watchlists,
+            'watchlists' => $watchlists || [],
             'companyName' => $data['body']['Name'],
             'companyExchange' => $data['body']['Stock exchange'],
             'dataList' => $this->yahooKeyTranslation,
-            'activeNotifications' => json_encode($activeNotifications),
+            'activeNotifications' => json_encode($activeNotifications) || json_encode([]),
     	]);
     }
 

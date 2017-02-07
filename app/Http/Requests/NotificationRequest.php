@@ -28,7 +28,7 @@ class NotificationRequest extends FormRequest
     public function rules()
     {
 
-        
+        $this->sanitize();
         
         return [
             'name' => 'required|max:50',
@@ -115,5 +115,19 @@ class NotificationRequest extends FormRequest
         });
 
         return $validator;
+    }
+
+    public function sanitize()
+    {
+        $input = $this->all();
+
+        foreach($input as $key => $data){
+            $input[$key] = filter_var($data, FILTER_SANITIZE_STRING);
+        }
+
+        //$input['financialScore'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
+        //$input['cfScore'] = filter_var($input['description'], FILTER_SANITIZE_STRING);
+
+        $this->replace($input);     
     }
 }

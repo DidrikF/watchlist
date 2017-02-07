@@ -41,4 +41,5 @@ class WatchlistPolicy
     {
         return $user->id === $watchlist->user_id;
     }
+    
 }

@@ -63,7 +63,7 @@ class SendNotifications extends Command
 
             if($this->checkConditions($conditions, $notification->ticker)){
                 $user = (new User)->where('id', $notification->user_id)->get();
-                Mail::to($user)->send(new \App\Mail\Notification);
+                Mail::to($user)->send(new \App\Mail\Notification($notification, $conditions));
 
                 //delete Notification
             }

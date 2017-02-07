@@ -6,9 +6,14 @@ use App\Traits\SanitizedRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WatchlistRequest extends FormRequest
+class Request extends FormRequest
 {
-    use SanitizedRequest;
+
+
+    use SanitizedRequest; //Over writing $this->all()
+
+
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,18 +29,10 @@ class WatchlistRequest extends FormRequest
      *
      * @return array
      */
-
-    //axios.put('/watchlist/' + this.watchlist.id, {name: this.title, description: this.description})
-
     public function rules()
     {
-
-        
-
         return [
-            'name' => 'required|max:50',
-            'description' => 'required|max:1000',
+            //
         ];
     }
-    
 }

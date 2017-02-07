@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\{Notification, NotificationCondition};
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use App\Http\Requests\Request;
 use App\Http\Requests\NotificationRequest;
 
 use GuzzleHttp\Client;
@@ -15,18 +16,23 @@ class NotificationController extends Controller
 {
     public $yahooKeyTranslation = ["p" => "Previous close", "y" => "Dividend yield", "d" => "Dividend per share", "d1" => "Last trade date", "t8" => "1 year target price", "m4" => "200 day moving avg", "g3" => "Annualizd gain", "s6" => "Revenue", "w" => "52 week range", "j1" => "Market capitalization", "n" => "Name", "x" => "Stock exchange", "j2" => "Shares outstanding", "v" => "Volume", "e" => "EPS", "b4" => "Book value", "j4" => "EBITDA", "p5" => "Price/Sales", "p6" => "Price/Book", "r" => "P/E ratio", "r5" => "PEG ratio", "s7" => "Short ratio"];
 
+    /*
     public function read($ticker)
     {
-
+        $this->authorize('read', $notification); //by authorizing notification, we can assume $conditions are also authorized, as they are fetched via the notification model.
     }
 
     public function readAll(User $user)
     {
-
+        $this->authorize('readAll', $notification);
     }
+    */
 
+    //Being authenticated is only requirement
     public function create($ticker, NotificationRequest $request)
     {
+        $ticker = filter_var($ticker, FILTER_SANITIZE_STRING);
+
         $notification = new Notification;
         
         $notification->user_id = Auth::user()->id;
@@ -71,10 +77,15 @@ class NotificationController extends Controller
 
     public function update(Notification $notification, $ticker, NotificationRequest $request)
     {
+        $this->authorize('update', $notification);
+
+        $ticker = filter_var($ticker, FILTER_SANITIZE_STRING);
+        
         $notification->name = $request->name;
         $notification->description = $request->description;
         $notification->save();
 
+        //Delete and then recreate notification conditions
         $notification->notificationCondition()->delete();
 
         foreach($request->conditions as $condition) {
@@ -107,9 +118,10 @@ class NotificationController extends Controller
             ], 200);
     }
 
-    public function delete(Notification $notification, Request $request)
+    public function delete(Notification $notification)
     {
         $this->authorize('delete', $notification);
+        
         if($notification->delete()) {
             return response()->json(null, 200);
         }

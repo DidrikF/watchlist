@@ -17,8 +17,6 @@ Route::get('/', function () {
 
 Auth::routes(); //needs to be here! Registers the authentication related routes.
 
-Route::get('/home', 'HomeController@index');
-
 Route::get('/search', 'SearchController@index');
 
 Route::get('/jsonsearch/{searchWord}', 'SearchController@jsonSearch');
@@ -28,6 +26,8 @@ Route::get('/company/{ticker}', 'CompanyController@index');
 //auth middleware
 
 Route::group(['middleware' => ['auth']], function() {
+	//Homepage only avaliable to authenticated users
+	Route::get('/home', 'HomeController@index');
 
 	//ANALYSIS (remove user id from the route)
 	Route::get('/analysis/{ticker}', 'AnalysisController@read'); //analysis = ticker

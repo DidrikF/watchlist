@@ -18,4 +18,7 @@ class CompanyPolicy
     {
         //
     }
+
+
+    //Not needed atm
 }

@@ -6,14 +6,15 @@ use App\Models\{Watchlist, WatchlistItem, User, Company, Industry, Analysis};
 
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use App\Http\Requests\Request;
 
-use App\Http\Requests\WatchlistRequest;
+use App\Http\Requests\{WatchlistRequest, WatchlistItemRequest};
 
 
 class WatchlistController extends Controller
 {
-    public function create(Request $request) //FORM REQUEST, auth = true as it was done in middleware
+    public function create(WatchlistRequest $request) //Validation, authentication is all that is required
     {
     	//Authenticated as all that is needed
     	$watchlist = new Watchlist;
@@ -26,14 +27,14 @@ class WatchlistController extends Controller
 
     }
 
-    public function readAll() //Not User ATM
+    public function readAll() //Not Used ATM
     {
     	$watchlists = Auth::user()->watchlist()->get();
 
     	return response()->json($watchlists, 200); 
     }
 
-    public function update(Watchlist $watchlist, Request $request) //FORM REQUEST
+    public function update(WatchlistRequest $watchlist, Request $request) //Validation
     {
     	$this->authorize('update', $watchlist);
     	$watchlist->update([
@@ -79,7 +80,7 @@ class WatchlistController extends Controller
     }
 
     //resolving Watchlist and passing normal paramenter, hope it understands
-    public function createItem(Watchlist $watchlist, Request $request) //FORM REQUEST
+    public function createItem(Watchlist $watchlist, WatchlistItemRequest $request) //FORM REQUEST
     {
         $this->authorize('createItem', $watchlist); //DO VIA FORM REQUEST
         
@@ -93,7 +94,7 @@ class WatchlistController extends Controller
             $company->save();
         }
 
-        //ADD watchlist item, if not allready in DB
+        //ADD watchlist item, if not allready in DB (this is a job for validation)
         $wathclistItem = new WatchlistItem;
         if(!$wathclistItem->where('watchlist_id', $watchlist->id)->where('ticker', $request->ticker)->exists()){
             $wathclistItem->watchlist_id = $watchlist->id;
@@ -121,11 +122,12 @@ class WatchlistController extends Controller
         ], $responseCode); //created
     }
 
-    public function deleteItem(Request $request, Watchlist $watchlist, $ticker)
+    public function deleteItem(Watchlist $watchlist, $ticker)
     {
         //$watchlistItem = //get item based on watchlist id and ticker
 
         $this->authorize('deleteItem', $watchlist);
+
         (new WatchlistItem)->where('watchlist_id', $watchlist->id)->where('ticker', $ticker)->delete();
         return response()->json([
                 'ticker' => $ticker,
