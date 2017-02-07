@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\{Notification, NotificationCondition};
 
+
 //use Illuminate\Http\Request;
 use App\Http\Requests\Request;
 use App\Http\Requests\NotificationRequest;
@@ -86,7 +87,7 @@ class NotificationController extends Controller
         $notification->save();
 
         //Delete and then recreate notification conditions
-        $notification->notificationCondition()->delete();
+        NotificationCondition::where('notification_id', $notification->id)->delete();
 
         foreach($request->conditions as $condition) {
             $nc = new NotificationCondition;

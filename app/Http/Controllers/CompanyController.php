@@ -45,16 +45,17 @@ class CompanyController extends Controller
                 ];
             }
         }
-        
+        $watchlists = (isset($watchlists)) ? $watchlists : json_encode([]);
+        $activeNotifications = (isset($activeNotifications)) ? json_encode($activeNotifications) : json_encode([]);
     	//dd(gettype($data['body']['Name']), gettype($data['body']['Stock exchange']), gettype($ticker));
     	return view('company.index', [
     		'data' => $data,
     		'ticker' => $ticker,
-            'watchlists' => $watchlists || [],
+            'watchlists' => $watchlists,
             'companyName' => $data['body']['Name'],
             'companyExchange' => $data['body']['Stock exchange'],
             'dataList' => $this->yahooKeyTranslation,
-            'activeNotifications' => json_encode($activeNotifications) || json_encode([]),
+            'activeNotifications' => $activeNotifications,
     	]);
     }
 

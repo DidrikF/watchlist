@@ -199,10 +199,11 @@ export default {
 		prepareEditNotification(notification){
 			this.enableEditNotification = true;
 			this.showNotificationMaker = true;
-			this.notificationId = notification.id;
-			this.name = notification.name;
-			this.description = notification.description
-			this.conditions = notification.conditions;
+			this.notificationId = JSON.parse(JSON.stringify(notification.id));
+			//I need to copy the data over, not create a reference!
+			this.name = JSON.parse(JSON.stringify(notification.name));
+			this.description = JSON.parse(JSON.stringify(notification.description));
+			this.conditions = JSON.parse(JSON.stringify(notification.conditions));;
 		},
 		editNotification() {
 			this.validationErrors = [];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Trait;
+namespace App\Traits;
 
 //Overriding the all() method, which we know is called
 trait SanitizedRequest{

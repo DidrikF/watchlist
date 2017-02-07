@@ -17,8 +17,6 @@ class AnalysisController extends Controller
 {
     public function read($ticker, Request $request)
     {
-        $this->authorize('read', $analysis);
-
         $user = Auth::user();
 
         if(!Analysis::where('user_id', $user->id)->where('ticker', $ticker)->exists()){
@@ -26,7 +24,9 @@ class AnalysisController extends Controller
         }
         $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
         
-    	$response = [
+        $this->authorize('read', $analysis);
+    	
+        $response = [
     		'financialScore' => $analysis->financial,
     		'cfScore' => $analysis->cash_flow,
     		'growthScore' => $analysis->growth_potential,
