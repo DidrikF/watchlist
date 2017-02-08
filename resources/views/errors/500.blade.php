@@ -50,7 +50,7 @@
 			            eventId: '{{ $sentryID }}',
 
 			            // use the public DSN (dont include your secret!)
-			            dsn: 'https://27858fa082be48d4bd8bc9468cd187f7@sentry.io/137125'
+			            dsn: "https://27858fa082be48d4bd8bc9468cd187f7\@sentry.io/137125"
 			        });
 			        </script>
 			    @endunless

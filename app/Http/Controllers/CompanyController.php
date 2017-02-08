@@ -20,6 +20,7 @@ class CompanyController extends Controller
 
     public function index(Request $request, $ticker)
     {
+        throw new \Exception('Test message to sentry');
     	$data = $this->getCompanyData($ticker);
         //User must be authenticated to see watchlists and notifications
        if(Auth::user()){
