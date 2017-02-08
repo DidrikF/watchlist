@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Exceptions\TooManyArgumentsException;
+
+
 class AnalysisRequest extends FormRequest
 {
     /**
@@ -46,6 +49,9 @@ class AnalysisRequest extends FormRequest
     public function sanitize()
     {
         $input = $this->all();
+        if(count($input) > 10){
+            throw new TooManyArgumentsException; 
+        }
 
         foreach($input as $key => $data){
             $input[$key] = filter_var($data, FILTER_SANITIZE_STRING);

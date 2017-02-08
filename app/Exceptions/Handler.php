@@ -8,6 +8,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+    private $sentryID;
     /**
      * A list of the exception types that should not be reported.
      *
@@ -32,6 +33,9 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if ($this->shouldReport($exception)) {
+            $this->sentryID = app('sentry')->captureException($e);
+        }
         parent::report($exception);
     }
 
@@ -44,6 +48,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //May want to use sentry when displaying all error messages...
+        if($exception instanceof TooManyArgumentsException){
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Invalid request'], 400);
+            }
+            return response()->view('errors.400', [], 400);
+        }
+
+        return response()->view('errors.500', [
+            'sentryID' => $this->sentryID,
+        ], 500);
+
+
         return parent::render($request, $exception);
     }
 
