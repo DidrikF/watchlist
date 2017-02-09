@@ -54,6 +54,7 @@ class AnalysisRequest extends FormRequest
         }
 
         foreach($input as $key => $data){
+            if($key="textAanalysis") continue;
             $input[$key] = filter_var($data, FILTER_SANITIZE_STRING);
         }
 

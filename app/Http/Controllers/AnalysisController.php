@@ -63,14 +63,12 @@ class AnalysisController extends Controller
     {
         $ticker = filter_var($ticker, FILTER_SANITIZE_STRING);
         
+        $user = Auth::user();
+
         $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
         
         $this->authorize('update', $analysis);
 
-        $user = Auth::user();
-        if(!Analysis::where('user_id', $user->id)->where('ticker', $ticker)->exists()){
-            return response()->json(null, 404);
-        }
 
         $analysis = Analysis::where('user_id', $user->id)->where('ticker', $ticker)->first();
         $analysis->financial = $request->financialScore;

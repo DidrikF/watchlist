@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Exceptions\TooManyArgumentsException;
+
 //Overriding the all() method, which we know is called
 trait SanitizedRequest{
 
@@ -17,6 +19,10 @@ trait SanitizedRequest{
         
         if($this->clean){ //on subsequent calls to all(), consider the data sanitized
             return $inputs; 
+        }
+
+        if(count($inputs) > 20){
+            throw new TooManyArgumentsException; 
         }
 
         foreach($inputs as $key => $input){

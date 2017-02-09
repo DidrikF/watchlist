@@ -20,7 +20,6 @@ class CompanyController extends Controller
 
     public function index(Request $request, $ticker)
     {
-        throw new \Exception('Test message to sentry');
     	$data = $this->getCompanyData($ticker);
         //User must be authenticated to see watchlists and notifications
        if(Auth::user()){
@@ -88,12 +87,14 @@ class CompanyController extends Controller
 	}
 
 	//not used atm
-	private function _changeKey($array, $newKeys){ 
-	    foreach($array as $key => $value){
-	    	$keyArray[] = $newKeys[$key];
-	    	$valueArray[] = $value;
-	    }
-	    return array_combine($keyArray, $valueArray);
-	  }
+	private function _changeKey($array, $newKeys)
+    { 
+        foreach($array as $key => $value){
+        	$keyArray[] = $newKeys[$key];
+        	$valueArray[] = $value;
+        }
+        return array_combine($keyArray, $valueArray);
+    }
+
 }
 
