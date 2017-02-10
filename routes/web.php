@@ -13,21 +13,31 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+}); //->middleware('auth.basic'); //FOr HTTP basic authentication
 
 Auth::routes(); //needs to be here! Registers the authentication related routes.
 
-Route::get('/search', 'SearchController@index');
 
-Route::get('/jsonsearch/{searchWord}', 'SearchController@jsonSearch');
+//Can only be accessed once, after a successful registration...
+Route::get('/registration-message', function(){
+	if($registration->signupSuccessful()){
+		return view('auth.registration-message');
+	}
+	return redirect('/');
+})->middleware(''); //use middleware to check the registration status ? just a thought
 
-Route::get('/company/{ticker}', 'CompanyController@index');
 
 //auth middleware
-
 Route::group(['middleware' => ['auth']], function() {
 	//Homepage only avaliable to authenticated users
 	Route::get('/home', 'HomeController@index');
+
+	Route::get('/search', 'SearchController@index');
+
+	Route::get('/jsonsearch/{searchWord}', 'SearchController@jsonSearch');
+
+	Route::get('/company/{ticker}', 'CompanyController@index');
+	
 
 	//ANALYSIS (remove user id from the route)
 	Route::get('/analysis/{ticker}', 'AnalysisController@read'); //analysis = ticker
@@ -60,5 +70,17 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('/notification/{ticker}', 'NotificationController@create');
 	Route::put('/notification/{notification}/{ticker}', 'NotificationController@update');
 	Route::delete('/notification/{notification}', 'NotificationController@delete');
+
+});
+
+
+Route::group(['middleware' => ['isAdmin']], function() {
+	Route::get('/admin/panel', 'AdminController@showPanel');
+
+	Route::put('/admin/accept/{user}', 'AdminController@acceptUser');
+	Route::put('/admin/ban/{user}', 'AdminController@banUser');
+
+	Route::put('/admin/makeadmin/{user}', 'AdminController@makeAdmin');
+	Route::put('/admin/removeadmin/{user}', 'AdminController@removeAdmin');
 
 });
