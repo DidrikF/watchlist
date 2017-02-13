@@ -60,7 +60,7 @@ class AdminController extends Controller
         $admin = Auth::user();
 
         $this->authorize('denyUser', $admin);
-        if($user->email === 'didrik@watchlist.com') return response()->json(null, 403);
+        if($user->email === 'didrik@watchlist.com') return abort(403, 'Unauthorized action');
 
         if($user->delete()){
 
@@ -77,7 +77,7 @@ class AdminController extends Controller
     	$admin = Auth::user();
 
     	$this->authorize('banUser', $admin);
-        if($user->email === 'didrik@watchlist.com') return response()->json(null, 403);
+        if($user->email === 'didrik@watchlist.com') return abort(403, 'Unauthorized action');
 
     	$user->accepted = false;
         $user->admin = false;
@@ -118,7 +118,7 @@ class AdminController extends Controller
     	$admin = Auth::user();
 
     	$this->authorize('removeAdmin', $admin);
-        if($user->email === 'didrik@watchlist.com') return response()->json(null, 403);
+        if($user->email === 'didrik@watchlist.com') return abort(403, 'Unauthorized action');
 
     	$user->admin = false;
 
