@@ -54,7 +54,8 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-        //$this->guard()->login($user);
+        //DO NOT LOG PEOPLE IN AFTER REGISTRATION
+        //$this->guard()->login($user); 
 
         return $this->registered($request, $user)
             ?: view('auth.registration-message');//redirect($this->redirectPath());
@@ -80,11 +81,8 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         //THIS IS WHERE I MAIL PEOPLE
-        //dd($user);
         $this->emailAdmin($user);
         $this->emailRegisteredUser($user);
-
-        //return view('auth.registration-message');
     }
     
     protected function emailAdmin(User $user)
@@ -96,8 +94,6 @@ class RegisterController extends Controller
 
     protected function emailRegisteredUser(User $user)
     {
-        //need to get a hold of the user that just registered...
-
         Mail::to($user)->send(new RegistrationAwaitingAcceptance($user));
     }
     /*-----------------------------------------------------------------------------
@@ -107,21 +103,6 @@ class RegisterController extends Controller
      *
      * @var string
      */
-
-    //Can be over written with protected function redirectTo(){ logic..; return $path;}
-
-                /*
-                protected redirectTo()
-                {  
-                    //need the user instance
-
-                    //if user registered less than one hour ago, he can still hit the link
-
-                    //Still need to protect this link somehow, it should only be accessible from here
-
-
-                }
-                */
     protected $redirectTo = '/'; //not registrered-message
 
     /**

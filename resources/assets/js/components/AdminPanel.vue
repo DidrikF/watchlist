@@ -62,11 +62,17 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  	<tr v-for="user in admins">
+				  	<tr v-for="user in admins" v-if="user.email != primeBoss">
 				  		<td>{{ user.name }}</td>
 						<td>{{ user.email }}</td>
 						<td><button class="button is-warning is-small" type="button" @click="banUser(user)">Ban</button></td>
 						<td><button class="button is-danger is-small" type="button" @click="removeAdmin(user)">Remove Admin Rights</button></td>
+					</tr>
+					<tr v-else>
+				  		<td>{{ user.name }}</td>
+						<td>{{ user.email }}</td>
+						<td></td>
+						<td>PRIME BOSS</td>
 					</tr>
 				  </tbody>
 				</table>
@@ -83,6 +89,7 @@
 		data () {
 			return {
 				users: this.usersProp,
+				primeBoss: 'didrik.fleischer@gmail.com',
 			}
 		},
 		props: [

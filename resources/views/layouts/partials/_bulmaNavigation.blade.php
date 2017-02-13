@@ -1,6 +1,6 @@
 <nav class="nav has-shadow">
   <div class="nav-left">
-    <a class="nav-item title is-4" href="{{ url('/home') }}">
+    <a class="nav-item title is-4" href="{{ url('/') }}">
       {{ config('app.name') }}
     </a>
   </div>
@@ -24,17 +24,17 @@
   <!-- Add the modifier "is-active" to display it on mobile -->
   <div class="nav-right">
 
-    @if(Auth::check())
-      @if(Auth::user()->isAdmin())
-        <a class="nav-item is-tab" href="{{ url('/admin/panel') }}">Admin Panel</a>
-      @endif
-    @endif
-
     @if (Auth::guest())
       <a class="nav-item is-tab" href="{{ url('/login') }}">Login</a>
       <a class="nav-item is-tab" href="{{ url('/register') }}">Register</a>
     @else
-     <a class="nav-item is-tab is-3" href="{{ url('/logout') }}" 
+      <a class="nav-item is-tab" href="{{ url('/home') }}">Home</a>
+      @if(Auth::check())
+        @if(Auth::user()->isAdmin())
+          <a class="nav-item is-tab" href="{{ url('/admin/panel') }}">Admin Panel</a>
+        @endif
+      @endif
+      <a class="nav-item is-tab is-3" href="{{ url('/logout') }}" 
         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         Logout
       </a>

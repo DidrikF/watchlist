@@ -19,7 +19,7 @@
                 @endif
             </h1>
             
-            <p>Kind regards from <a href="http://watchlist.app">Company Watchlist</a></p>
+            <p>Kind regards from <a href="{{ env('APP_URL') }}">Company Watchlist</a></p>
 
         </div>
     	

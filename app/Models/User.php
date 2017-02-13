@@ -54,6 +54,6 @@ class User extends Authenticatable
 
     public function isPrimeBoss()
     {
-        return (bool) ($this->email === 'didrik@watchlist.com' && $this->id === 1);
+        return (bool) ($this->email === env('PRIME_BOSS') && $this->id === 1);
     }
 }

@@ -35,7 +35,7 @@ class WatchlistController extends Controller
     	return response()->json($watchlists, 200); 
     }
 
-    public function update(WatchlistRequest $watchlist, Request $request) //Validation
+    public function update(Watchlist $watchlist, WatchlistRequest $request) //Validation
     {
     	$this->authorize('update', $watchlist);
     	$watchlist->update([

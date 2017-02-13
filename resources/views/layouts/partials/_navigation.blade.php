@@ -2,7 +2,7 @@
 <nav class="top-nav">
     <!-- Logo -->
     <div class="nav-logo">
-        <a class="" href="{{ url('/home') }}">
+        <a class="" href="{{ url('/') }}">
             {{ config('app.name') }}
         </a>
     </div>
@@ -27,7 +27,7 @@
             <a href="{{ url('/register') }}">Register</a>
         @else
             <a href="#" class="">Welcome {{ Auth::user()->name }}!</a>
-
+            <a class="" href="{{ url('/home') }}">Home</a>
             <a href="{{ url('/logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">

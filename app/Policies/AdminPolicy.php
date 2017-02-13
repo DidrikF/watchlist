@@ -33,12 +33,12 @@ class AdminPolicy
 
     public function makeAdmin(User $admin)
     {
-        return $admin->email === 'didrik@watchlist.com';
+        return $admin->email === env('PRIME_BOSS');
     }
 
     public function removeAdmin(User $admin)
     {
-        return $admin->email === 'didrik@watchlist.com';
+        return $admin->email === env('PRIME_BOSS');
     }
 
 }

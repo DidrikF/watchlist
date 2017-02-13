@@ -17,7 +17,7 @@
 
             <p>Please visit the <a href="http://watchlist.app/admin/panel">admin panel</a> to review the registration request</p>
 
-            <p>Kind regards from <a href="http://watchlist.app">Company Watchlist</a></p>
+            <p>Kind regards from <a href="{{ env('APP_URL') }}">Company Watchlist</a></p>
         </div>
     	
     </body>

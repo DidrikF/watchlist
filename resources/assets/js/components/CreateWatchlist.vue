@@ -35,19 +35,26 @@ export default{
 		return {
 			title: null, 
 			description: null,
+			errors: this.errorsProp || [],
 		}
 	}, 
-	props: ['errors'],
+	props: ['errorsProp'],
 	methods: {
 		createWatchlist(){
 			console.log('Emitting create watchlist event!');
+			if((this.title === '' || this.title === null) || (this.description === '' || this.description === null)){
+				this.errors = {name: ['Title and description are required fields']};
+				return;
+			}
 			this.$emit('createWatchlist', this.title, this.description);
 			this.title = null;
-			this.description = null; //no consideration to failure
+			this.description = null;
+			this.errors = [];
 		},
 		cancel(){
 			this.title = null;
 			this.description = null;
+			this.errors = [];
 		}
 	}
 

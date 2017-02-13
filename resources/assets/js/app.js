@@ -25,7 +25,7 @@ Vue.component('watchlist-container', {
     template: `
         <div>
             <watchlist v-for="(watchlist, index) in watchlistsData" :watchlist="watchlist" :index="index" :triggeredNotifications="triggeredNotifications" v-on:deleteWatchlist="deleteWatchlist"></watchlist>
-            <create-watchlist :errors="errors" v-on:createWatchlist="createWatchlist"></create-watchlist> 
+            <create-watchlist :errorsProp="errors" v-on:createWatchlist="createWatchlist"></create-watchlist> 
         </div>
     `,
     data() {
@@ -53,7 +53,9 @@ Vue.component('watchlist-container', {
         },
         createWatchlist(title, description){
             console.log('create watchlist fired, ', title, description);
-            axios.post('/watchlist', {name: title, description: description}).then(response => {
+            axios.post('/watchlist', {name: title, description: description}, {validateStatus: function(status) {
+                return status < 500; //reject only if status is equal to or above 500
+            }}).then(response => {
                 if(response.status === 201){
                     this.watchlistsData = response.data;
                     return;
