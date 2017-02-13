@@ -30,10 +30,10 @@ class WatchlistItemRequest extends FormRequest
     public function rules()
     {
 
-        $this->sanitize();
+        //$this->sanitize();
 
         return [
-            'name' => 'required|max:50',
+            'name' => 'required|max:100',
             'exchange' => 'required',
             'ticker' => 'bail|required',
         ];
@@ -48,7 +48,7 @@ class WatchlistItemRequest extends FormRequest
         screw industry
     */
 
-         public function validator($factory)
+    public function validator($factory)
     {
         $validator = $factory->make(
             $this->all(), $this->container->call([$this, 'rules']), $this->messages(), $this->attributes()
@@ -56,18 +56,18 @@ class WatchlistItemRequest extends FormRequest
 
         $validator->after(function($validator) {
             $ticker = Request::input('ticker');
-            $exchange = Request::input('exchange')
+            $exchange = Request::input('exchange');
             $url = "http://finance.yahoo.com/d/quotes.csv?s={$ticker}&f=px";
 
             $client = new Client;
             //send request
             $response = $client->request('GET', $url)->getBody();
-            $values = str_getcsv($response, ',', '"')
+            $values = str_getcsv($response, ',', '"');
 
             if(!is_numeric($values[0])){
                 $validator->errors()->add('ticker', 'Ticker does not exist');
             }
-            if($values[1] != $exchange){
+            if(!$values[1] || $values[1] == 'N/A'){
                 $validator->errors()->add('exchange', 'Exchange does not exist or is invalid');
             }
         });

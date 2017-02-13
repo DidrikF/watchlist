@@ -19,12 +19,13 @@ class WatchlistController extends Controller
     	//Authenticated as all that is needed
     	$watchlist = new Watchlist;
     	$watchlist->user_id = Auth::user()->id;
-    	$watchlist->name = $request->title;
+    	$watchlist->name = $request->name;
     	$watchlist->description = $request->description;
-    	$watchlist->save();
-        $watchlists = Auth::user()->watchlist()->get();
-    	return response()->json($watchlists, 200);
-
+    	if($watchlist->save()){
+            $watchlists = Auth::user()->watchlist()->get();
+            return response()->json($watchlists, 201);
+        }
+        return response()->json(null, 400);
     }
 
     public function readAll() //Not Used ATM

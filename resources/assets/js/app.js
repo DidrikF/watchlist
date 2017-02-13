@@ -25,13 +25,14 @@ Vue.component('watchlist-container', {
     template: `
         <div>
             <watchlist v-for="(watchlist, index) in watchlistsData" :watchlist="watchlist" :index="index" :triggeredNotifications="triggeredNotifications" v-on:deleteWatchlist="deleteWatchlist"></watchlist>
-            <create-watchlist v-on:createWatchlist="createWatchlist"></create-watchlist> 
+            <create-watchlist :errors="errors" v-on:createWatchlist="createWatchlist"></create-watchlist> 
         </div>
     `,
     data() {
         return {
             hideWatchlist: null, //holds watchlist id to hide
             watchlistsData: this.watchlists, //Source of truth for watchlists
+            errors: [],
         }
     },
     props: ['watchlists', 'triggeredNotifications'], //recieved from Laravel/Blade
@@ -42,7 +43,7 @@ Vue.component('watchlist-container', {
             let backup = this.watchlistsData[index];
             this.watchlistsData.splice(index, 1);
             axios.delete('/watchlist/' + watchlistId).then(response => {
-                if(response.status != 200){
+                if(response.status !== 200){
                     this.watchlistsData.splice(index, 0, backup);
                 }
             }).catch(error => {
@@ -52,8 +53,13 @@ Vue.component('watchlist-container', {
         },
         createWatchlist(title, description){
             console.log('create watchlist fired, ', title, description);
-            axios.post('/watchlist', {title: title, description: description}).then(response => {
-                this.watchlistsData = response.data;
+            axios.post('/watchlist', {name: title, description: description}).then(response => {
+                if(response.status === 201){
+                    this.watchlistsData = response.data;
+                    return;
+                }
+                this.errors = response.data;
+                
             }).catch(error => {
                 console.log('Failed to create watchlist. Error: ' + error);
             });

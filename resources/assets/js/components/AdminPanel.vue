@@ -41,7 +41,7 @@
 						<td>{{ user.email }}</td>
 						<td><button class="button is-warning is-small" type="button" @click="banUser(user)">Ban</button></td>
 						<!-- Only if admin is prime boss -->
-						<td><button class="button is-danger is-small" type="button" @click="makeAdmin(user)">Make Admin</button></td>
+						<td><button class="button is-primary is-small" type="button" @click="makeAdmin(user)">Give Admin Rights</button></td>
 					</tr>
 				  </tbody>
 				</table>
@@ -66,7 +66,7 @@
 				  		<td>{{ user.name }}</td>
 						<td>{{ user.email }}</td>
 						<td><button class="button is-warning is-small" type="button" @click="banUser(user)">Ban</button></td>
-						<td><button class="button is-danger is-small" type="button" @click="removeAdmin(user)">Remove Admin</button></td>
+						<td><button class="button is-danger is-small" type="button" @click="removeAdmin(user)">Remove Admin Rights</button></td>
 					</tr>
 				  </tbody>
 				</table>

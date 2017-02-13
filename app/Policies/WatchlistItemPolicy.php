@@ -2,7 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
+use App\Models\{User, Watchlsit};
+
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class WatchlistItemPolicy
@@ -18,4 +19,6 @@ class WatchlistItemPolicy
     {
         //
     }
+
+    //In WatchlistPolicy
 }
