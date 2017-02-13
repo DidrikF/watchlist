@@ -32,6 +32,9 @@
 					<input class="input" v-on:keyup="dynamicSaveAnalysis" name="riskScore" id="riskScore" placeholder="1-10" v-model="riskScore" type="number" min="0" max="10">
 				</div>
 			</div>
+			<ul v-if="errors"> 
+				<li class="help is-danger" v-for="error in errors">{{ error[0] }}</li>
+			</ul>
 			<div>
 				<label class="label" for="analysis">Other thoughts</label>
 				<textarea class="textarea" v-on:keyup="dynamicSaveAnalysis" name="analysis" id="analysis" placeholder="Write your thoughts..." v-model="textAnalysis"></textarea>
@@ -62,6 +65,7 @@
 				prevTextAnalysis: "",
 				statusMessage: "",
 				timeout: null,
+				errors: [],
 
 				user: window.watchlist.user,
 				exists: false
@@ -118,6 +122,7 @@
 						if(this.exists){ //PUT
 							axios.put('/analysis/' + this.ticker, data).then(response => {
 								this.exists = true;
+								this.errors = [];
 								this.flashMessage("Updated");
 							}).catch(error => {
 								this.flashMessage("Update failed");
@@ -127,7 +132,9 @@
 						}
 						axios.post('/analysis/' + this.ticker, data).then(response => {
 							this.exists = true;
+							this.errors = [];
 							this.flashMessage("Saved");
+								
 						}).catch(error => {
 							this.flashMessage("Save failed");
 							console.log('Could not post analysis'); 
@@ -136,6 +143,7 @@
 				}
 			},
 			saveAnalysis() {
+				this.errors = [];
 				if(this.user.authenticated){
 					let data = {
 						financialScore: this.financialScore,
@@ -146,18 +154,31 @@
 					};
 					console.log(this.exists);
 					if(this.exists){ //PUT
-						axios.put('/analysis/' + this.ticker, data).then(response => {
+						axios.put('/analysis/' + this.ticker, data, {validateStatus: function(status) {
+							return status < 500; //reject only if status is equal to or above 500
+						}}).then(response => {
 							this.exists = true;
-							this.flashMessage("Updated");
+							if(response.status === 200 || response.status === 201){
+								this.flashMessage("Updated");
+								return;
+							}
+							console.log(response.data);
+							this.errors = response.data;
 						}).catch(error => {
 							this.flashMessage("Update failed");
 							console.log('Could not update/put analysis'); 
 						});
 						return;
 					}
-					axios.post('/analysis/' + this.ticker, data).then(response => {
+					axios.post('/analysis/' + this.ticker, data, {validateStatus: function(status) {
+						return status < 500; //reject only if status is equal to or above 500
+					}}).then(response => {
 						this.exists = true;
-						this.flashMessage("Saved");
+						if(response.status === 200 || response.status === 201){
+							this.flashMessage("Saved");
+							return;
+						}
+						this.errors = response.data;
 					}).catch(error => {
 						this.flashMessage("Save failed");
 						console.log('Could not post analysis'); 
@@ -172,6 +193,11 @@
 					this.growthScore = null;
 					this.riskScore = null;
 					this.textAnalysis = null;
+					this.errors = [];
+					if(this.exists === false){
+						this.flashMessage("Nothing to delete");
+						return;
+					}
 					axios.delete('/analysis/' + this.ticker).then((response) => {
 						this.flashMessage("Delete successful");
 						this.exists = false;
