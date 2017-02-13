@@ -4,10 +4,19 @@
     
 
 	<!-- before getting here, redirect the request, if user did not just sign up -->
-	<div class="container" style="margin-top: 20px;">
+	<div class="container has-text-centered" style="margin-top: 20px;">
 		
-		<h2 class="title is-2">Thanks for signing up, a site admin will shortly review your request.</h2>
-		<h3 class="title is-3">You will be notified via email when your accound has been reviewed.</h3>
+		<h2 class="title is-2">
+			Thanks for signing up!
+		</h2>
+		<br>
+		<h3 class="title is-3">
+			Before getting access to Company Watchlist, a site administrator will have to review your registration request.
+		</h3>
+		<br>
+		<h3 class="title is-3">You will be notified via email when we are done</h3>
+		<br>
+		<h3 class="title is-3">Thank you for your patience</h3>
 		
 	</div>
 

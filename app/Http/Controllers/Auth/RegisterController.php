@@ -7,9 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-use Illuminate\Support\Facades\Mail; 
-
-use App\Http\Mail\{UserRegistered, RegistrationAwaitingAcceptance};
 
 class RegisterController extends Controller
 {
@@ -64,12 +61,15 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    //this is only to validate user submitted data!
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            //'accepted' => 'required|boolean',
+            //'admin' => 'required|boolean'
         ]);
     }
 
@@ -96,20 +96,5 @@ class RegisterController extends Controller
             'accepted' => false,
             'admin' => false,
         ]);
-    }
-
-    //where to hook these in?
-    protected function emailAdmin()
-    {
-        $admins = (new User)->where('admin', true)->get();
-
-        Mail::to($admins)->send(new UserRegistered($user));
-    }
-
-    protected function emailRegisteredUser()
-    {
-        //need to get a hold of the user that just registered...
-
-        Mail::to($user)->send(new RegistrationAwaitingAcceptance($user));
     }
 }

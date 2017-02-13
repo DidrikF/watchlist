@@ -7,6 +7,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use App\Models\User;
+
 class UserRegistered extends Mailable
 {
     use Queueable, SerializesModels;
@@ -18,7 +20,7 @@ class UserRegistered extends Mailable
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
@@ -30,8 +32,7 @@ class UserRegistered extends Mailable
      */
     public function build()
     {
-
-        return $this->view('email.user-registered', [
+        return $this->view('emails.user-registered', [
                 'user' => $this->user,
             ]);
     }

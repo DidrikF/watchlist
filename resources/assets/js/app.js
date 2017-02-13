@@ -13,11 +13,13 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('admin-panel', require('./components/AdminPanel.vue'));
 Vue.component('company-analysis', require('./components/CompanyAnalysis.vue'));
 Vue.component('watchlist', require('./components/Watchlist.vue'));
 Vue.component('create-watchlist', require('./components/CreateWatchlist.vue'));
 Vue.component('add-to-watchlist', require('./components/AddToWatchlist.vue'));
 Vue.component('create-notification', require('./components/CreateNotification.vue'));
+
 
 Vue.component('watchlist-container', {
     template: `

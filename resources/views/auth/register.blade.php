@@ -15,8 +15,8 @@
                         <input class="input" id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
 
                         @if ($errors->has('name'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('name') }}</strong>
+                            <span class="help is-danger">
+                                {{ $errors->first('name') }}
                             </span>
                         @endif
                     </div>
@@ -29,8 +29,8 @@
                         <input class="input" id="email" type="email" name="email" value="{{ old('email') }}" required>
 
                         @if ($errors->has('email'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
+                            <span class="help is-danger">
+                                {{ $errors->first('email') }}
                             </span>
                         @endif
                     </div>
@@ -43,8 +43,8 @@
                         <input class="input" id="password" type="password" name="password" required>
 
                         @if ($errors->has('password'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
+                            <span class="help is-danger">
+                                {{ $errors->first('password') }}
                             </span>
                         @endif
                     </div>

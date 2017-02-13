@@ -14,9 +14,14 @@
                     <div>
                         <input id="email" class="input" type="email" name="email" value="{{ old('email') }}" required autofocus>
 
-                        @if ($errors->has('email'))
-                            <span>
-                                <strong>{{ $errors->first('email') }}</strong>
+                        @if ($errors->has('email') && ! $errors->has('accepted'))
+                            <span class="help is-danger">
+                                {{ $errors->first('email') }}
+                            </span>
+                        @endif
+                        @if ($errors->has('accepted'))
+                            <span class="help is-danger">
+                                {{ $errors->first('accepted') }}
                             </span>
                         @endif
                     </div>
@@ -28,9 +33,9 @@
                     <div>
                         <input id="password" class="input" type="password" name="password" required>
 
-                        @if ($errors->has('password'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
+                        @if ($errors->has('password') && ! $errors->has('accepted'))
+                            <span class="help is-danger">
+                               {{ $errors->first('password') }}
                             </span>
                         @endif
                     </div>

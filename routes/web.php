@@ -17,15 +17,12 @@ Route::get('/', function () {
 
 Auth::routes(); //needs to be here! Registers the authentication related routes.
 
-
-//Can only be accessed once, after a successful registration...
+/*
+//only acceable from the registration controller after registration??? NOT IMPORTANT though
 Route::get('/registration-message', function(){
-	if($registration->signupSuccessful()){
-		return view('auth.registration-message');
-	}
-	return redirect('/');
-})->middleware(''); //use middleware to check the registration status ? just a thought
-
+	return view('auth.registration-message');
+}); //->middleware() //can middleware be user for this
+*/
 
 //auth middleware
 Route::group(['middleware' => ['auth']], function() {
@@ -74,10 +71,11 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 
-Route::group(['middleware' => ['isAdmin']], function() {
+Route::group(['middleware' => ['auth']], function() { //isAdmin middleware
 	Route::get('/admin/panel', 'AdminController@showPanel');
 
 	Route::put('/admin/accept/{user}', 'AdminController@acceptUser');
+	Route::delete('/admin/deny/{user}', 'AdminController@denyUser');
 	Route::put('/admin/ban/{user}', 'AdminController@banUser');
 
 	Route::put('/admin/makeadmin/{user}', 'AdminController@makeAdmin');

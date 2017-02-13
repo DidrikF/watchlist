@@ -7,6 +7,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use App\Models\User;
+
 class RegistrationAwaitingAcceptance extends Mailable
 {
     use Queueable, SerializesModels;
@@ -19,7 +21,7 @@ class RegistrationAwaitingAcceptance extends Mailable
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
@@ -32,7 +34,7 @@ class RegistrationAwaitingAcceptance extends Mailable
     public function build()
     {
 
-        return $this->view('email.registration-awaiting-acceptance', [
+        return $this->view('emails.registration-awaiting-acceptance', [
                 'user' => $this->user,
             ]);
     }

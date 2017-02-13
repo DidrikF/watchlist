@@ -24,6 +24,12 @@
   <!-- Add the modifier "is-active" to display it on mobile -->
   <div class="nav-right">
 
+    @if(Auth::check())
+      @if(Auth::user()->isAdmin())
+        <a class="nav-item is-tab" href="{{ url('/admin/panel') }}">Admin Panel</a>
+      @endif
+    @endif
+
     @if (Auth::guest())
       <a class="nav-item is-tab" href="{{ url('/login') }}">Login</a>
       <a class="nav-item is-tab" href="{{ url('/register') }}">Register</a>

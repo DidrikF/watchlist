@@ -20,6 +20,12 @@ class AdminPolicy
         return $admin->isAdmin();
     }
 
+    public function denyUser(User $admin)
+    {
+
+        return $admin->isAdmin();
+    }
+
     public function banUser(User $admin)
     {
         return $admin->isAdmin();
@@ -27,12 +33,12 @@ class AdminPolicy
 
     public function makeAdmin(User $admin)
     {
-        return $admin->email === 'didrik@watchlist.com' && $admin->id === 1;
+        return $admin->email === 'didrik@watchlist.com';
     }
 
-    public function removeAdmin(User $user)
+    public function removeAdmin(User $admin)
     {
-        return $admin->email === 'didrik@watchlist.com' && $admin->id === 1;
+        return $admin->email === 'didrik@watchlist.com';
     }
 
 }

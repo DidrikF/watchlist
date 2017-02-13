@@ -34,7 +34,7 @@ class RegistrationResult extends Mailable
     {
         
 
-        return $this->view('email.registration-result', [
+        return $this->view('emails.registration-result', [
                 'user' => $this->user,
                 'gotAccepted' => $this->user->accepted,
             ]);
