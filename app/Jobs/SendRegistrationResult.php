@@ -4,6 +4,10 @@ namespace App\Jobs;
 
 use App\Models\User;
 
+use Illuminate\Support\Facades\Mail; 
+
+use App\Mail\RegistrationResult;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -33,5 +37,7 @@ class SendRegistrationResult implements ShouldQueue
     public function handle()
     {
         Mail::to($this->user)->send(new RegistrationResult($this->user));
+
+        //$this->user->forceDelete();
     }
 }

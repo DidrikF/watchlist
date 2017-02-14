@@ -35,17 +35,17 @@ class SendNotifications extends Command
      *
      * @var Notification
      */
-    protected $notification;
+    //protected $notification;
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(Notification $notification)
+    public function __construct() //Notification $notification
     {
         parent::__construct();
-        $this->notification = $notification;
+        //$this->notification = $notification;
     }
 
     /**
@@ -55,37 +55,41 @@ class SendNotifications extends Command
      */
     public function handle()
     {        
-        $notifications = $this->notification->all();
+        $notifications = (new Notification)->where('triggered', false)->get();
 
         foreach($notifications as $notification){ //go through all notification entries
-
+            if(!(new User)->where('id', $notification->user_id)->exists()){
+                continue;
+            }
             $conditions = $notification->notificationCondition()->get(); //items related to one notiication
 
             if($this->checkConditions($conditions, $notification->ticker)){
-                $user = (new User)->where('id', $notification->user_id)->get();
-                Mail::to($user)->send(new \App\Mail\Notification($notification, $conditions));
+                $user = (new User)->where('id', $notification->user_id)->first();
+                
+                $notification->triggered = true;
+                $notification->save();
 
-                //delete Notification
+                Mail::to($user)->send(new \App\Mail\NotificationMail($notification, $conditions, $user));
             }
         }
     }
 
     private function checkConditions(Collection $conditions, $ticker)
     {
+        $arr;
         foreach($conditions as $condition){
             
             $valueFromYahoo = $this->getYahooData($ticker, $condition->data_id); //$item->data_id ....
-
             //if just one of the conditions are false, return false.
             switch($condition->comparison_operator)
             {
                 case "<":
-                    if($valueFromYahoo >= $condition->data_value) {
+                    if($this->parseYahooData($valueFromYahoo) >= $this->parseYahooData($condition->data_value)) {
                         return false;
                     }
                     break;
                 case ">":
-                    if($valueFromYahoo <= $condition->data_value) {
+                    if($this->parseYahooData($valueFromYahoo) <= $this->parseYahooData($condition->data_value)) {
                         return false;
                     }
                     break;
@@ -101,8 +105,28 @@ class SendNotifications extends Command
         $client = new Client;
         //send request
         $response = $client->request('GET', $url);
+        return $response->getBody()->getContents();
+    }
 
-        return $response->getBody();
+    private function parseYahooData($data)
+    {
+        $arr = str_split(trim($data));
+        if(strtoupper($arr[count($arr)-1]) === 'B'){
+            array_pop($arr);
+            $num = (float) implode('', $arr);
+            return $num * 1000000000;
+        }
+        elseif(strtoupper($arr[count($arr)-1]) === 'M'){
+            array_pop($arr);
+            $num = (float) implode('', $arr);
+            return $num * 1000000;
+        }
+        elseif(strtoupper($arr[count($arr)-1]) === 'K'){
+            array_pop($arr);
+            $num = (float) implode('', $arr);
+            return $num * 1000;
+        }
+        return (float) implode('', $arr);
     }
 
 }

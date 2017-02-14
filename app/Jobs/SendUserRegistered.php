@@ -38,6 +38,7 @@ class SendUserRegistered implements ShouldQueue
     {
         $admins = (new User)->where('admin', true)->get();
 
-        Mail::to($this->admins)->send(new UserRegistered($this->user));
+        Mail::to($admins)->send(new UserRegistered($this->user));
+
     }
 }

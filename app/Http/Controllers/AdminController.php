@@ -61,7 +61,7 @@ class AdminController extends Controller
         $admin = Auth::user();
 
         $this->authorize('denyUser', $admin);
-        if($user->email === 'didrik@watchlist.com') return abort(403, 'Unauthorized action');
+        if($user->email === env('PRIME_BOSS')) return abort(403, 'Unauthorized action');
 
 
         $this->dispatch(new SendRegistrationResult($user));
@@ -81,7 +81,7 @@ class AdminController extends Controller
     	$admin = Auth::user();
 
     	$this->authorize('banUser', $admin);
-        if($user->email === 'didrik@watchlist.com') return abort(403, 'Unauthorized action');
+        if($user->email === env('PRIME_BOSS')) return abort(403, 'Unauthorized action');
 
     	$user->accepted = false;
         $user->admin = false;

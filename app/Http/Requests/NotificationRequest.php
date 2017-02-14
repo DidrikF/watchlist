@@ -80,7 +80,7 @@ class NotificationRequest extends FormRequest
                     $validator->errors()->add($condition['dataId'], 'Invalid comparison operator');
                     continue;
                 }
-                if(!is_numeric($condition['dataValue'])){
+                if(!is_numeric($this->parseYahooData($condition['dataValue'])) ){
                     $validator->errors()->add($condition['dataId'], 'Value not numeric');
                     continue;
                 }
@@ -98,12 +98,12 @@ class NotificationRequest extends FormRequest
                 switch($condition['comparisonOperator'])
                 {
                     case "<":
-                        if($currentCompanyDataArray[$teller] < $condition['dataValue']) {
+                        if($this->parseYahooData($currentCompanyDataArray[$teller]) < (float) $this->parseYahooData($condition['dataValue'])) {
                             $validator->errors()->add($condition['dataId'], 'Allready true');
                         }
                         break;
                     case ">":
-                        if($currentCompanyDataArray[$teller] > $condition['dataValue']) {
+                        if($this->parseYahooData($currentCompanyDataArray[$teller]) > (float) $this->parseYahooData($condition['dataValue'])) {
                             $validator->errors()->add($condition['dataId'], 'Allready true');
                         }
                         break;
@@ -147,5 +147,26 @@ class NotificationRequest extends FormRequest
         //$input['cfScore'] = filter_var($input['description'], FILTER_SANITIZE_STRING);
 
         $this->replace($input);     
+    }
+
+    private function parseYahooData($data)
+    {
+        $arr = str_split(trim($data));
+        if(strtoupper($arr[count($arr)-1]) === 'B'){
+            array_pop($arr);
+            $num = (float) implode('', $arr);
+            return $num * 1000000000;
+        }
+        elseif(strtoupper($arr[count($arr)-1]) === 'M'){
+            array_pop($arr);
+            $num = (float) implode('', $arr);
+            return $num * 1000000;
+        }
+        elseif(strtoupper($arr[count($arr)-1]) === 'K'){
+            array_pop($arr);
+            $num = (float) implode('', $arr);
+            return $num * 1000;
+        }
+        return implode('', $arr);
     }
 }

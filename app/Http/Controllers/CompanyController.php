@@ -43,6 +43,7 @@ class CompanyController extends Controller
                     'triggered' => $notification->triggered,
                     'conditions' => $conditionsArray
                 ];
+                $conditionsArray = [];
             }
         }
         $watchlists = (isset($watchlists)) ? $watchlists : json_encode([]);

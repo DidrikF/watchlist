@@ -12,12 +12,21 @@
     <body>
         <div>
             <h1 class="title is-3">
+
                 @if($gotAccepted)
-                    {{ $user->name }}, we are happy to inform that your registration request to Company Watchlist was accepted!
+                    {{ $user->name }}, you can now access Company Watchlist!
                 @else
-                    {{ $user->name }}, we regret to inform that your registration request to Company Watchlist was declined.
+                    {{ $user->name }}, the result have arrived.
                 @endif
             </h1>
+
+            <p>
+            @if($gotAccepted)
+                We are happy to inform that your registration request was accepted.
+            @else
+                We regret to inform that your registration request was denied.
+            @endif
+            </p>
             
             <p>Kind regards from <a href="{{ env('APP_URL') }}">Company Watchlist</a></p>
 

@@ -7,7 +7,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Notification extends Mailable
+use App\Models\{Notification, User};
+
+class NotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -15,16 +17,18 @@ class Notification extends Mailable
 
     protected $notification;
     protected $conditions;
+    protected $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($notification, $conditions)
+    public function __construct(Notification $notification, $conditions, User $user)
     {
         $this->notification = $notification;
         $this->conditions = $conditions;
+        $this->user = $user;
     }
 
     /**
@@ -37,7 +41,8 @@ class Notification extends Mailable
         return $this->view('emails.notification', [
                 'notification' => $this->notification,
                 'conditions' => $this->conditions,
-                'yahooKeyTranslation' => $this->yahooKeyTranslation
+                'yahooKeyTranslation' => $this->yahooKeyTranslation,
+                'user' => $this->user
             ]);
     }
 }

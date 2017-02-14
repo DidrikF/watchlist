@@ -33,6 +33,7 @@ class RegistrationAwaitingAcceptance extends Mailable
      */
     public function build()
     {
+        $this->subject = 'Registration Successful';
 
         return $this->view('emails.registration-awaiting-acceptance', [
                 'user' => $this->user,

@@ -32,7 +32,7 @@ class RegistrationResult extends Mailable
      */
     public function build()
     {
-        
+        $this->subject = 'Registration request result';
 
         return $this->view('emails.registration-result', [
                 'user' => $this->user,

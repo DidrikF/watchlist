@@ -26,7 +26,7 @@
                 @if($conditions)
                     <h5 class="title is-5">Condition(s)</h5>
 
-                    @for($conditions as $condition)
+                    @foreach($conditions as $condition)
                         <p>{{ $yahooKeyTranslation[$condition->data_id] }} is now
                             @if($condition->comparison_operator == '>')
                                 greater than
@@ -35,7 +35,7 @@
                             @endif
                             {{ $condition->data_value }}
                         </p>
-                    @endfor
+                    @endforeach
                 @endif
 
 
