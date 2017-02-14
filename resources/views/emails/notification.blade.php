@@ -19,27 +19,31 @@
                 @if($notification)
                     <h3 class="title is-4">The following notification has been triggered: {{ $notification->name }} </h3>
 
-                    <h5 class="title is-5">Description</h5>
-                    <p>{{ $notification->description }}</p>
+                    @if($notification->description)
+                        <h5 class="title is-5">Notification Description:</h5>
+                        <p>{{ $notification->description }}</p>
+                    @endif
 
                 @endif
                 @if($conditions)
-                    <h5 class="title is-5">Condition(s)</h5>
+                    <h5 class="title is-5">Notification {{ str_plural('Condition', $conditions) }}:</h5>
 
+                    <ul>
                     @foreach($conditions as $condition)
-                        <p>{{ $yahooKeyTranslation[$condition->data_id] }} is now
+                        <li>{{ $yahooKeyTranslation[$condition->data_id] }} is now
                             @if($condition->comparison_operator == '>')
                                 greater than
                             @elseif($condition->comparison_operator == '>')
                                 less than
                             @endif
                             {{ $condition->data_value }}
-                        </p>
+                        </li>
                     @endforeach
+                    </ul>
                 @endif
 
 
-                <div>Kind regards from <a href="{{ env('APP_URL') }}">Company Watchlist</a></div>
+                <p>Kind regards from <a href="{{ env('APP_URL') }}">Company Watchlist</a></p>
             </div>
         </div>
     	
