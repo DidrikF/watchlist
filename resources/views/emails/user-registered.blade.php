@@ -15,7 +15,7 @@
                 {{ $user->name }} has signed up to Company Watchlist!
             </h1>
 
-            <p>Please visit the <a href="http://watchlist.app/admin/panel">admin panel</a> to review the registration request</p>
+            <p>Please visit the <a href="{{ env('APP_URL') }}/admin/panel">admin panel</a> to review the registration request</p>
 
             <p>Kind regards from <a href="{{ env('APP_URL') }}">Company Watchlist</a></p>
         </div>

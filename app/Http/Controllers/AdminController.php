@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Mail; 
 
-use App\Mail\{UserRegistered, RegistrationResult};
+use App\Jobs\SendRegistrationResult;
 
 class AdminController extends Controller
 {
@@ -45,7 +45,8 @@ class AdminController extends Controller
 
     	if($user->save()){
 
-            Mail::to($user)->send(new RegistrationResult($user));
+            //Mail::to($user)->send(new RegistrationResult($user));
+            $this->dispatch(new SendRegistrationResult($user));
 
             $users = (new User)->all();
 
@@ -61,6 +62,9 @@ class AdminController extends Controller
 
         $this->authorize('denyUser', $admin);
         if($user->email === 'didrik@watchlist.com') return abort(403, 'Unauthorized action');
+
+
+        $this->dispatch(new SendRegistrationResult($user));
 
         if($user->delete()){
 

@@ -26,6 +26,11 @@ Route::get('/registration-message', function(){
 
 //auth middleware
 Route::group(['middleware' => ['auth']], function() {
+
+	Route::get('/thowerror', function(){
+		throw new Error('Error thrown for testing puposes');
+	});
+
 	//Homepage only avaliable to authenticated users
 	Route::get('/home', 'HomeController@index');
 

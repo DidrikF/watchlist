@@ -56,11 +56,11 @@ class Handler extends ExceptionHandler
             }
             return response()->view('errors.400', [], 400);
         }
-        /*
+        
         return response()->view('errors.500', [
             'sentryID' => $this->sentryID,
         ], 500);
-        */
+        
         
         return parent::render($request, $exception);
     }

@@ -12,13 +12,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 
-use Illuminate\Support\Facades\Mail; 
+//REMOVE THESE
+//use Illuminate\Support\Facades\Mail; 
 
-use App\Mail\{UserRegistered, RegistrationAwaitingAcceptance};
-
+//use App\Mail\{UserRegistered, RegistrationAwaitingAcceptance};
+//
+use App\Jobs\{SendUserRegistered, SendRegistrationAwaitingAcceptance};
 
 class RegisterController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -81,21 +84,29 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         //THIS IS WHERE I MAIL PEOPLE
-        $this->emailAdmin($user);
-        $this->emailRegisteredUser($user);
+
+        $this->dispatch(new SendUserRegistered($user));
+        $this->dispatch(new SendRegistrationAwaitingAcceptance($user));
+
+
+        //$this->emailAdmin($user);
+        //$this->emailRegisteredUser($user);
     }
-    
+    /*
     protected function emailAdmin(User $user)
     {
-        $admins = (new User)->where('admin', true)->get();
+        $this->dispatch(new SendUserRegistered($user));
 
-        Mail::to($admins)->send(new UserRegistered($user));
+        //Mail::to($admins)->send(new UserRegistered($user));
     }
 
     protected function emailRegisteredUser(User $user)
     {
-        Mail::to($user)->send(new RegistrationAwaitingAcceptance($user));
+        $this->dispatch(new SendRegistrationAwaitingAcceptance($user));
+
+        //Mail::to($user)->send(new RegistrationAwaitingAcceptance($user));
     }
+    */
     /*-----------------------------------------------------------------------------
 
     /**
