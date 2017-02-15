@@ -26,7 +26,7 @@
 
                 @endif
                 @if($conditions)
-                    <h5 class="title is-5">Notification {{ str_plural('Condition', $conditions) }}:</h5>
+                    <h5 class="title is-5">Notification {{ str_plural('Condition', count($conditions)) }}:</h5>
 
                     <ul>
                     @foreach($conditions as $condition)

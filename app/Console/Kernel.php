@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('notification:send')->everyMinute();
+        $schedule->command('notification:send')->twiceDaily(6, 18);
     }
 
     /**
