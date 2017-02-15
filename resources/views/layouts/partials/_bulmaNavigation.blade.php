@@ -25,6 +25,7 @@
   <div class="nav-right">
 
     @if (Auth::guest())
+      <a class="nav-item is-tab" href="{{ url('/about') }}">About</a>
       <a class="nav-item is-tab" href="{{ url('/login') }}">Login</a>
       <a class="nav-item is-tab" href="{{ url('/register') }}">Register</a>
     @else
@@ -34,6 +35,7 @@
           <a class="nav-item is-tab" href="{{ url('/admin/panel') }}">Admin Panel</a>
         @endif
       @endif
+      <a class="nav-item is-tab" href="{{ url('/about') }}">About</a>
       <a class="nav-item is-tab is-3" href="{{ url('/logout') }}" 
         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         Logout

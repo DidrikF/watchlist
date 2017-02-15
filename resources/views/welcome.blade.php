@@ -1,54 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-    
-
-    <div class="has-text-centered">
-        <h2 class="title is-1" style="margin: 15px 0; font-family: Lato;">&nbsp; Welcome to Company Watchlist</h2>
-    </div>
-
-    <div class="has-text-centered">
-        <p class="" style="margin: 20px 0;">
-            Find, review and keep track of companies you like by adding them to your watchlists. <br> 
-            Easily create notifications and get notified when company data changes.
-        </p>
-        <div class="">
-            <div class="" style="margin-top: 25px;">
-                <h3 class="title is-3">1. Review and analyze</h3>
-                <img src="/images/company_page.png" style="max-width: 600px;">
+    <div style="margin-top: 70px;">
+        <div style="">
+            <div class="columns" style="margin-bottom: 70px;">
+                <div class="column">
+                    <img class="is-pulled-right" src="/images/logo.png" style="width: 200px; margin-right: 200px;">        
+                </div>
+                <div class="column" style="margin-left: -150px;">
+                    <h2 class="title is-1" style="margin: 15px 0; font-family: Lato:100;">Welcome to<br>Company Watchlist</h2>
+                    
+                    <a class="button is-large is-primary" style="margin-right: 50px;" href="https://github.com/DidrikF/watchlist">
+                        <span class="icon is-medium">
+                          <i class="fa fa-github"></i>
+                        </span>
+                        <span>GitHub</span>
+                      </a>
+                    <a class="button is-large" href="{{ env('APP_URL') }}/about">
+                        <span class="icon is-medium">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                        </span>
+                        <span>About</span>
+                      </a>
+                </div>
+                
             </div>
-            <div class="" style="margin-top: 25px;">
-                <h3 class="title is-3">2. Add to watchlist</h3>
-                <img src="/images/watchlist.png" style="max-width: 600px;">
-            </div>
-            <div class="" style="margin-top: 25px;">
-                <h3 class="title is-3">3. Set up notifications</h3>
-                <img src="/images/notifications.png" style="max-width: 600px;">
+            <div class="has-text-centered columns">
+                <div class="column">
+                    <h3 class="title is-4" style="color: hsl(171, 100%, 41%);">Review and analyze</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+
+                <div class="column">
+                    <h3 class="title is-4" style="color: hsl(171, 100%, 41%);">Add to watchlsit</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+
+                <div class="column">
+                    <h3 class="title is-4" style="color: hsl(171, 100%, 41%);">Set up notifications</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
             </div>
         </div>
-    <!--
-           
-    
-            <div class="short-text">
-                Find, review and keep track of companies by adding them to your watchlists. Easily define metric limits to trigger notifications on movements in the market or company fundimentals.
-            </div>
-
-            <div class="guide cf">
-                <div class="three-col-1">
-                    <h3>1. Find a company</h3>
-                    <img src="/images/watchlist_search.jpg">
-                </div>
-                <div class="three-col-2">
-                    <h3>2. Analyze the company</h3>
-                    <img src="/images/watchlist_analyze.jpg">
-                </div>
-                <div class="three-col-3">
-                    <h3>3. Set up notifications</h3>
-                    <img src="/images/watchlist_notification.png">
-                </div>
-            </div>
-    -->
-        
     </div>
 
 @endsection

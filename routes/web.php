@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes(); //needs to be here! Registers the authentication related routes.
 
+Route::get('/about', function(){
+	return view('about');
+});
+
 /*
 //only acceable from the registration controller after registration??? NOT IMPORTANT though
 Route::get('/registration-message', function(){
