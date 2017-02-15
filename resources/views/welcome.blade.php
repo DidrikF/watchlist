@@ -28,20 +28,17 @@
             <div class="has-text-centered columns">
                 <div class="column">
                     <h3 class="title is-4" style="color: hsl(171, 100%, 41%);">Review and analyze</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Search for a company you are interested in. On the company's page you find valuable financial data. After reviewing the company you can capure your thoughts by filling in a simple analysis form.</p>
                 </div>
 
                 <div class="column">
-                    <h3 class="title is-4" style="color: hsl(171, 100%, 41%);">Add to watchlsit</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <h3 class="title is-4" style="color: hsl(171, 100%, 41%);">Create watchlists</h3>
+                    <p>When you find a company you would like to keep an eye on in the future, you can add it to a watchlist. You can create as many watchlists as you want. For instance, you can make one for each industry you are following.</p>
                 </div>
 
                 <div class="column">
                     <h3 class="title is-4" style="color: hsl(171, 100%, 41%);">Set up notifications</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>It's hard to keep track of market developments. We enable you to set up custom notifications. A notification consists of a set of conditions you define. When the conditions are met, you are made aware through email and the web GUI.</p>
                 </div>
             </div>
         </div>
