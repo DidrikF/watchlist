@@ -92,18 +92,18 @@ class NotificationRequest extends FormRequest
             $yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s={$ticker}&f={$dataIdString}";
             $response = $client->request('GET', $yahooUrl)->getBody();
             $currentCompanyDataArray = str_getcsv($response, ',', '"'); //working
-
             foreach($validConditions as $condition){
 
                 switch($condition['comparisonOperator'])
                 {
                     case "<":
-                        if($this->parseYahooData($currentCompanyDataArray[$teller]) < (float) $this->parseYahooData($condition['dataValue'])) {
+                        if((float) $this->parseYahooData($currentCompanyDataArray[$teller]) < (float) $this->parseYahooData($condition['dataValue'])) {
+                            //dd((float) $this->parseYahooData($currentCompanyDataArray[$teller]));
                             $validator->errors()->add($condition['dataId'], 'Allready true');
                         }
                         break;
                     case ">":
-                        if($this->parseYahooData($currentCompanyDataArray[$teller]) > (float) $this->parseYahooData($condition['dataValue'])) {
+                        if((float) $this->parseYahooData($currentCompanyDataArray[$teller]) > (float) $this->parseYahooData($condition['dataValue'])) {
                             $validator->errors()->add($condition['dataId'], 'Allready true');
                         }
                         break;

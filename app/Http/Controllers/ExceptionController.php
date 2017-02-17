@@ -8,6 +8,6 @@ class ExceptionController extends Controller
 {
     public function index()
     {
-    	throw new Exception('Exception thrown for testing purposes');
+    	throw new \Exception('Exception thrown for testing purposes');
     }
 }

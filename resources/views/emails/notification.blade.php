@@ -33,7 +33,7 @@
                         <li>{{ $yahooKeyTranslation[$condition->data_id] }} is now
                             @if($condition->comparison_operator == '>')
                                 greater than
-                            @elseif($condition->comparison_operator == '>')
+                            @elseif($condition->comparison_operator == '<')
                                 less than
                             @endif
                             {{ $condition->data_value }}

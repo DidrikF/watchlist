@@ -64,6 +64,7 @@
 					</div>
 					<div style="min-height: 1em;">
 						<span class="help is-danger"> {{ statusMessage }} </span>
+						<span class="help"> {{ statusMessage }} </span>
 					</div>
 					<div>
 						<select class="select" v-model="dataId">
@@ -78,6 +79,7 @@
 						<button class="button is-success pull-right" @click="addCondition">Add</button>
 					</div>
 					<div style="bottom: 0px; margin-top:1em;">
+						<span class="tag is-info" style="margin: 10px 0" v-if="successMessage">{{ successMessage }}</span>
 						<button class="button is-danger" style="float: right; margin-left: 2em;" @click="resetNotification">Reset</button>
 						
 						<button v-if="!enableEditNotification" class="button is-primary" style="float: right;" @click="createNotification">Create</button>
@@ -113,6 +115,7 @@ export default {
 			showNotificationMaker: false,
 			validationErrors: [],
 			enableEditNotification: false,
+			successMessage: null,
 
 		}
 	},
@@ -162,6 +165,8 @@ export default {
 			this.selectedComparisonOperator = null;
 			this.dataValue = null;
 			this.statusMessage = null;
+			this.enableEditNotification = false; 
+			this.showNotificationMaker = true;
 		},
 		closeNotificationMaker(){
 			this.enableEditNotification = false;
@@ -182,11 +187,11 @@ export default {
 				if(response.status === 201){
 					this.activeNotifications.push(response.data.notification); //NEED TO CHECK THIS
 
-					this.statusMessage = 'Succesfully created notification';
+					this.flashSuccessMessage('Notification Created');
 					return; 
 				}
 				if(response.status === 422){
-					this.validationErrors = response.data;
+					this.validationErrors = response.data || [];
 					if(this.validationErrors['general']) this.statusMessage = this.validationErrors['general'][0];
 					return;
 				}
@@ -219,7 +224,7 @@ export default {
 					let removeIndex = this.activeNotifications.indexOf(removeNotification);
 					this.activeNotifications.splice(removeIndex, 1, response.data.notification)
 
-					this.statusMessage = 'Succesfully updated notification';
+					this.flashSuccessMessage('Notification Updated');
 					return; 
 				}
 				if(response.status === 422){
@@ -246,6 +251,12 @@ export default {
 				this.statusMessage = 'Failed to delete notification';
 			});
 		},
+		//____HELPER FUNCTIONS____________________________________________________________
+		flashSuccessMessage(message){
+			this.successMessage = message;
+     		setTimeout(() => { this.successMessage = null }, 4000);
+		},
+
 		loadComponent() {
 			/*
 			this.axios.get().then(response => {

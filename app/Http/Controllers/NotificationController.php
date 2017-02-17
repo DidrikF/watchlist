@@ -64,6 +64,7 @@ class NotificationController extends Controller
         }
 
         $noti = (new Notification)->where('id', $notification->id)->first();
+        
         return response()->json([
                 'notification' => [
                         'id' => $noti->id,

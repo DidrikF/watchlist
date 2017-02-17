@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Exception\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -69,11 +71,11 @@ class Handler extends ExceptionHandler
         } elseif ($e instanceof AuthenticationException) {
             return $this->unauthenticated($request, $e);
         } elseif ($e instanceof ValidationException) {
-            return $this->convertValidationExceptionToResponse($e, $request);
+            return $this->convertValidationExceptionToResponse($e, $request); 
         } elseif($e instanceof NotFoundHttpException){
             return response()->view('errors.404', [], 404);
         }
-        
+        //
         //return parent::render($request, $exception);
 
         if(env('APP_DEBUG') === false){
@@ -81,6 +83,7 @@ class Handler extends ExceptionHandler
                 'sentryID' => $this->sentryID,
             ], 500);
         }
+        return $this->prepareResponse($request, $e);
     }
 
     /**
