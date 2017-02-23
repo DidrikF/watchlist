@@ -169,9 +169,9 @@ export default {
 			this.showNotificationMaker = true;
 		},
 		closeNotificationMaker(){
+			this.resetNotification();
 			this.enableEditNotification = false;
 			this.showNotificationMaker = false;
-			this.resetNotification();
 		},
 		openNotificationMaker(){
 			this.enableEditNotification = false; 
