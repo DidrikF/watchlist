@@ -5,6 +5,14 @@
         <h1 class="title is-1" style="margin: 30px 0;">About</h1>
 
         <div class="has-text-centered">
+            <article class="message is-info">
+              <div class="message-header">
+                <p>Info</p>
+              </div>
+              <div class="message-body">
+                This page is under development. My intention is for this page to document <br> the project and the technologies involved. Both for my own and others benefit.
+              </div>
+            </article>
             <p class="" style="margin: 20px 0;">
                 Find, review and keep track of companies you like by adding them to your watchlists. <br> 
                 Easily create notifications and get notified when company data changes.

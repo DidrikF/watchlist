@@ -3,7 +3,7 @@
 @section('content')
     <div style="margin-top: 70px;">
         <div style="">
-            <div class="columns" style="margin-bottom: 70px;">
+            <div class="columns" style="margin-bottom: 35px;">
                 <div class="column">
                     <img class="is-pulled-right" src="/images/logo.png" style="width: 200px; margin-right: 200px;">        
                 </div>
@@ -25,6 +25,7 @@
                 </div>
                 
             </div>
+            <h3 class="title is-4 has-text-centered" style="font-family: Lato:100; color: #d3d3d3;">A project for learning by Didrik Fleischer</h3>
             <div class="has-text-centered columns">
                 <div class="column">
                     <h3 class="title is-4" style="color: hsl(171, 100%, 41%);">Review and analyze</h3>
