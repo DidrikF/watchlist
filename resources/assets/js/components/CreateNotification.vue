@@ -64,7 +64,6 @@
 					</div>
 					<div style="min-height: 1em;">
 						<span class="help is-danger"> {{ statusMessage }} </span>
-						<span class="help"> {{ statusMessage }} </span>
 					</div>
 					<div>
 						<select class="select" v-model="dataId">
