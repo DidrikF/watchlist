@@ -57,16 +57,16 @@ When you have some legs to stand on, I recommend coming up with some projects of
 I do not have a comprehensive map of all resources available to you when learning about web development, but I can list the main sites I used:
 <ul>
 <li><a href="https://www.safaribooksonline.com" title="https://www.safaribooksonline.com">Safaribooksonline.com</a></li>
-<li><a href="https://www.lynda.com">Lynda.com</a></li>
-<li><a href="https://www.codecourse.com">Codecourse.com</a></li>
-<li><a href="https://www.laracasts.com">Laracasts.com</a></li>
-<li><a href="https://www.php.net">PHP.net</a></li>
-<li><a href="https://developer.mozilla.org/en-US/">Developer.Mozilla.org</a></li>
-<li><a href="https://www.w3schools.com">W3schools.com</a></li>
-<li><a href="https://www.laravel.com">Laravel.com</a></li>
-<li><a href="https://www.vuejs.org">Vuejs.org</a></li>
-<li><a href="https://www.codewars.com">Codewars.com</a></li>
-<li><a href="https://stackoverflow.com/">Stackoverflow.com</a></li>
+<li><a href="https://www.lynda.com" title="https://www.lynda.com">Lynda.com</a></li>
+<li><a href="https://www.codecourse.com" title="https://www.codecourse.com">Codecourse.com</a></li>
+<li><a href="https://www.laracasts.com" title="https://www.laracasts.com">Laracasts.com</a></li>
+<li><a href="https://www.php.net" title="https://www.php.net">PHP.net</a></li>
+<li><a href="https://developer.mozilla.org/en-US/" title="https://developer.mozilla.org/en-US/">Developer.Mozilla.org</a></li>
+<li><a href="https://www.w3schools.com" title="https://www.w3schools.com">W3schools.com</a></li>
+<li><a href="https://www.laravel.com" title="https://www.laravel.com">Laravel.com</a></li>
+<li><a href="https://www.vuejs.org" title="https://www.vuejs.org">Vuejs.org</a></li>
+<li><a href="https://www.codewars.com" title="https://www.codewars.com">Codewars.com</a></li>
+<li><a href="https://stackoverflow.com/" title="https://stackoverflow.com/">Stackoverflow.com</a></li>
 </ul>
 </p>
 <p>
@@ -78,37 +78,32 @@ I cannot leave this section without extending my gratitude for the massive help 
 
 <h3>The features of the Companywatchlist web application</h3>
 <p>
-Before diving into the technologies involved in building a site like Companywatchlist.com, I would like to talk about the different features of the application. 
-</p>
-<p>
-Search for a company you are interested in. On the company's page you find valuable financial data. After reviewing the company you can capure your thoughts by filling in a simple analysis form.
-</p>
-<p>
-When you find a company you would like to keep an eye on in the future, you can add it to a watchlist. You can create as many watchlists as you want. For instance, you can make one for each industry you are following.
-</p>
-<p>
-It's hard to keep track of market developments. We enable you to set up custom notifications. A notification consists of a set of conditions you define. When the conditions are met, you are made aware through email and the web GUI.
+Before diving into the technologies involved in building a site like Companywatchlist.com, I would like to talk about the different features of the application. There are four main features the site is offering. The first is the ability to search for a company by name or ticker and be able to access a web page showing some financial data on the company. The second is the ability to capture your thoughts on a company by filling out a simple analysis form. This form is of course not how you perform financial analysis or valuation of a company. It is just ment as a "proof of concept". The third feature, and also the most central feature to the site, is the ability to organize the companies your are following into watch lists. You can create as many watchlists you want, and add as many companies you want to each wathclist. The forth feature, and the most challenging to write, is the ability to create custom notifications. A notification consists of one or more conditions you combine together, and when all the conditions are met you are made aware through email and the web GUI. An example of a condition could be; the stock price is below $85, or the P/E ratio is below 12.
 </p>
 
-<h3>The Technologies</h3>
+<p>
+You can read more about how companywatchlist.com works and its faetures at <a href="https://companywatchlist.com/about">companywatchlist.com/about</a>.
+</p>
+
+<h3>The Technologies involved</h3>
 <p>
 The following section will be on the different technologies involved in “companywatchlist.com”. This is no comprehensive introduction to any of them, but more of an overview on what goes into a simple web application these days. I think I will tackle this by starting on the server side, moving from hardware and working my way through the operating system and webserver software. After that; the server side code and supporting services. Then moving to the client side; talking about the technologies in the browser. And finally the services and applications not directly involved in creating the functionality of the web site, but rather supporting the development process. You may use the links provided throughout the section if you want to read up more on what I am merely mentioning here.
 </p>
-<h4>Hosing: <a href="https://aws.amazon.com">Amazon Web Services</a></h4>
+<h4>Hosing: <a href="https://aws.amazon.com" title="https://aws.amazon.com">Amazon Web Services</a></h4>
 <p>
 To host the project I’m using Amazon Web Services, using a t2.micro (Variable ECUs, 1 vCPUs, 2.5 GHz, Intel Xeon Family, 1 GiB memory, EBS only). Which should be capable of thousands of daily visitors; complete overkill for my usage.
 </p>
-<h4>Server OS: <a href="https://en.wikipedia.org/wiki/Linux">Linux</a></h4>
+<h4>Server OS: <a href="https://en.wikipedia.org/wiki/Linux" title="https://en.wikipedia.org/wiki/Linux">Linux</a></h4>
 <p>
 The server is running Linux (4.4.0-21-generic GNU/Linux). Since the project is using the Laravel PHP framework, I found it very helpful to utilize Laravel Homestead during development. Homestead is a an official, pre-packaged Vagrant box, providing an environment for PHP development without worrying about installing php, webserver software, database and all the other things needed just to get started with coding. Using a VM like this also keeps you from messing up your operating system with all sorts of software.
 </p>
 
-<h4>HTTP server: <a href="https://www.nginx.com/resources/wiki/">NginX</a></h4>
+<h4>HTTP server: <a href="https://www.nginx.com/resources/wiki/" title="https://www.nginx.com/resources/wiki/">NginX</a></h4>
 <p>
 I’m using NginX as HTTP server. The HTTP server is responsible for accepting and responding to HTTP requests as well as maintaining the HTTP session.
 </p>
 
-<h4>Server side language/framework:  <a href="https://no.wikipedia.org/wiki/PHP">PHP</a>/<a href="https://laravel.com/">Laravel</a></h3>
+<h4>Server side language/framework:  <a href="https://no.wikipedia.org/wiki/PHP" title="https://no.wikipedia.org/wiki/PHP">PHP</a>/<a href="https://laravel.com/" title="https://laravel.com/">Laravel</a></h3>
 <p>
 The server side code is written in PHP using the Laravel framework. Laravel is today one of the most popular frameworks in the PHP world and are getting more and more traction. The framework is mature and feature rich. It solves pretty much all common PHP development problems, and does so while still being flexible enough for you not to feel too restricted in terms of what technologies you want to use. Due to its popularity many services provide easily installable drivers and plugins, allowing you as a developer to quickly integrate them.
 <p>
@@ -116,11 +111,11 @@ The server side code is written in PHP using the Laravel framework. Laravel is t
 Going off on a tangent; when feeling fairly confident with PHP I would recommend learning a framework to take your coding skills to the next level. Let’s be honest; coding at a large scale is diffi-cult, and taking advantage of community projects just makes sense. It allows you to do more, better, in a shorter amount of time. Reading other people’s code is also a huge source of learning. When it comes to frameworks they can teach you a bunch about development in you respective language. They provide good solutions to common problems, shows you ways in which you can structure your codebase and help you make your code scalable, maintainable and easier to collaborate around (given you all know the framework). Don’t get me wrong, frameworks are not suitable in every situation. If you can handle the job with some simple static pages or dish out the wanted functionality quickly with plain PHP you should do so. It is when the project becomes larger that a framework comes in handy.
 </p>
 
-<h4>Database: <a href="https://dev.mysql.com/doc/refman/5.7/en/introduction.html">MySQL</a></h4>
+<h4>Database: <a href="https://dev.mysql.com/doc/refman/5.7/en/introduction.html" title="https://dev.mysql.com/doc/refman/5.7/en/introduction.html">MySQL</a></h4>
 <p>
 I’m using MySQL; the hugely popular open source relational database server. Working with MySQL requires you to learn SQL (Structured Query Language), relational database fundamentals (design and normalization), how to interact with the database server through PHP and much more. It’s a whole area of expertise, like most other things in IT.
 </p>
-<h3>More about <a href="https://laravel.com/docs/5.4">Laravel</a></h3>
+<h3>More about <a href="https://laravel.com/docs/5.4" title="https://laravel.com/docs/5.4">Laravel</a></h3>
 <p>
 A lot if the time spent developing “companywatchlist.com” was spent in the Laravel documentation. Although I’m no authority on Laravel and I still have huge amounts to learn, I’d like to attempt to write a few paragraphs on the core components of the framework.
 </p>
@@ -148,7 +143,7 @@ Problems arise when building large projects that are going to stick around for a
 To keep it dead simple the service container allows you to register objects into a container (object, array or other data structure able to hold key-value pairs) and resolve objects out of the container. By building your objects in this way you can intercept the process of how objects in your application are built and resolved. You can simply swap out the implementation of a service (object), and have that change reflected throughout all other objects depending on it. Service containers give power to control your dependencies and the dependency injection process. This makes testing of your code a lot simples as you are able to mock dummy objects mimicking the behavior of the real thing, allowing you to test individual objects and functions without relying on your dependencies also to do their job correctly. The testing of one object does not depend on the functioning of other objects, obviously useful in many cases. A turning point for me, trying to understand dependency injection was to learn about the reflection API in PHP. The reflection API adds to the ability to reverse-engineer classes, interfaces, functions and more. This information can then inform the process of how objects are created.
 </p>
 <p>
-I’m going to stop here but feel free to keep reading; for instance at <a href="http://php-di.org/doc/understanding-di.html">php-di.org</a>.
+I’m going to stop here but feel free to keep reading; for instance at <a href="http://php-di.org/doc/understanding-di.html" title="http://php-di.org/doc/understanding-di.html">php-di.org</a>.
 </p>
 <h4>Service Provides</h4>
 <p>
@@ -161,7 +156,7 @@ Service providers are the place to do all of you application bootstrapping. Even
 In the end, the router is an object; an object build from a class, which might extend another class, using any number of traits and all of these probably have a number of dependencies. Before the router is ready to be used by the application to handle an incoming request, the router object must instantiated and registered with the service container. This is the kind of thing that happens during the bootstrapping process, and this is the kind of thing we do in service providers. 
 </p>
 <p>
-Read about <a href="https://laravel.com/docs/5.4/providers">Laravel service providers</a>.
+Read about <a href="https://laravel.com/docs/5.4/providers" title="https://laravel.com/docs/5.4/providers">Laravel service providers</a>.
 </p>
 
 <h4>Facades</h4>
@@ -175,11 +170,11 @@ A facade is a class that provides access to an object in the service container. 
 Facades just make things easier, nicer and prettier to work with. Superficial you might say, but developer happiness is important. Developer happiness is reason enough to put the effort in and provide facades to your services.
 </p>
 <p>
-Continue reading at the <a href="https://laravel.com/docs/5.4/facades">Laravel documentation</a>, or an article on <a href="https://www.sitepoint.com/how-laravel-facades-work-and-how-to-use-them-elsewhere/">sitepoint</a>.
+Continue reading at the <a href="https://laravel.com/docs/5.4/facades" title="https://laravel.com/docs/5.4/facades">Laravel documentation</a>, or an article on <a href="https://www.sitepoint.com/how-laravel-facades-work-and-how-to-use-them-elsewhere/" title="https://www.sitepoint.com/how-laravel-facades-work-and-how-to-use-them-elsewhere/">sitepoint</a>.
 </p>
 <h4>Contracts</h4>
 <p>
-A contract in Laravel refers to, in PHP terminology, an <a href="http://php.net/manual/en/language.oop5.interfaces.php">interface</a>. Laravel uses contracts to define the core service providers of the framework. If you adhere to a contract you should be able to create an implementation that could replace the existing one. Discussing contract/interfaces leads us into the design consideration of writing loosely coupled code. Loosely coupled code means that the classes we create do not depend on any particular objects. We instead write our classes to have dependencies expressed through interfaces. Any object that adheres to an interface is a valid implementation of that interface and can be trusted to perform the work promised by the interface. 
+A contract in Laravel refers to, in PHP terminology, an <a href="http://php.net/manual/en/language.oop5.interfaces.php" title="http://php.net/manual/en/language.oop5.interfaces.php">interface</a>. Laravel uses contracts to define the core service providers of the framework. If you adhere to a contract you should be able to create an implementation that could replace the existing one. Discussing contract/interfaces leads us into the design consideration of writing loosely coupled code. Loosely coupled code means that the classes we create do not depend on any particular objects. We instead write our classes to have dependencies expressed through interfaces. Any object that adheres to an interface is a valid implementation of that interface and can be trusted to perform the work promised by the interface. 
 </p>
 <p>
 Let’s say during development of an application the need to log error messages arises. The developer sees no reason why this should be more advanced than dumping the error messages to a text file, but she does realize that this my change in the future. The developer therefor first create an interface describing what an error logger should be able to do, and then creates an implementation of it that logs error messages to a text file.
@@ -189,7 +184,7 @@ Later down the line, our developer sees that the application need to log error m
 But then she remembers that she created an interface to represent the error logger and that this interface is what the classes in her application are depending on. She should therefore be able to make a new implementation of the error logger interface and then update the binding in the IoC container accordingly to solve the problem. There is no need to update the dependencies of her classes. The power of the IoC container becomes apparent here. It is not the class’s responsibility to know how to get ahold of its dependencies. The IoC container is the one building new objects in the application.
 </p>
 <p>
-Read more about <a href="https://laravel.com/docs/5.4/contracts">Laravel Contracts</a>.
+Read more about <a href="https://laravel.com/docs/5.4/contracts" title="https://laravel.com/docs/5.4/contracts">Laravel Contracts</a>.
 </p>
 
 <h4>Routing</h4>
@@ -204,7 +199,7 @@ Some of the more advanced features of the Laravel router are the ability to send
 One of the things that demystified the concept of a router for me was that at its core it really is just matching the incoming URI with a class/controller and method. This class is resolved through the Service Container, which after all the crazy reflection and object building logic uses require/include to pull in files (well, not exactly, it uses the composer autoloader, but still; it’s pulling in files and composing their contents together).
 </p>
 <p>
-There are more features I have not mentioned, but it will do for this article. Read more about <a href="https://laravel.com/docs/5.4/routing ">routing in Laravel</a>.
+There are more features I have not mentioned, but it will do for this article. Read more about <a href="https://laravel.com/docs/5.4/routing " title="https://laravel.com/docs/5.4/routing">routing in Laravel</a>.
 <p>
 
 <h4>Middleware</h4>
@@ -212,7 +207,7 @@ There are more features I have not mentioned, but it will do for this article. R
 Middleware provides a convenient mechanism for filtering requests before entering your application. If any middleware are defined, ether for all requests entering the application or the specific route being hit, the request must go through it before being allowed to proceed further into the application. This is for instance how checking if a user is authenticated is handled in Laravel, it’s done in middleware. This allows for logic that redirects unauthenticated users to the login screen while others are allowed to proceed to the intended controller.
 </p>
 <p>
-Middleware could be chained together to sift out only the requests “worthy” of being handled by your controllers. Read more about middleware in the <a href="https://laravel.com/docs/5.4/middleware">Laravel documentation</a>.
+Middleware could be chained together to sift out only the requests “worthy” of being handled by your controllers. Read more about middleware in the <a href="https://laravel.com/docs/5.4/middleware" title="https://laravel.com/docs/5.4/middleware">Laravel documentation</a>.
 </p>
 
 <h4>Controllers</h4>
@@ -234,7 +229,7 @@ As requests come in to our application there are many concerns to consider: secu
 Validation can be easy to overlook, why can’t we just assume the users will give me the data that I ask for and nothing else? It’s also kind of boring, uninteresting and cumbersome. It does not add functionality, yet it is hugely important. Users will not always give you what you expect, and some people even have malicious intents and will actively try to break your site. We need to implement means of protection as well as making it as easy as we can for the user to understand what went wrong with her request. Laravel provides an easy to use method for validation, which can also be extended to add you own custom validation logic. Say hello to conditional statements and comparison operators, they are your friend when it comes to validation. But do bear in mind, if you are working in PHP, which is a loosely typed language, behind the scenes variables can change types and comparison operators might not work as you expected. One tip I can give is to always use “===” to make sure data you are comparing also are of the same type.
 </p>
 <p>
-Laravel provides several different ways to validate incoming data, read more about them <a href="https://laravel.com/docs/5.4/validation">here</a>.
+Laravel provides several different ways to validate incoming data, read more about them <a href="https://laravel.com/docs/5.4/validation" title="https://laravel.com/docs/5.4/validation">here</a>.
 </p>
 
 <h5>Sanitation and output escaping</h5>
@@ -242,7 +237,7 @@ Laravel provides several different ways to validate incoming data, read more abo
 To make sure you are not allowing users to execute code on your server, or perform Cross Site Scripting (XSS) attacks; input processed by your server should be sanitized. There is a number of ways user input might end up being interpreted as legitimate PHP code, at which point “you are screwed” and it only needs to happen once throughout your entire application. I am no software security expert, but all web applications should implement some level of input sanitation, and to make it easy to not forget, it should not be implemented in a controller, but rather as early as possible in you code, like in middleware would be a much better place to put it. But let’s be real, even though you have done everything in you power to make sure no unwanted code has been executed in your app or persisted to your database, it is still possible that you have missed something. You should therefor also always escape all output in your views. This means, when working with HTML, to remove all html tags. By doing this you make it impossible for an attacker to output "<script></script>" tags into other people’s browsers.
 </p>
 <p>
-There are loads more to this topic, but I’ll leave it here. You can read more about PHP security at <a href="https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet">OWASP</a>.
+There are loads more to this topic, but I’ll leave it here. You can read more about PHP security at <a href="https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet" title="https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet">OWASP</a>.
 </p>
 
 <h4>Responses</h4>
@@ -252,7 +247,7 @@ The response from a web application can be many things, but in 99% of the cases 
 
 <h4>Views</h4>
 <p>
-In Laravel the Blade templating engine comes with the framework out of the box. This does all sorts of useful things, like allowing you to extend other views which makes it possible to make one base view containing the head, navigation and footer, elements that are going to be on every page anyway. This makes it so much simpler to make changes to these reoccurring elements. Blade also does output escaping automatically for you. There are tons of awesome features to the Blade templating engine, I’ll leave this section like I do the rest; with a <a href="https://laravel.com/docs/5.4/blade">link</a>.
+In Laravel the Blade templating engine comes with the framework out of the box. This does all sorts of useful things, like allowing you to extend other views which makes it possible to make one base view containing the head, navigation and footer, elements that are going to be on every page anyway. This makes it so much simpler to make changes to these reoccurring elements. Blade also does output escaping automatically for you. There are tons of awesome features to the Blade templating engine, I’ll leave this section like I do the rest; with a <a href="https://laravel.com/docs/5.4/blade" title="https://laravel.com/docs/5.4/blade">link (Laravel docs on Blade)</a>.
 </p>
 
 <h4>Login/registration</h4>
@@ -269,7 +264,7 @@ When cooperating with other developers or use multiple platforms during the deve
 <h5>The Eloquent ORM</h5>
 <p>
 When working with the database in Laravel I utilize the Eloquent ORM (Object Relational Mapping). Although I have written my own database classes in the past, the power of an ORM like Eloquent is to excellent to pass up. It’s a beautiful and simple ActiveRecord implementation for working with the database. Each table in the database has a corresponding “Model” class (the M in MVC) in your code which is used to interact with that table. The model is a powerful query builder towards the respective table; it also allows you to express relationships between the different models/tables for fluent and expressive interactions with the database in your code.
-Laravel does draw some inspiration from Rails. Visit <a href="http://guides.rubyonrails.org/active_record_basics.html">this page</a> to get some insight into the terminology above.
+Laravel does draw some inspiration from Rails. Visit <a href="http://guides.rubyonrails.org/active_record_basics.html" title="http://guides.rubyonrails.org/active_record_basics.html">this page</a> to get some insight into the terminology above.
 </p>
 
 <h4>Policies</h4>
@@ -295,7 +290,7 @@ Laravel provides a very simple and expressive API over the SwiftMailer library w
 
 <h4>Queues</h4>
 <p>
-User experience is key for the success of any application, and responsiveness is an important characteristic in respect to this. We all get frustrated when having to deal with slow sites. Just a few milliseconds can, when added up through long sessions, end up being a major frustration. Being able to set off time demanding tasks, like sending an email, in order to more quickly return a response to the user is what ques are for. Laravel provides several drivers for implementing queuing in your app. Companywatchlist uses <a href="http://kr.github.io/beanstalkd/">Beanstalkd</a> as its work queue. Beanstalkd was designed for the purpose of reducing latency in high volume web sites by running time consuming tasks asynchronously. The Laravel framework comes with a driver for Beanstalkd and you can take it in use simply by changing a configuration option. 
+User experience is key for the success of any application, and responsiveness is an important characteristic in respect to this. We all get frustrated when having to deal with slow sites. Just a few milliseconds can, when added up through long sessions, end up being a major frustration. Being able to set off time demanding tasks, like sending an email, in order to more quickly return a response to the user is what ques are for. Laravel provides several drivers for implementing queuing in your app. Companywatchlist uses <a href="http://kr.github.io/beanstalkd/" title="http://kr.github.io/beanstalkd/">Beanstalkd</a> as its work queue. Beanstalkd was designed for the purpose of reducing latency in high volume web sites by running time consuming tasks asynchronously. The Laravel framework comes with a driver for Beanstalkd and you can take it in use simply by changing a configuration option. 
 </p>
 <p>
 On the topic of running code asynchronously I would like to quickly build some understanding of how the compiler reads through a PHP script. A PHP script is read line by line and there is no concept of running things asynchronously by branching tasks into their own threads. That means then you make an API call or send mail, the execution of your script is put on hold until the transmission of the data is completed. There are ways to get around this sequential execution of code. I really don’t know what I am talking about anymore, but promises and event loops is something I will look into in the near future. 
@@ -306,16 +301,16 @@ My point is that queues allow you to get around the synchronous nature of the PH
 
 <h4>Scheduled tasks</h4>
 <p>
-Tasks are often needed to run at a regular interval, like sending a weekly traffic report to site administrator, or do a nightly cleanup of the database. Laravel provides a central location where one can define all scheduled tasks for the application. This together with a fluent and expressive API makes defining scheduled tasks in Laravel a breeze. A result of this centralization is also that you only need to set up a single <a href="https://en.wikipedia.org/wiki/Cron">cron job</a> for all you scheduled tasks, removing a lot of managerial overhead. Companywatchlist has a cron job being run every minute to check if any tasks are due, which is the case twice a day, once in the morning and once in the evening. This scheduled task runs an artisan command checking if any notifications are triggered and send emails if that is the case.
+Tasks are often needed to run at a regular interval, like sending a weekly traffic report to site administrator, or do a nightly cleanup of the database. Laravel provides a central location where one can define all scheduled tasks for the application. This together with a fluent and expressive API makes defining scheduled tasks in Laravel a breeze. A result of this centralization is also that you only need to set up a single <a href="https://en.wikipedia.org/wiki/Cron" title="https://en.wikipedia.org/wiki/Cron">cron job</a> for all you scheduled tasks, removing a lot of managerial overhead. Companywatchlist has a cron job being run every minute to check if any tasks are due, which is the case twice a day, once in the morning and once in the evening. This scheduled task runs an artisan command checking if any notifications are triggered and send emails if that is the case.
 </p>
 <p>
-Read more about <a href="https://laravel.com/docs/5.4/scheduling#introduction">task scheduling in Laravel</a>.
+Read more about <a href="https://laravel.com/docs/5.4/scheduling#introduction" title="https://laravel.com/docs/5.4/scheduling#introduction">task scheduling in Laravel</a>.
 </p>
 
 <h4>Final remarks on the topic of Laravel</h4>
 <p>
 After reading pretty much all of the Laravel documentation, watched a bunch of Laracasts videos and read lots of articles, I still feel there are many holes in my understanding. Holes I truly believe will stay open until I have created a framework on my own and have dived deeper into the Laravel codebase. That will be a future project if I’m going to invest more time into programming and web development.
-The Laravel framework has much more to it than what I have mentioned here, if you want to read more about it head over to the <a href="https://laravel.com/docs/5.4">Laravel Documentation</a>.
+The Laravel framework has much more to it than what I have mentioned here, if you want to read more about it head over to the <a href="https://laravel.com/docs/5.4" title="https://laravel.com/docs/5.4">Laravel Documentation</a>.
 </p>
 
 <h3>External services and technologies used in the project</h3>
@@ -335,11 +330,11 @@ By sending a HTTP GET request compliant with yahoo finance’s AIP, you get back
 To make HTTP requests in your PHP code you can use Curl, streams or an HTTP client package. Companywatchlist uses the Guzzle HTTP client to handle HTTP requests and responses from within the application.
 <p>
 
-<h4><a href="https://sentry.io/welcome/">Sentry</a></h4>
+<h4><a href="https://sentry.io/welcome/" title="https://sentry.io/welcome/">Sentry</a></h4>
 <p>
 There are many different services you can use to get visibility and insight into you applications errors and exceptions. Sentry is a great service that does exactly this. By aggregating the exceptions that are thrown together with the requests that caused them into Sentry, you get great insight into how to improve your code or start trouble shooting problems; a very valuable resource indeed.
 </p>
-<h4><a href="https://www.mailgun.com/">Mailgun</a></h4>
+<h4><a href="https://www.mailgun.com/" title="https://www.mailgun.com/">Mailgun</a></h4>
 <p>
 Mailgun is an email delivery service which makes it easy to maintain mailing-lists and do batch deliveries to thousands of users using API calls, thereby avoiding bugging down your webserver. You can do all sorts of fancy things; like define lists of routes to handle incoming emails. You can match on recipient and header values, and based on the matching route a corresponding action is performed, like forwarding the email to your application server or business email account. Mailgun provide great mechanisms to control how mail is sent and received by your domain.
 </p>
@@ -376,7 +371,7 @@ JavaScript is one of the most popular programming languages in the world, which 
 You don’t necessarily need JavaScript in your websites, HTML and CSS gets you a really long way, but if you need any sort of custom logic on the client side, JavaScript is the answer. Example use cases could be form validation, dynamic updates of HTML/CSS or performing AJAX (Asynchronous JavaScript and XML) requests.
 </p>
 
-<h5>The client side framework: <a href="https://vuejs.org/">Vue</a></h5>
+<h5>The client side framework: <a href="https://vuejs.org/" title="https://vuejs.org/">Vue</a></h5>
 <p>
 Now with some insights into what a server side framework provides, what exactly are the problems a JavaScript framework solves?
 In a broad perspective Vue tries to solve the same problems like any other framework, like how to structure code and ideas, how to solve common issues any project must address and further to provide resources to make the development experience easier, faster and more pleasant.
@@ -401,13 +396,13 @@ Web development imposes many challenges on developers, and to handle the complex
 Version control is an absolute drag to do on your own. You add a new feature, but it did not work out as well as you thought it would, so you need to revert back to an earlier state, but you have made changes all over the place and it’s difficult to do. Or, you are collaborating with other developers on a project and all the different contributions must be managed somehow, you can’t just have ten developers add code all over the place with no gatekeeping or central control. 
 </p>
 <p>
-Git is a version control system helping you manage your code under its development and life. Instead of me trying to explain its features I’ll refer you <a href="https://git-scm.com/about">here</a>.
+Git is a version control system helping you manage your code under its development and life. Instead of me trying to explain its features I’ll refer you to <a href="https://git-scm.com/about" title="https://git-scm.com/about">git-scm.com</a>.
 </p>
 <p>
-Github is a hosting service for Git repositories. On Github you can collaborate with other developers on your favorite projects, share your own projects with the world, or simply store your code in the cloud. Github also has a lot of other neat little features. Check em out <a href="https://github.com/features">here</a>.
+Github is a hosting service for Git repositories. On Github you can collaborate with other developers on your favorite projects, share your own projects with the world, or simply store your code in the cloud. Github also has a lot of other neat little features. Check em out at <a href="https://github.com/features" title="https://github.com/features">github.com/features</a>.
 </p>
 
-<h4><a href="https://forge.laravel.com/">Forge</a></h4>
+<h4><a href="https://forge.laravel.com/" title="https://forge.laravel.com/">Forge</a></h4>
 <p>
 Forge is a server management system developed for PHP. Forge help you provision and deploy your PHP application to a number of cloud platforms. Forge installs software, keeps servers up to date, synchronizes the server with the applications Git repository ( push to deploy), installs and manages SSL certificates and helps you manage your queue workers. 
 </p>
@@ -415,12 +410,12 @@ Forge is a server management system developed for PHP. Forge help you provision 
 Deploying and configuring a web server form scratch was not really a goal for me during this projects, I had plenty of challenges just writing the application, so I decided to outsource this problem to Forge.
 </p>
 
-<h4><a href="https://aws.amazon.com/">Amazon Web Sevices</a></h4>
+<h4><a href="https://aws.amazon.com/" title="https://aws.amazon.com/">Amazon Web Sevices</a></h4>
 <p>
 You need somewhere to host your server, doing this yourself is something you do not want to do. There are many great could platforms that allow you to spin up and manage virtual machines. AWS is a feature rich cloud service provider. You get one year of “free tier” subscription where you can basically host a t2.micro (1 virtual CPU, 1GB ram, 20GB HDD) for one year for free, plus some other stuff. I also signed up for their “student program” and got $150 of credit to use, but it expires one year after signup.
 </p>
 <p>
-The AWS Cloud provides a broad set of infrastructure services, such as computing power, storage options, networking and databases that are delivered as a utility: on-demand, available in seconds, with pay-as-you-go pricing.  AWS also deliver a whole ecosystem of services to build massive distributed, scalable and high performing web applications. Today over 90 services are available in the AWS could. A great place to start learning is the <a href="https://aws.amazon.com/whitepapers/">AWS whitepapers</a>.
+The AWS Cloud provides a broad set of infrastructure services, such as computing power, storage options, networking and databases that are delivered as a utility: on-demand, available in seconds, with pay-as-you-go pricing.  AWS also deliver a whole ecosystem of services to build massive distributed, scalable and high performing web applications. Today over 90 services are available in the AWS could. A great place to start learning is the <a href="https://aws.amazon.com/whitepapers/" title="https://aws.amazon.com/whitepapers/">AWS whitepapers</a>.
 </p>
 
 <h4><a href="https://godaddy.com/" title="https://godaddy.com/">GoDaddy</a></h4>
