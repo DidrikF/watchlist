@@ -78,11 +78,25 @@ I cannot leave this section without extending my gratitude for the massive help 
 
 <h3>The features of the Companywatchlist web application</h3>
 <p>
-Before diving into the technologies involved in building a site like Companywatchlist.com, I would like to talk about the different features of the application. There are four main features the site is offering. The first is the ability to search for a company by name or ticker and be able to access a web page showing some financial data on the company. The second is the ability to capture your thoughts on a company by filling out a simple analysis form. This form is of course not how you perform financial analysis or valuation of a company. It is just ment as a "proof of concept". The third feature, and also the most central feature to the site, is the ability to organize the companies your are following into watch lists. You can create as many watchlists you want, and add as many companies you want to each wathclist. The forth feature, and the most challenging to write, is the ability to create custom notifications. A notification consists of one or more conditions you combine together, and when all the conditions are met you are made aware through email and the web GUI. An example of a condition could be; the stock price is below $85, or the P/E ratio is below 12.
+Before diving into the technologies involved in building a site like Companywatchlist.com, I would like to talk about the different features of the application. There are four main features the site is offering. 
+<ol>
+<li>
+The first is the ability to search for a company by name or ticker and be able to access a web page showing some financial data on the company.
+</li>
+<li>
+The second is the ability to capture your thoughts on a company by filling out a simple analysis form. This analysis form is not representative of how one perform financial analysis or valuation of a company. It is just ment as a "proof of concept". 
+</li>
+<li>
+The third feature, and also the most central feature to the site, is the ability to organize the companies your are following into watch-lists. You can create as many watch-lists you want, and add as many companies you want to each watch-list. 
+</li>
+<li>
+The forth feature, and the most challenging to write, is the ability to create custom notifications. A notification consists of one or more conditions you combine together, and when all the conditions are met you are made aware through email and the web GUI. An example of a condition could be; the stock price is below $85, or the P/E ratio is below 12.
+</li>
+</ol>
 </p>
 
 <p>
-You can read more about how companywatchlist.com works and its faetures at <a href="https://companywatchlist.com/about">companywatchlist.com/about</a>.
+You can read more about how companywatchlist.com works and its faetures at <a href="https://companywatchlist.com/about" title="https://companywatchlist.com/about">companywatchlist.com/about</a>.
 </p>
 
 <h3>The Technologies involved</h3>
