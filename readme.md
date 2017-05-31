@@ -56,7 +56,7 @@ When you have some legs to stand on, I recommend coming up with some projects of
 <p>
 I do not have a comprehensive map of all resources available to you when learning about web development, but I can list the main sites I used:
 <ul>
-<li><a href="https://www.safaribooksonline.com">Safaribooksonline.com</a></li>
+<li><a href="https://www.safaribooksonline.com" title="https://www.safaribooksonline.com">Safaribooksonline.com</a></li>
 <li><a href="https://www.lynda.com">Lynda.com</a></li>
 <li><a href="https://www.codecourse.com">Codecourse.com</a></li>
 <li><a href="https://www.laracasts.com">Laracasts.com</a></li>
@@ -120,7 +120,7 @@ Going off on a tangent; when feeling fairly confident with PHP I would recommend
 <p>
 I’m using MySQL; the hugely popular open source relational database server. Working with MySQL requires you to learn SQL (Structured Query Language), relational database fundamentals (design and normalization), how to interact with the database server through PHP and much more. It’s a whole area of expertise, like most other things in IT.
 </p>
-<h3>More about <a href="https://laravel.com/docs/5.4">Laravel</a><h3>
+<h3>More about <a href="https://laravel.com/docs/5.4">Laravel</a></h3>
 <p>
 A lot if the time spent developing “companywatchlist.com” was spent in the Laravel documentation. Although I’m no authority on Laravel and I still have huge amounts to learn, I’d like to attempt to write a few paragraphs on the core components of the framework.
 </p>
@@ -272,12 +272,12 @@ When working with the database in Laravel I utilize the Eloquent ORM (Object Rel
 Laravel does draw some inspiration from Rails. Visit <a href="http://guides.rubyonrails.org/active_record_basics.html">this page</a> to get some insight into the terminology above.
 </p>
 
-<h4>Policies<h4>
+<h4>Policies</h4>
 <p>
 Laravel has a concept of a policy class, used to contain all authorization logic associated with a specific controller. This logic can then be invoked in the beginning in all controller methods that require authorization. Using Eloquent Models, it is super easy to check whether a user owns the resource she is trying to modify, which in many cases is all we need to verify in order to determine if the user should be allowed to proceed.
 </p>
 
-<h4>Artisan Console<h4>
+<h4>Artisan Console</h4>
 <p>
 The Artisan Console is a command line tool that comes with Laravel to aid the development process. You can also write your own commands and register them with the framework. You can for instance auto generate the mock up for a controller or run a database migration. There is plenty of good info on how to create your own commands in the Laravel documentation. Companywathclist.com uses a command to check whether any Notifications are triggered, and if so sends an Email to notify the respective user.
 
@@ -354,7 +354,7 @@ The client side is comprised of several technologies working together to create 
 HTML (HyperText Markup Language) defines and describes the structure of webpages. HTML elements are the building blocks of HTML pages. The elements are represented by tags. These tags label pieces of content like “paragraph», «heading», «table» and so on. The browser does not display the HTML tags, but use them to render the content of the page.
 </p>
 
-<h5>CSS<h5>
+<h5>CSS</h5>
 <p>
 CSS (Cascading Style Sheets) is a language that describes the style of an HMTL document. It describes how HTML elements should be displayed on the screen. CSS saves a lot of work because it can control the layout of multiple web pages all at once.
 </p>
@@ -407,7 +407,7 @@ Git is a version control system helping you manage your code under its developme
 Github is a hosting service for Git repositories. On Github you can collaborate with other developers on your favorite projects, share your own projects with the world, or simply store your code in the cloud. Github also has a lot of other neat little features. Check em out <a href="https://github.com/features">here</a>.
 </p>
 
-<h4><a href="https://forge.laravel.com/">Forge</a><h4>
+<h4><a href="https://forge.laravel.com/">Forge</a></h4>
 <p>
 Forge is a server management system developed for PHP. Forge help you provision and deploy your PHP application to a number of cloud platforms. Forge installs software, keeps servers up to date, synchronizes the server with the applications Git repository ( push to deploy), installs and manages SSL certificates and helps you manage your queue workers. 
 </p>
@@ -423,7 +423,7 @@ You need somewhere to host your server, doing this yourself is something you do 
 The AWS Cloud provides a broad set of infrastructure services, such as computing power, storage options, networking and databases that are delivered as a utility: on-demand, available in seconds, with pay-as-you-go pricing.  AWS also deliver a whole ecosystem of services to build massive distributed, scalable and high performing web applications. Today over 90 services are available in the AWS could. A great place to start learning is the <a href="https://aws.amazon.com/whitepapers/">AWS whitepapers</a>.
 </p>
 
-<h4><a href="https://godaddy.com/">GoDaddy</a></h4>
+<h4><a href="https://godaddy.com/" title="https://godaddy.com/">GoDaddy</a></h4>
 <p>
 I used GoDaddy to purchase the “Companywatchlist.com” domain. It cost me about 1$ for one year. I mainly decided to go with GoDaddy because of the low prices. All domain related configurations needed to set up name resolution and email was fairly easy and accessible through their GUI.
 </p>
