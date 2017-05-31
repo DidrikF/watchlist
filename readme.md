@@ -19,7 +19,7 @@ I have always found computer programming fascinating; it seemed so mysterious ho
 Working as a LAN technician I got heavily exposed to Cisco and networking technologies. I felt that in order to be a valuable employee, I should go through some of the Cisco certification tracks. Fresh out of school I hungered to learn some real job relevant skills to kick off my career. So I completed the CCNA and CCNP Routing and Switching certification tracks. Through work I also got exposed to the compute, storage and virtualization domains as well as Microsoft enterprise technologies. I grew more confident each day in my ability to understand information technology. It really was this confidence that enabled me to make the decision and commit to learning more about programming.
 </p>
 <p>
-Another major force pushing me into programming was also the feeling that without programming knowledge I would forever be doomed to subpar and unfulfilling understanding of the very field I am building my career around (IT). This was simply not an option for me.
+Another force pushing me towards programming was the feeling that without programming knowledge I would forever be doomed to subpar and unfulfilling understanding of the very field I am building my career around (IT). This was simply not an option for me.
 </p>
 
 <h3>Why web development?</h3>
@@ -57,8 +57,8 @@ When you have some legs to stand on, I recommend coming up with some projects of
 <p>
 I do not have a comprehensive map of all resources available to you when learning about web development, but I can list the main sites I used in no particular order:
 <ul>
-<li>Safaribooksonline.com</li>
-<li>Lynda.com</li>
+<li>[Safaribooksonline.com](https://www.safaribooksonline.com)</li>
+<li>[Lynda.com](https://lynda.com)</li>
 <li>Codecourse.com</li>
 <li>Laracasts.com</li>
 <li>Php.net</li>
@@ -219,9 +219,11 @@ Controllers gather related request handling logic into a single class. You could
 
 <h4>Requests</h4>
 <p>
-As requests come in to our application there are many concerns to consider: security, data integrity, data validity, authentication and authorization and much more.
+Laravel request objects makes it easier to work with the incomming request data and headers. Instead of having to work directly with the $_GET, $_POST and other super globals PHP stores HTTP request information in, Laravel elegantly wraps this up and makes it easily accassable through the Illuminate\Http\Request class.
+
+As requests come in to our application there are many concerns to consider: security, data integrity, data validity, authentication and authorization and much more. Some of which is discussed below.
 </p>
-<h4>Validation</h4>
+<h5>Validation</h5>
 <p>
 Validation can be easy to overlook, why can’t we just assume the users will give me the data that I ask for and nothing else? It’s also kind of boring, uninteresting and cumbersome. It does not add functionality, yet it is hugely important. Users will not always give you what you expect, and some people even have malicious intents and will actively try to break your site. We need to implement means of protection as well as making it as easy as we can for the user to understand what went wrong with her request. Laravel provides an easy to use method for validation, which can also be extended to add you own custom validation logic. Say hello to conditional statements and comparison operators, they are your friend when it comes to validation. But do bear in mind, if you are working in PHP, which is a loosely typed language, behind the scenes variables can change types and comparison operators might not work as you expected. One tip I can give is to always use “===” to make sure data you are comparing also are of the same type.
 </p>
@@ -230,7 +232,7 @@ Laravel provides several different ways to validate incoming data, read more abo
 (https://laravel.com/docs/5.4/validation )
 </p>
 
-<h4>Sanitation and output escaping</h4>
+<h5>Sanitation and output escaping</h5>
 <p>
 To make sure you are not allowing users to execute code on your server, or perform Cross Site Scripting (XSS) attacks; input processed by your server should be sanitized. There is a number of ways user input might end up being interpreted as legitimate PHP code, at which point “you are screwed” and it only needs to happen once throughout your entire application. I am no software security expert, but all web applications should implement some level of input sanitation, and to make it easy to not forget, it should not be implemented in a controller, but rather as early as possible in you code, like in middleware would be a much better place to put it. But let’s be real, even though you have done everything in you power to make sure no unwanted code has been executed in your app or persisted to your database, it is still possible that you have missed something. You should therefor also always escape all output in your views. This means, when working with HTML, to remove all html tags. By doing this you make it impossible for an attacker to output "<script></script>" tags into other people’s browsers.
 </p>
