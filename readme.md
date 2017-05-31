@@ -1,4 +1,4 @@
-<h1>The Company-Watchlist Project</h1>
+<h1><a href="https://companywatchlist.com" title="https://companywatchlist.com">The Company-Watchlist Project</a></h1>
 <h3>Introduction</h3>
 <p>
 Dear reader, I’m writing the article to present my first ever web application to go live; «companywatchlist.com». I will both tell my story learning about web development and also about the technologies and inner workings of the site. I would like to give insight into what it takes to get into web development and create an application using modern technologies and techniques. 
