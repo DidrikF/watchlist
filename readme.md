@@ -57,17 +57,17 @@ When you have some legs to stand on, I recommend coming up with some projects of
 <p>
 I do not have a comprehensive map of all resources available to you when learning about web development, but I can list the main sites I used in no particular order:
 <ul>
-<li>[Safaribooksonline.com](https://www.safaribooksonline.com)</li>
-<li>[Lynda.com](https://lynda.com)</li>
-<li>Codecourse.com</li>
-<li>Laracasts.com</li>
-<li>Php.net</li>
-<li>https://developer.mozilla.org/en-US/</li>
-<li>https://www.w3schools.com</li>
-<li>Laravel.com</li>
-<li>Vuejs.org</li>
-<li>https://www.w3schools.com</li>
-<li>codewars.com</li>
+<li><a href="https://www.safaribooksonline.com">Safaribooksonline.com</a></li>
+<li><a href="https://www.lynda.com">Lynda.com</a></li>
+<li><a href="https://www.codecourse.com">Codecourse.com</a></li>
+<li><a href="https://www.laracasts.com">Laracasts.com</a></li>
+<li><a href="https://www.php.net">PHP.net</a></li>
+<li><a href="https://developer.mozilla.org/en-US/">Developer.Mozilla.org</a></li>
+<li><a href="https://www.w3schools.com">W3schools.com</a></li>
+<li><a href="https://www.laravel.com">Laravel.com</a></li>
+<li><a href="https://www.vuejs.org">Vuejs.org</a></li>
+<li><a href="https://www.codewars.com">Codewars.com</a></li>
+<li><a href="https://stackoverflow.com/">Stackoverflow.com</a></li>
 </ul>
 </p>
 <p>
