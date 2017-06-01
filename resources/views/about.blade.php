@@ -14,46 +14,30 @@
               </div>
             </article>
             
-            <p class="" style="margin: 20px 0;">
-                Find, review and keep track of companies you like by adding them to your watchlists. <br> 
-                Easily create notifications and get notified when company data changes.
+          
+            
+            <h1>About The Company-Watchlist Project</h1>
+            <h3>Introduction</h3>
+            <p>
+            Dear reader, I’m writing the article to present my first ever web application to go live; «companywatchlist.com». I will both tell my story learning about web development and also about the technologies and inner workings of the site. I would like to give insight into what it takes to get into web development and create an application using modern technologies and techniques. 
             </p>
-            <div class="">
-                <div class="" style="margin-top: 25px;">
-                    <h3 class="title is-3">1. Review and analyze</h3>
-                    <img src="/images/company_page.png" style="max-width: 600px;">
-                </div>
-                <div class="" style="margin-top: 25px;">
-                    <h3 class="title is-3">2. Add to watchlist</h3>
-                    <img src="/images/watchlist.png" style="max-width: 600px;">
-                </div>
-                <div class="" style="margin-top: 25px;">
-                    <h3 class="title is-3">3. Set up notifications</h3>
-                    <img src="/images/notifications.png" style="max-width: 600px;">
-                </div>
-            </div>
-            <h1><a href="https://companywatchlist.com" title="https://companywatchlist.com">The Company-Watchlist Project</a></h1>
-<h3>Introduction</h3>
-<p>
-Dear reader, I’m writing the article to present my first ever web application to go live; «companywatchlist.com». I will both tell my story learning about web development and also about the technologies and inner workings of the site. I would like to give insight into what it takes to get into web development and create an application using modern technologies and techniques. 
-</p>
-<p>
-The last year I have spent hundreds of hours (you may even run out of fingers on your second hand) trying to learn web development. It has been one of the most challenging intellectual pursuits I have ever undertaken. At times, I doubted the value of my struggles, but now looking there is no doubt in my mind; I would do it all over again. 
-</p>
+            <p>
+            The last year I have spent hundreds of hours (you may even run out of fingers on your second hand) trying to learn web development. It has been one of the most challenging intellectual pursuits I have ever undertaken. At times, I doubted the value of my struggles, but now looking there is no doubt in my mind; I would do it all over again. 
+            </p>
 
-<h3>About me</h3>
-<p>
-Before I continue I would like to quickly introduce myself. My name is Didrik Fleischer, I am at the time of writing 25 years old. I’m from Oslo, but living in Sandnes, Norway. I’m a second lieutenant in the Norwegian army, and I’m working as a LAN technician in NATO Communication and Information Agency.
-</p>
-<p>
-I have always found computer programming fascinating; it seemed so mysterious how programmers managed to create everything from massive virtual worlds in computer games, to worldwide communication platforms and online banking systems. Being an outsider to the world of programming, a lot of the mystery I felt was probably a result of the mind-boggling complexity I prescribed to the field after looking at my first pages of code. Through the years doing my bachelor in Telematics I had been exposed to many other parts to the puzzle of how input gets transformed into output on a computer. Physics, electronics, telematics, computer networking, operating systems and much more, which both resolved and added to the mystery of how programmers were able to create the vast ecosystem of applications we use every day. To be honest, going through school and the first few years working, I felt that programming was beyond me. “My time is better spent doing something a bit simpler”, I thought to myself. I don’t think I’m alone in this line of reasoning, maybe this article can push you just a little bit further towards staring to learn programming, if that is something you are interested in doing.
-</p>
-<p>
-Working as a LAN technician I got heavily exposed to Cisco and networking technologies. I felt that in order to be a valuable employee, I should go through some of the Cisco certification tracks. Fresh out of school I hungered to learn some real job relevant skills to kick off my career. So I completed the CCNA and CCNP Routing and Switching certification tracks. Through work I also got exposed to the compute, storage and virtualization domains as well as Microsoft enterprise technologies. I grew more confident each day in my ability to understand information technology. It really was this confidence that enabled me to make the decision and commit to learning more about programming.
-</p>
-<p>
-Another force pushing me towards programming was the feeling that without programming knowledge I would forever be doomed to subpar and unfulfilling understanding of the very field I am building my career around (IT). This was simply not an option for me.
-</p>
+            <h3>About me</h3>
+            <p>
+            Before I continue I would like to quickly introduce myself. My name is Didrik Fleischer, I am at the time of writing 25 years old. I’m from Oslo, but living in Sandnes, Norway. I’m a second lieutenant in the Norwegian army, and I’m working as a LAN technician in NATO Communication and Information Agency.
+            </p>
+            <p>
+            I have always found computer programming fascinating; it seemed so mysterious how programmers managed to create everything from massive virtual worlds in computer games, to worldwide communication platforms and online banking systems. Being an outsider to the world of programming, a lot of the mystery I felt was probably a result of the mind-boggling complexity I prescribed to the field after looking at my first pages of code. Through the years doing my bachelor in Telematics I had been exposed to many other parts to the puzzle of how input gets transformed into output on a computer. Physics, electronics, telematics, computer networking, operating systems and much more, which both resolved and added to the mystery of how programmers were able to create the vast ecosystem of applications we use every day. To be honest, going through school and the first few years working, I felt that programming was beyond me. “My time is better spent doing something a bit simpler”, I thought to myself. I don’t think I’m alone in this line of reasoning, maybe this article can push you just a little bit further towards staring to learn programming, if that is something you are interested in doing.
+            </p>
+            <p>
+            Working as a LAN technician I got heavily exposed to Cisco and networking technologies. I felt that in order to be a valuable employee, I should go through some of the Cisco certification tracks. Fresh out of school I hungered to learn some real job relevant skills to kick off my career. So I completed the CCNA and CCNP Routing and Switching certification tracks. Through work I also got exposed to the compute, storage and virtualization domains as well as Microsoft enterprise technologies. I grew more confident each day in my ability to understand information technology. It really was this confidence that enabled me to make the decision and commit to learning more about programming.
+            </p>
+            <p>
+            Another force pushing me towards programming was the feeling that without programming knowledge I would forever be doomed to subpar and unfulfilling understanding of the very field I am building my career around (IT). This was simply not an option for me.
+            </p>
 
 <h3>Why web development?</h3>
 <p>
@@ -111,27 +95,56 @@ I cannot leave this section without extending my gratitude for the massive help 
 </p>
 
 <h3>The features of the Companywatchlist web application</h3>
+            
 <p>
-Before diving into the technologies involved in building a site like Companywatchlist.com, I would like to talk about the different features of the application. There are four main features the site is offering. 
-<ol>
-<li>
-The first is the ability to search for a company by name or ticker and be able to access a web page showing some financial data on the company.
-</li>
-<li>
-The second is the ability to capture your thoughts on a company by filling out a simple analysis form. This analysis form is not representative of how one perform financial analysis or valuation of a company. It is just ment as a "proof of concept". 
-</li>
-<li>
-The third feature, and also the most central feature to the site, is the ability to organize the companies your are following into watch-lists. You can create as many watch-lists you want, and add as many companies you want to each watch-list. 
-</li>
-<li>
-The forth feature, and the most challenging to write, is the ability to create custom notifications. A notification consists of one or more conditions you combine together, and when all the conditions are met you are made aware through email and the web GUI. An example of a condition could be; the stock price is below $85, or the P/E ratio is below 12.
-</li>
-</ol>
-</p>
+Before diving into the technologies involved in building a site like Companywatchlist.com, I would like to talk about the different features of the application. There are three main features the site is offering. 
+
+<div>
+<h3 class="title is-3">1. Review and analyze</h3>
+<p>The first is the ability to search for a company by name or ticker and be able to access a web page showing some financial data on the company. On this "company page" you may also capture your thoughts by filling out a simple analysis form. This analysis form is not representative of how one perform financial analysis or valuation of a company. It is just ment as a "proof of concept".</p>
+    <div class="" style="margin-top: 25px;">
+        <img src="/images/company_page.png" style="max-width: 600px;">
+    </div>
+</div>
+
+<div>
+<h3 class="title is-3">Create Watchlists and Add Companies</h3>
+    <p>The second feature, and also the most central feature to the site, is the ability to organize the companies your are following into watch-lists. You can create as many watch-lists you want, and add as many companies you want to each watch-list. There is a search field at the bottom of each watchlist instance, where you can search for a company by name or ticker. You can directly navigate to the company's page from the search results, or add it to the watchlist. Removing a company from a wathclist is also a one-click operation. The wathclist items are sorted according to scores derived from the analyses of the companies they represent. If not all comapnies have a score, the remaining once are sorted alphabetically.</p>
+    <div>
+    <img src="/images/watchlist.png" style="max-width: 600px;">
+    </div>
+    
+    <p>The creation of new watchlists are done at the bottom of the home page. You give it a name and a description, and press "Create".</p>
+    <img src="/images/create-watchlist.png" style="max-width: 600px;">
+</div>
+
+<div>
+<h3 class="title is-3">3. Set up notifications</h3>
+The third feature, and the most challenging to write, is the ability to create custom notifications. A notification consists of one or more conditions you combine together, and when all the conditions are met you are made aware through email and the web GUI. An example of a condition could be; the stock price is below $85, or the P/E ratio is below 12. You create a notification on the company's page by giving it a name, description and adding one or more conditions. All notifications created on a company are listed on the company's page. There you can also see the status of the notifications (whether or not they are triggered). If a notificaiton has been triggered on a company, this information is also visible in the watchlists the company has been added to.
+    <div>
+        <img src="/images/notifications.png" style="max-width: 600px;">
+    </div>
+</div>
+<div>
+There are quite a few details thorughout the site that I have put effort into, but I am yet to mention. In stead of writing coherent text where I manage to squeeze them all in, I'll just list them underneath and save a few words.
+
+<ul>
+<li>You can add a company to a watchlist directly from the company's page.</li>
+<li>When filling in an analysis, your data is automatically uploaded and saved in the database. The upload process is triggered by the user stopping to type for couple of second. That way the server is not constantly hit every time the user presses a key.</li>
+<li>The analysis form tells the user whether or not the database update was successful by showing a small "status-button" in the bottom corner for a few seconds, before fading it out.</li>
+<li>When deleting a watchlist, a modal pops up and asks you to confirm the action.</li>
+<li>Both watchlists and and notifications can be edited after their creation.</li>
+<li>You can cancel or reset the creation of a watchlist or notification. This will clear all the associated fields.</li>
+<li>The search component embedded in the watchlists will dynamically perform searches when the user is typing. A refresh of the search results will occur 400ms after the user stops typing the search field.</li>
+</ul>
 
 <p>
-You can read more about how companywatchlist.com works and its faetures at <a href="https://companywatchlist.com/about" title="https://companywatchlist.com/about">companywatchlist.com/about</a>.
+There are a ton of things regarding the server side of the application that I have not gotten into here. This section was ment to showcase the user experience. I do mention quite a fiew server related features when talking about the technologies I used in the next section of the article. 
 </p>
+
+</div>
+</p>
+
 
 <h3>The Technologies involved</h3>
 <p>
