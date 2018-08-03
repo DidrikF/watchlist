@@ -88,6 +88,8 @@ class NotificationRequest extends FormRequest
                 $dataIds[] = $condition['dataId']; //only dataIds with all fields, is supported and no duplicate
             }
             
+            /* Cannot do this pieace of the validation, because yahoo finance api was discontinued.
+            
             $dataIdString = implode('', $dataIds);
             $yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s={$ticker}&f={$dataIdString}";
             $response = $client->request('GET', $yahooUrl)->getBody();
@@ -110,6 +112,7 @@ class NotificationRequest extends FormRequest
                 }
                 $teller++;
             }
+            */
             
         });
 

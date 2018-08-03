@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div style="margin-top: 70px;">
+    <div style="margin-top: 70px; display: flex; align-items: center; height: 100%; position: absolute; top: -10%;">
+        
+    
         <div style="">
             <div class="columns" style="margin-bottom: 35px;">
                 <div class="column">
-                    <img class="is-pulled-right" src="/images/logo.png" style="width: 200px; margin-right: 200px;">        
+                    <img class="is-pulled-right" src="/livedemo/companywatchlist/images/logo.png" style="width: 200px; margin-right: 200px;">        
                 </div>
                 <div class="column" style="margin-left: -150px;">
                     <h2 class="title is-1" style="margin: 15px 0; font-family: Lato:100;">Welcome to<br>Company Watchlist</h2>
@@ -43,6 +45,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 @endsection

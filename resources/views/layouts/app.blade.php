@@ -9,11 +9,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/livedemo/companywatchlist/favicon.png" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/livedemo/companywatchlist/css/app.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans:300|Sansita" rel="stylesheet">
@@ -39,7 +39,7 @@
 
 <body style="min-height: 100%; min-width: 920px;">
 
-    <div id="app" class="container is-clearfix" style="min-height: 70%;">  <!-- We bind our Vue instance to this element -->
+    <div id="app" class="container is-clearfix" style="min-height: 85%; position: relative;">  <!-- We bind our Vue instance to this element -->
         
         @include ('layouts.partials._bulmaNavigation')
 
@@ -73,6 +73,6 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src='//cloud.tinymce.com/stable/tinymce.min.js'></script>
-    <script src="/js/app.js"></script>
+    <script src="/livedemo/companywatchlist/js/app.js"></script>
 </body>
 </html>

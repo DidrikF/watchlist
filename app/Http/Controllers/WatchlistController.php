@@ -81,7 +81,9 @@ class WatchlistController extends Controller
     }
 
     //resolving Watchlist and passing normal paramenter, hope it understands
-    public function createItem(Watchlist $watchlist, WatchlistItemRequest $request) //FORM REQUEST
+
+    // Before yahoo finance api was discontinued, I ran some validation on the company the user was trying to add to a watchist (checking that it existed at Yahoo finance etc.) this is no longer possible, so I simply removed the validation.
+    public function createItem(Watchlist $watchlist, Request $request) //FORM REQUEST
     {
         $this->authorize('createItem', $watchlist); //DO VIA FORM REQUEST
         

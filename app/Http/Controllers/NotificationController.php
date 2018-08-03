@@ -30,6 +30,8 @@ class NotificationController extends Controller
     */
 
     //Being authenticated is only requirement
+
+    // I used to use the NotificationRequest class to do validation of the request to set up a new notification, but this relied on the Yahoo finance API (discontinued), so now I simply removed that logic. 
     public function create($ticker, NotificationRequest $request)
     {
         $ticker = filter_var($ticker, FILTER_SANITIZE_STRING);
@@ -43,6 +45,7 @@ class NotificationController extends Controller
 
         $notification->save();
 
+        //return response()->json($request->conditions);
 
         foreach($request->conditions as $condition) {
             $nc = new NotificationCondition;
@@ -77,6 +80,7 @@ class NotificationController extends Controller
 
     }
 
+    // I used to use the NotificationRequest class to do validation of the request to set up a new notification, but this relied on the Yahoo finance API (discontinued), so now I simply removed that logic. 
     public function update(Notification $notification, $ticker, NotificationRequest $request)
     {
         $this->authorize('update', $notification);

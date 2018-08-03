@@ -99,13 +99,14 @@
 				  <tbody>
 				  	<tr v-for="company in searchResults">
 				  		<td><a :href="'/company/' + company.symbol">{{ company.name }}</a></td>
-						<td>{{ company.symbol }}</td>
-						<td>{{ company.exch }}/{{ company.exchDisp }}</td>
-						<td><button class="button is-primary is-small" type="button" @click="addCompany(company)">Add</button></td>
-					</tr>
-				  </tbody>
-				</table>
-			<div>
+							<td>{{ company.symbol }}</td>
+							<td>{{ company.exch }}/{{ company.exchDisp }}</td>
+							<td><button class="button is-primary is-small" type="button" @click="addCompany(company)">Add</button></td>
+						</tr>
+						</tbody>
+					</table>
+				<div>
+			</div>
 		</div>
 	</div>
 	<!--

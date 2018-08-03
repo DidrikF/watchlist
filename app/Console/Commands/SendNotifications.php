@@ -121,6 +121,7 @@ class SendNotifications extends Command
         $data = [];
         $client = new Client; 
         foreach($uniqueTickers as $t){
+            /* MOCK THIS PART! */
             $values = $client->request('GET', "http://finance.yahoo.com/d/quotes.csv?s={$t}&f=pydt8m4g3s6wj1veb4j4p5p6rr5s7")->getBody()->getContents();
             $valuesArr = str_getcsv($values, ',', '"');
             if(count($this->keys) !== count($valuesArr)){

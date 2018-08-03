@@ -30,8 +30,8 @@ class AdminController extends Controller
         $users = (new User)->all();
 
     	return response()->view('admin.panel', [
-    			'users' => $users
-    		]);
+            'users' => $users
+        ]);
     }
 
 

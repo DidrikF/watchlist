@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 }); //->middleware('auth.basic'); //FOr HTTP basic authentication
 
 Auth::routes(); //needs to be here! Registers the authentication related routes.
