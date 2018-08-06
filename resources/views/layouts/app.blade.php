@@ -72,7 +72,7 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src='//cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <!--<script src='//cloud.tinymce.com/stable/tinymce.min.js'></script>-->
     <script src="/livedemo/companywatchlist/js/app.js"></script>
 </body>
 </html>
