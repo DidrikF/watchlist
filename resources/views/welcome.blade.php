@@ -18,7 +18,7 @@
                         </span>
                         <span>GitHub</span>
                       </a>
-                    <a class="button is-large" href="{{ env('APP_URL') }}/livedemo/companywatchlist/about">
+                    <a class="button is-large" href="{{ env('APP_URL') }}/about">
                         <span class="icon is-medium">
                           <i class="fa fa-book" aria-hidden="true"></i>
                         </span>
