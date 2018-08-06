@@ -16,7 +16,8 @@
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = require('vue');
+
+// window.Vue = require('vue');
 // equire('vue-resource'); // Think I can remove.
 
 /**
@@ -34,7 +35,7 @@ Vue.http.interceptors.push((request, next) => {
 
 */
 
-axios = require('axios')
+var axios = require('axios')
 axios.defaults.baseURL = '/livedemo/companywatchlist'
 axios.defaults.headers.common['X-CSRF-TOKEN'] = Laravel.csrfToken;
 
