@@ -60,8 +60,13 @@ class RegisterController extends Controller
         //DO NOT LOG PEOPLE IN AFTER REGISTRATION
         //$this->guard()->login($user); 
 
-        return $this->registered($request, $user)
-            ?: view('auth.registration-message');//redirect($this->redirectPath());
+
+
+        // this would dispatch email jobs
+        //return $this->registered($request, $user)
+        //    ?: view('auth.registration-message');
+            
+        return redirect($this->redirectPath());
     }
 
     /**
@@ -114,7 +119,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/'; //not registrered-message
+    protected $redirectTo = '/livedemo/companywatchlist/login'; //not registrered-message
 
     /**
      * Create a new controller instance.
@@ -164,7 +169,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'accepted' => false,
+            'accepted' => true, // Used to be false, to make it so that an admin would have to approve new users.
             'admin' => false,
         ]);
     }
