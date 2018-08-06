@@ -9,7 +9,7 @@
 
     <!-- Search bar -->    
     <div class="nav-search">
-        <form  action="/search" method="get">
+        <form  action="/livedemo/companywatchlist/search" method="get">
             <div>
                 <input type="text" name="q" id="search" placeholder="Company name/ticker" value="{{ Request::get('q') }}">
             </div>
