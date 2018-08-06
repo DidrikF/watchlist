@@ -5,7 +5,7 @@
     <div class="box" style="font-size: 18px">
         <div class="title is-4">Login</div>
         <div>
-            <form method="POST" action="{{ url('/login') }}">
+            <form method="POST" action="{{ url('/livedemo/companywatchlist/login') }}">
                 {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -51,7 +51,7 @@
                         Login
                     </button>
 
-                    <a href="{{ url('/password/reset') }}">
+                    <a href="{{ url('/livedemo/companywatchlist/password/reset') }}">
                         Forgot Your Password?
                     </a>
                 </div>                

@@ -6,7 +6,7 @@
         <div class="title is-4">Reset Password</div>
 
         <div>
-            <form role="form" method="POST" action="{{ url('/password/reset') }}">
+            <form role="form" method="POST" action="{{ url('/livedemo/companywatchlist/password/reset') }}">
                 {{ csrf_field() }}
 
                 <input type="hidden" name="token" value="{{ $token }}">

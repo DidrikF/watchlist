@@ -2,7 +2,7 @@
 <nav class="top-nav">
     <!-- Logo -->
     <div class="nav-logo">
-        <a class="" href="{{ url('/') }}">
+        <a class="" href="{{ url('/livedemo/companywatchlist') }}">
             {{ config('app.name') }}
         </a>
     </div>
@@ -23,18 +23,18 @@
                            
         <!-- Authentication Links -->
         @if (Auth::guest())
-            <a href="{{ url('/login') }}">Login</a>
-            <a href="{{ url('/register') }}">Register</a>
+            <a href="{{ url('/livedemo/companywatchlist/login') }}">Login</a>
+            <a href="{{ url('/livedemo/companywatchlist/register') }}">Register</a>
         @else
             <a href="#" class="">Welcome {{ Auth::user()->name }}!</a>
-            <a class="" href="{{ url('/home') }}">Home</a>
-            <a href="{{ url('/logout') }}"
+            <a class="" href="{{ url('/livedemo/companywatchlist/home') }}">Home</a>
+            <a href="{{ url('/livedemo/companywatchlist/logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
                 Logout
             </a>
 
-            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+            <form id="logout-form" action="{{ url('/livedemo/companywatchlist/logout') }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
         @endif

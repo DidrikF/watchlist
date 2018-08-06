@@ -17,7 +17,7 @@
 			  <tbody>
 			  	@foreach($searchResults->ResultSet->Result as $company)
 			  		<tr>
-			  			<td><a href="/company/{{ $company->symbol }}">{{ $company->name }}</a></td>
+			  			<td><a href="/livedemo/companywatchlist/company/{{ $company->symbol }}">{{ $company->name }}</a></td>
 			  			<td>{{ $company->symbol }}</td>
 			  			<td>{{ $company->exch }}/{{ $company->exchDisp }}</td>
 					</tr>

@@ -5,7 +5,7 @@
     <div class="box" style="font-size: 18px;">
         <div class="title is-4">Register</div>
         <div>
-            <form role="form" method="POST" action="{{ url('/register') }}">
+            <form role="form" method="POST" action="{{ url('/livedemo/companywatchlist/register') }}">
                 {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
