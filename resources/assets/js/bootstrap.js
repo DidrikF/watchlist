@@ -35,9 +35,11 @@ Vue.http.interceptors.push((request, next) => {
 
 */
 
-var axios = require('axios')
-axios.defaults.baseURL = '/livedemo/companywatchlist'
-axios.defaults.headers.common['X-CSRF-TOKEN'] = Laravel.csrfToken;
+// var axios = require('axios')
+// import axios from 'axios';
+
+//axios.defaults.baseURL = '/livedemo/companywatchlist'
+//axios.defaults.headers.common['X-CSRF-TOKEN'] = Laravel.csrfToken;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

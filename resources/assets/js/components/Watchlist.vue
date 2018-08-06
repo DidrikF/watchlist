@@ -121,6 +121,8 @@
 	-->
 </template>
 <script>
+
+import axios from '../axiosInstance';
 //---------------------------------------------------------------------------------
 var watchlistItem = {
 	template: `
