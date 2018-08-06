@@ -14,13 +14,19 @@ require('./bootstrap');
  */
 
 import Vue from 'vue';
+import AdminPanel from './components/AdminPanel.vue';
+import CompanyAnalysis from './components/CompanyAnalysis.vue';
+import Watchlist from './components/Watchlist.vue';
+import CreateWatchlist from './components/CreateWatchlist.vue';
+import AddToWatchlist from './components/AddToWatchlist.vue';
+import CreateNotification from './components/CreateNotification.vue';
 
-Vue.component('admin-panel', require('./components/AdminPanel.vue'));
-Vue.component('company-analysis', require('./components/CompanyAnalysis.vue'));
-Vue.component('watchlist', require('./components/Watchlist.vue'));
-Vue.component('create-watchlist', require('./components/CreateWatchlist.vue'));
-Vue.component('add-to-watchlist', require('./components/AddToWatchlist.vue'));
-Vue.component('create-notification', require('./components/CreateNotification.vue'));
+Vue.component('admin-panel', AdminPanel);
+Vue.component('company-analysis', CompanyAnalysis);
+Vue.component('watchlist', Watchlist);
+Vue.component('create-watchlist', CreateWatchlist);
+Vue.component('add-to-watchlist', AddToWatchlist);
+Vue.component('create-notification', CreateNotification);
 
 
 Vue.component('watchlist-container', {
