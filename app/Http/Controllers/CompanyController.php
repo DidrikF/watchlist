@@ -106,7 +106,7 @@ class CompanyController extends Controller
             DB::table('financialdata')->insert([
                 "ticker" => $ticker,
                 "p" => $faker->randomFloat(2, 10, 1000),//"Previous close", 
-                "y" => $faker->randomFloat(2, 0, 5)+"%",//"Dividend yield",
+                "y" => $faker->randomFloat(2, 0, 5),//"Dividend yield",
                 "d" => $faker->randomFloat(2, 0, 100), //"Dividend per share",
                 "d1" => $faker->date(),//"Last trade date", 
                 "t8" => $faker->randomFloat(2, 10, 1000),//"1 year target price",
