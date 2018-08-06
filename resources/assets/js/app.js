@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+import axiosInstance from './axiosInstance';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -50,7 +51,7 @@ Vue.component('watchlist-container', {
             console.log('delete watchlist fired, ', watchlistId, index);
             let backup = this.watchlistsData[index];
             this.watchlistsData.splice(index, 1);
-            axios.delete('/watchlist/' + watchlistId).then(response => {
+            axiosInstance.delete('/watchlist/' + watchlistId).then(response => {
                 if(response.status !== 200){
                     this.watchlistsData.splice(index, 0, backup);
                 }
@@ -61,7 +62,7 @@ Vue.component('watchlist-container', {
         },
         createWatchlist(title, description){
             console.log('create watchlist fired, ', title, description);
-            axios.post('/watchlist', {name: title, description: description}, {validateStatus: function(status) {
+            axiosInstance.post('/watchlist', {name: title, description: description}, {validateStatus: function(status) {
                 return status < 500; //reject only if status is equal to or above 500
             }}).then(response => {
                 if(response.status === 201){

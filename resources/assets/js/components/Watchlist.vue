@@ -122,7 +122,7 @@
 </template>
 <script>
 
-import axios from '../axiosInstance';
+import axiosInstance from '../axiosInstance';
 //---------------------------------------------------------------------------------
 var watchlistItem = {
 	template: `
@@ -236,7 +236,7 @@ export default {
 	methods: {
 		//This method can be used to get all data needed to display a watchlist
 		getWathchlist(){ //Using this primarly to get the watchlist items and scores
-			axios.get('/watchlist/' + this.watchlist.id).then(response => {
+			axiosInstance.get('/watchlist/' + this.watchlist.id).then(response => {
 				this.title = response.data.title; //the DB is the source of truth
 				this.description = response.data.description;
 				this.itemScores = response.data.scores;
@@ -266,7 +266,7 @@ export default {
 			this.validationError = null;
 			this.oldTitle = null;
 			this.oldDescription = null;
-			axios.put('/watchlist/' + this.watchlist.id, {name: this.title, description: this.description}).then(response => {
+			axiosInstance.put('/watchlist/' + this.watchlist.id, {name: this.title, description: this.description}).then(response => {
 				if(response.status = 200){
 					this.flashMessage(this.statusMessage, "Update successful");
 					return;
@@ -284,7 +284,7 @@ export default {
 		
 		// ____WATCHLIST-ITEM METHODS__________________________________________________________
 		removeCompany(ticker){
-			axios.delete('/watchlist/' + this.watchlist.id + '/' + ticker).then(response => {
+			axiosInstance.delete('/watchlist/' + this.watchlist.id + '/' + ticker).then(response => {
 				if(response.status = 200){
 					let itemToRemove = this.items.find(item => {
 						return item.ticker == ticker;
@@ -314,7 +314,7 @@ export default {
 			//{{ company.name }} ({{ company.symbol }}) <span> - {{ company.exch }}/{{ company.exchDisp }} </span>
 			let itemToAdd = {name: company.name, ticker: company.symbol, exchange: company.exch, industry: null};
 
-			axios.post('/watchlist/' + this.watchlist.id, itemToAdd).then(response => {
+			axiosInstance.post('/watchlist/' + this.watchlist.id, itemToAdd).then(response => {
 				if(response.status != 201 || response.status != 200) {
 					this.statusMessage = "Failed to add company";
 				}
@@ -330,7 +330,7 @@ export default {
 				this.prevSearchWord = this.searchWord;
 				if(this.timeout) clearTimeout(this.timeout);
 				this.timeout = setTimeout(() => {
-					axios.get('/jsonsearch/' + this.searchWord).then(response => {
+					axiosInstance.get('/jsonsearch/' + this.searchWord).then(response => {
 						//if no search result $searchResults->ResultSet->Result as $company
 						if(!response.data.ResultSet.Result || !response.data.ResultSet.Result.length) {
 							this.searchResults = null;
@@ -351,7 +351,7 @@ export default {
 			this.prevSearchWord = this.searchWord;
 			this.searchStatusMessage = null;
 			clearTimeout(this.timeout);
-			axios.get('/jsonsearch/' + this.searchWord).then(response => {
+			axiosInstance.get('/jsonsearch/' + this.searchWord).then(response => {
 					if(!response.data.ResultSet.Result) {
 						this.searchResults = null;
 						this.searchStatusMessage = 'No results';
