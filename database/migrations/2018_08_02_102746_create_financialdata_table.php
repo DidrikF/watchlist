@@ -27,7 +27,7 @@ class CreateFinancialdataTable extends Migration
             $table->increments('id');
             $table->string('ticker')->unique();
             $table->float('p', 12, 2);
-            $table->float('y', 12, 2);
+            $table->string('y');
             $table->float('d', 12, 2);
             $table->date('d1');
             $table->float('t8', 12, 2);

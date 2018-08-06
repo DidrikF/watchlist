@@ -98,7 +98,7 @@
 				  </thead>
 				  <tbody>
 				  	<tr v-for="company in searchResults">
-				  		<td><a :href="'/company/' + company.symbol">{{ company.name }}</a></td>
+				  		<td><a :href="'/livedemo/companywatchlist/company/' + company.symbol">{{ company.name }}</a></td>
 							<td>{{ company.symbol }}</td>
 							<td>{{ company.exch }}/{{ company.exchDisp }}</td>
 							<td><button class="button is-primary is-small" type="button" @click="addCompany(company)">Add</button></td>
@@ -138,7 +138,7 @@ var watchlistItem = {
 	`,
 	data() {
 		return {
-			link: "/company/" + this.item.ticker,
+			link: "/livedemo/companywatchlist/company/" + this.item.ticker,
 			scores: this.itemScores || [],
 		}
 	},
