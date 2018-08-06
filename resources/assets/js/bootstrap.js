@@ -25,15 +25,18 @@ window.Vue = require('vue');
  * included with Laravel will automatically verify the header's value.
  */
 
+ /*
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
 
     next();
 });
 
+*/
+
 axios = require('axios')
 axios.defaults.baseURL = '/livedemo/companywatchlist'
-
+axios.defaults.headers.common['X-CSRF-TOKEN'] = Laravel.csrfToken;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
