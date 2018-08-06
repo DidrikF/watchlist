@@ -49,6 +49,9 @@
 </template>
 
 <script>
+
+	import axiosInstance from '../axiosInstance';
+
 	export default {
 		data () { //must be a function, and declare all data models here, as we do not want each instance of the component to reference the same data.
 			return {
@@ -78,7 +81,7 @@
 				console.log('getAnalysis running');
 				if(this.user.authenticated){ //can easily be manipulated... need auth on server side
 					console.log('all good to run Ajax');
-					axios.get('/analysis/' + this.ticker).then((response) => {
+					axiosInstance.get('/analysis/' + this.ticker).then((response) => {
 						console.log(response);
 						if(response.status != 200) {
 							this.exists = false;
@@ -120,7 +123,7 @@
 					}
 					this.timeout = setTimeout(() => {
 						if(this.exists){ //PUT
-							axios.put('/analysis/' + this.ticker, data).then(response => {
+							axiosInstance.put('/analysis/' + this.ticker, data).then(response => {
 								this.exists = true;
 								this.errors = [];
 								this.flashMessage("Updated");
@@ -130,7 +133,7 @@
 							});
 							return;
 						}
-						axios.post('/analysis/' + this.ticker, data).then(response => {
+						axiosInstance.post('/analysis/' + this.ticker, data).then(response => {
 							this.exists = true;
 							this.errors = [];
 							this.flashMessage("Saved");
@@ -154,7 +157,7 @@
 					};
 					console.log(this.exists);
 					if(this.exists){ //PUT
-						axios.put('/analysis/' + this.ticker, data, {validateStatus: function(status) {
+						axiosInstance.put('/analysis/' + this.ticker, data, {validateStatus: function(status) {
 							return status < 500; //reject only if status is equal to or above 500
 						}}).then(response => {
 							this.exists = true;
@@ -170,7 +173,7 @@
 						});
 						return;
 					}
-					axios.post('/analysis/' + this.ticker, data, {validateStatus: function(status) {
+					axiosInstance.post('/analysis/' + this.ticker, data, {validateStatus: function(status) {
 						return status < 500; //reject only if status is equal to or above 500
 					}}).then(response => {
 						this.exists = true;
@@ -198,7 +201,7 @@
 						this.flashMessage("Nothing to delete");
 						return;
 					}
-					axios.delete('/analysis/' + this.ticker).then((response) => {
+					axiosInstance.delete('/analysis/' + this.ticker).then((response) => {
 						this.flashMessage("Delete successful");
 						this.exists = false;
 					}).catch(error => {

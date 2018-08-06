@@ -95,7 +95,7 @@
 </template>
 
 <script>
-
+import axiosInstance from '../axiosInstance';
 export default {
 	data () {
 		return {
@@ -180,7 +180,7 @@ export default {
 		createNotification() {
 			this.validationErrors = [];
 			this.statusMessage = null;
-			axios.post('/notification/' + this.ticker, {name: this.name, description: this.description, conditions: this.conditions}, {validateStatus: function(status) {
+			axiosInstance.post('/notification/' + this.ticker, {name: this.name, description: this.description, conditions: this.conditions}, {validateStatus: function(status) {
 					return status < 500; //reject only if status is equal to or above 500
 			}}).then(response => {
 				if(response.status === 201){
@@ -213,7 +213,7 @@ export default {
 		editNotification() {
 			this.validationErrors = [];
 			this.statusMessage = null;
-			axios.put('/notification/' + this.notificationId + '/' + this.ticker, {name: this.name, description: this.description, conditions: this.conditions}, {validateStatus: function(status) {
+			axiosInstance.put('/notification/' + this.notificationId + '/' + this.ticker, {name: this.name, description: this.description, conditions: this.conditions}, {validateStatus: function(status) {
 					return status < 500; //reject only if status is equal to or above 500
 			}}).then(response => {
 				if(response.status === 200){
@@ -237,7 +237,7 @@ export default {
 			});
 		},
 		deleteNotification(notification) {
-			axios.delete('/notification/' + notification.id).then(response => {
+			axiosInstance.delete('/notification/' + notification.id).then(response => {
 				if(response.status === 200){
 					let indexOfnotificaitonToRemove = this.activeNotifications.indexOf(notification);
 					console.log(indexOfnotificaitonToRemove);
@@ -258,7 +258,7 @@ export default {
 
 		loadComponent() {
 			/*
-			this.axios.get().then(response => {
+			this.axiosInstance.get().then(response => {
 
 			}).catch(error => {
 

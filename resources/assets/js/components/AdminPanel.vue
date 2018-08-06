@@ -84,6 +84,8 @@
 </template>
 
 <script>
+	import axiosInstance from '../axiosInstance'
+
 	export default {
 		name: 'admin-panel',
 		data () {
@@ -124,7 +126,7 @@
 		*/
 		methods: {
 			acceptUser(user){
-				axios.put('/admin/accept/' + user.id).then(response => {
+				axiosInstance.put('/admin/accept/' + user.id).then(response => {
 					if(response.status === 200){
 						this.users = response.data;
 					}
@@ -133,7 +135,7 @@
 				});
 			},
 			denyUser(user){
-				axios.delete('/admin/deny/' + user.id).then(response => {
+				axiosInstance.delete('/admin/deny/' + user.id).then(response => {
 					if(response.status === 200){
 						this.users = response.data;
 					}
@@ -142,7 +144,7 @@
 				});
 			},
 			banUser(user){
-				axios.put('/admin/ban/' + user.id).then(response => {
+				axiosInstance.put('/admin/ban/' + user.id).then(response => {
 					if(response.status === 200){
 						this.users = response.data;
 					}
@@ -153,7 +155,7 @@
 
 			//Only if admin is prime boss
 			makeAdmin(user){
-				axios.put('/admin/makeadmin/' + user.id).then(response => {
+				axiosInstance.put('/admin/makeadmin/' + user.id).then(response => {
 					if(response.status === 200){
 						this.users = response.data;
 					}
@@ -162,7 +164,7 @@
 				});
 			},
 			removeAdmin(user){
-				axios.put('/admin/removeadmin/' + user.id).then(response => {
+				axiosInstance.put('/admin/removeadmin/' + user.id).then(response => {
 					if(response.status === 200){
 						this.users = response.data;
 					}

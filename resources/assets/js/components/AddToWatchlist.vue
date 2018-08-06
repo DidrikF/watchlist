@@ -12,6 +12,8 @@
 
 <script>
 
+import axiosInstance from '../axiosInstance';
+
 export default{
 
 	data() {
@@ -44,7 +46,7 @@ export default{
 			if(this.selected && this.ticker && this.companyName && this.companyExchange){
 				let itemToAdd = {name: this.companyName, ticker: this.ticker, exchange: this.companyExchange, industry: null};
 
-				axios.post('/watchlist/' + this.selected, itemToAdd).then(response => {
+				axiosInstance.post('/watchlist/' + this.selected, itemToAdd).then(response => {
 					if(response.status == 200){
 						this.flashMessage('Company is allready in the watchlist')
 						return;
