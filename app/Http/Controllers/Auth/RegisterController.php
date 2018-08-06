@@ -66,7 +66,7 @@ class RegisterController extends Controller
         //return $this->registered($request, $user)
         //    ?: view('auth.registration-message');
             
-        return redirect($this->redirectPath());
+        return redirect($this->redirectTo);
     }
 
     /**
