@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://companywatchlist.com'),
+    'url' => env('APP_URL', 'http://didrikfleischer.com/livedemo/companywatchlist'),
 
     /*
     |--------------------------------------------------------------------------
