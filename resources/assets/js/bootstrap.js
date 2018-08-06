@@ -17,7 +17,7 @@
  */
 
 window.Vue = require('vue');
-require('vue-resource'); // Think I can remove.
+// equire('vue-resource'); // Think I can remove.
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
