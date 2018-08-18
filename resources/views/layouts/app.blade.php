@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta name="viewport" content="width=1024 initial-scale=1, maximum-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -49,7 +49,7 @@
     <footer class="footer is-clearfix" style="margin-top: 30px;">
         <div class="container has-text-centered">
             <p>
-                <strong>Company watchlist</strong> by <a href="https://github.com/DidrikF">Didrik Fleischer</a>. The site is powered by <a href="https://laravel.com/">Laravel</a>, <a href="https://vuejs.org/">Vue.js</a> and <a href="http://bulma.io/">Bulma</a>.
+                <strong>Company watchlist</strong> by <a href="/">Didrik Fleischer</a>. The site is powered by <a href="https://laravel.com/">Laravel</a>, <a href="https://vuejs.org/">Vue.js</a> and <a href="http://bulma.io/">Bulma</a>.
             </p>
             <p style="margin-top: 15px;">
                 The source code is available on <a href="https://github.com">github</a>.
