@@ -23,7 +23,7 @@
   <!-- This "nav-menu" is hidden on mobile -->
   <!-- Add the modifier "is-active" to display it on mobile -->
   <div class="nav-right">
-
+    <a class="nav-item is-tab" href="{{ url('/') }}">DidrikFleischer.com</a>
     @if (Auth::guest())
       <a class="nav-item is-tab" href="{{ url('/livedemo/companywatchlist/about') }}">About</a>
       <a class="nav-item is-tab" href="{{ url('/livedemo/companywatchlist/login') }}">Login</a>
